@@ -1,0 +1,13 @@
+.. image:: https://badge.fury.io/py/tabledata.svg
+    :target: https://badge.fury.io/py/tabledata
+
+.. image:: https://img.shields.io/travis/thombashi/tabledata/master.svg?label=Linux
+    :target: https://travis-ci.org/thombashi/tabledata
+    :alt: Linux CI test status
+
+.. image:: https://img.shields.io/appveyor/ci/thombashi/tabledata/master.svg?label=Windows
+    :target: https://ci.appveyor.com/project/thombashi/tabledata/branch/master
+    :alt: Windows CI test status
+
+.. image:: https://coveralls.io/repos/github/thombashi/tabledata/badge.svg?branch=master
+    :target: https://coveralls.io/github/thombashi/tabledata?branch=master

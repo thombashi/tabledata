@@ -1,0 +1,1 @@
+A Python library to represent tabular data for pytablewriter/pytablereader.

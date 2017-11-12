@@ -1,0 +1,7 @@
+DataProperty>=0.28.0
+enum34;python_version<"3.4"
+futures;python_version<"3.2"
+logbook
+pathvalidate>=0.16.2
+six
+typepy
