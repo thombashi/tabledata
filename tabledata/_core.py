@@ -80,7 +80,11 @@ class TableData(object):
         if max_workers:
             self.max_workers = max_workers
         else:
-            self.max_workers = multiprocessing.cpu_count()
+            if six.PY2:
+                # avoid unit test execution hang up at Python 2 environment
+                self.max_workers = 1
+            else:
+                self.max_workers = multiprocessing.cpu_count()
 
         self.__table_name = table_name
         self.__header_list = header_list
