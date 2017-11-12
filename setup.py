@@ -19,6 +19,11 @@ ENCODING = "utf8"
 with io.open("README.rst", encoding=ENCODING) as f:
     LONG_DESCRIPTION = f.read()
 
+with io.open(
+        os.path.join("docs", "pages", "introduction", "summary.txt"),
+        encoding=ENCODING) as f:
+    SUMMARY = f.read()
+
 with open(os.path.join(REQUIREMENT_DIR, "requirements.txt")) as f:
     INSTALL_REQUIRES = [line.strip() for line in f if line.strip()]
 
@@ -38,12 +43,12 @@ PYTEST_RUNNER_REQUIRES = ["pytest-runner"] if NEEDS_PYTEST else []
 
 setuptools.setup(
     name=MODULE_NAME,
-    version="0.0.1",
+    version="0.0.2",
     url="https://github.com/thombashi/{:s}".format(MODULE_NAME),
 
     author="Tsuyoshi Hombashi",
     author_email="tsuyoshi.hombashi@gmail.com",
-    description="DESCRIPTION",
+    description=SUMMARY,
     include_package_data=True,
     keywords=[""],
     license="MIT License",
