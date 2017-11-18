@@ -59,7 +59,7 @@ class TableData(object):
         :rtype: list
         """
 
-        return self.__record_list
+        return self.__value_matrix
 
     @property
     def record_list(self):
@@ -88,7 +88,7 @@ class TableData(object):
 
         self.__table_name = table_name
         self.__header_list = header_list
-        self.__record_list = self.__to_record_list(record_list)
+        self.__value_matrix = self.__to_record_list(record_list)
 
     def __repr__(self):
         element_list = [
