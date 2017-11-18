@@ -53,7 +53,7 @@ class AbstractTableDataSanitizer(TableDataSanitizerInterface):
     def sanitize(self):
         """
         :return: Sanitized table data.
-        :rtype: pytablereader.TableData
+        :rtype: tabledata.TableData
         """
 
         return TableData(

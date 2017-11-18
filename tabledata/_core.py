@@ -151,7 +151,7 @@ class TableData(object):
 
     def is_empty_record(self):
         """
-        :return: |True| if the data :py:attr:`.value_matrix` is empty.
+        :return: |True| if the tabular data is not an empty nested list.
         :rtype: bool
         """
 
