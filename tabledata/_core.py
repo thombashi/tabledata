@@ -88,7 +88,7 @@ class TableData(object):
 
         self.__table_name = table_name
         self.__header_list = header_list
-        self.__value_matrix = self.__to_record_list(record_list)
+        self.__value_matrix = self.__to_value_matrix(record_list)
 
     def __repr__(self):
         element_list = [
@@ -367,7 +367,7 @@ class TableData(object):
             raise InvalidDataError(
                 "record must be a list or tuple: actual={}".format(values))
 
-    def __to_record_list(self, value_matrix):
+    def __to_value_matrix(self, value_matrix):
         """
         Convert matrix to records
         """
@@ -378,11 +378,11 @@ class TableData(object):
             return value_matrix
 
         if self.max_workers <= 1:
-            return self.__to_record_list_st(value_matrix)
+            return self.__to_value_matrix_st(value_matrix)
 
-        return self.__to_record_list_mt(value_matrix)
+        return self.__to_value_matrix_mt(value_matrix)
 
-    def __to_record_list_st(self, value_matrix):
+    def __to_value_matrix_st(self, value_matrix):
         return [
             _to_record_helper(
                 self.__dp_extractor, self.header_list, value_list,
@@ -390,7 +390,7 @@ class TableData(object):
             for record_idx, value_list in enumerate(value_matrix)
         ]
 
-    def __to_record_list_mt(self, value_matrix):
+    def __to_value_matrix_mt(self, value_matrix):
         from concurrent import futures
 
         record_mapping = {}
