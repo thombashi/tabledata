@@ -367,6 +367,13 @@ class TableData(object):
             raise InvalidDataError(
                 "record must be a list or tuple: actual={}".format(values))
 
+    def __preprocess_value_matrix(self, value_matrix):
+        return [
+            _preprocess_value_list(
+                self.header_list, value_list, record_idx)[1]
+            for record_idx, value_list in enumerate(value_matrix)
+        ]
+
     def __to_value_matrix(self, value_matrix):
         """
         Convert matrix to records
@@ -413,6 +420,32 @@ class TableData(object):
         return [
             record_mapping[record_idx] for record_idx in sorted(record_mapping)
         ]
+
+
+def _preprocess_value_list(header_list, values, record_idx):
+    if header_list:
+        try:
+            # dictionary to list
+            return (
+                record_idx,
+                [values.get(header) for header in header_list])
+        except (TypeError, AttributeError):
+            pass
+
+        try:
+            # namedtuple to list
+            dict_value = values._asdict()
+            return (
+                record_idx,
+                [dict_value.get(header) for header in header_list])
+        except (TypeError, AttributeError):
+            pass
+
+    if not isinstance(values, (tuple, list)):
+        raise InvalidDataError(
+            "record must be a list or tuple: actual={}".format(values))
+
+    return (record_idx, values)
 
 
 def _to_record_helper(extractor, header_list, values, record_idx):
