@@ -122,11 +122,11 @@ class TableData(object):
             self.header_list == other.header_list,
             all([
                 all([
-                    self.__compare_helper(lhs, rhs)
+                    lhs == rhs
                     for lhs, rhs in zip(lhs_list, rhs_list)
                 ])
                 for lhs_list, rhs_list
-                in zip(self.value_matrix, other.value_matrix)
+                in zip(self.value_dp_matrix, other.value_dp_matrix)
             ]),
         ])
 
@@ -136,11 +136,11 @@ class TableData(object):
             self.header_list != other.header_list,
             any([
                 any([
-                    not self.__compare_helper(lhs, rhs)
+                    lhs != rhs
                     for lhs, rhs in zip(lhs_list, rhs_list)
                 ])
                 for lhs_list, rhs_list
-                in zip(self.value_matrix, other.value_matrix)
+                in zip(self.value_dp_matrix, other.value_dp_matrix)
             ]),
         ])
 
