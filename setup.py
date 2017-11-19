@@ -43,7 +43,7 @@ PYTEST_RUNNER_REQUIRES = ["pytest-runner"] if NEEDS_PYTEST else []
 
 setuptools.setup(
     name=MODULE_NAME,
-    version="0.0.4",
+    version="0.0.5",
     url="https://github.com/thombashi/{:s}".format(MODULE_NAME),
 
     author="Tsuyoshi Hombashi",
