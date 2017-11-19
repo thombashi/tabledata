@@ -79,6 +79,10 @@ class TableData(object):
         return self.__value_dp_matrix
 
     @property
+    def to_header_dp_list(self):
+        return self.__dp_extractor.to_header_dp_list()
+
+    @property
     def record_list(self):
         # alias property of value_matrix. this method will be deleted in the
         # future
