@@ -16,7 +16,7 @@ tabledata
 
 Summary
 ---------
-A Python library to represent tabular data for pytablewriter/pytablereader.
+A Python library to represent tabular data for pytablewriter/pytablereader/SimpleSQLite.
 
 Installation
 ============
