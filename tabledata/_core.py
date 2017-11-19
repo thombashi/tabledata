@@ -91,9 +91,11 @@ class TableData(object):
 
     def __init__(
             self, table_name, header_list, record_list, is_strip_quote=False,
-            max_workers=None):
+            quoting_flags=None, max_workers=None):
 
         self.__dp_extractor = dp.DataPropertyExtractor()
+        if quoting_flags:
+            self.__dp_extractor.quoting_flags = quoting_flags
         self.__dp_extractor.strip_str_header = '"'
         if is_strip_quote:
             self.__dp_extractor.strip_str_value = '"'
