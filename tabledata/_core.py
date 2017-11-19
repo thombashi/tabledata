@@ -104,6 +104,7 @@ class TableData(object):
             if six.PY2:
                 # avoid unit test execution hang up at Python 2 environment
                 self.max_workers = 1
+                self.__dp_extractor.max_workers = 1
             else:
                 self.max_workers = multiprocessing.cpu_count()
 
