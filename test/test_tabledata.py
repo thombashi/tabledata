@@ -6,7 +6,10 @@
 
 from __future__ import unicode_literals
 
-from collections import namedtuple
+from collections import (
+    namedtuple,
+    OrderedDict,
+)
 from decimal import Decimal
 import json
 
@@ -173,26 +176,37 @@ class Test_TableData_as_dict(object):
         ["table_name", "header_list", "record_list", "expected"], [
             [
                 "normal", ["a", "b"], [[1, 2], [3, 4]],
-                """{"normal": [{"a": 1, "b": 2}, {"a": 3, "b": 4}]}"""
+                {'normal': [
+                    OrderedDict([('a', 1), ('b', 2)]),
+                    OrderedDict([('a', 3), ('b', 4)]),
+                ]}
             ],
             [
                 "number", ["a", "b"], [[1, 2.0], [3.3, Decimal("4.4")]],
-                """{"number": [{"a": 1, "b": 2}, {"a": 3.3, "b": 4.4}]}"""
+                {'number': [
+                    OrderedDict([
+                        ('a', 1), ('b', 2)]),
+                    OrderedDict([
+                        ('a', Decimal('3.3')), ('b', Decimal('4.4'))]),
+                ]}
             ],
             [
                 "include_none",
                 ["a", "b"],
                 [[None, 2], [None, None], [3, None], [None, None]],
-                """{"include_none": [{"b": 2}, {"a": 3}]}"""
+                {'include_none': [
+                    OrderedDict([('b', 2)]),
+                    OrderedDict([('a', 3)]),
+                ]}
             ],
             [
                 "empty_records", ["a", "b"], [],
-                """{"empty_records": []}"""
+                {"empty_records": []}
             ],
         ])
     def test_normal(self, table_name, header_list, record_list, expected):
-        tabledata = TableData(table_name, header_list, record_list)
-        assert tabledata.as_dict() == json.loads(expected)
+        assert TableData(
+            table_name, header_list, record_list).as_dict() == expected
 
     @pytest.mark.parametrize(
         ["table_name", "header_list", "record_list", "expected"], [

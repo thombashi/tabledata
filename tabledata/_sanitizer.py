@@ -59,7 +59,7 @@ class AbstractTableDataSanitizer(TableDataSanitizerInterface):
         return TableData(
             self.__sanitize_table_name(),
             self._sanitize_header_list(),
-            self._tabledata.value_matrix)
+            self._tabledata.value_dp_matrix)
 
     @abc.abstractmethod
     def _preprocess_table_name(self):
@@ -258,8 +258,9 @@ class SQLiteTableDataSanitizer(AbstractTableDataSanitizer):
         if typepy.is_empty_sequence(self._tabledata.header_list):
             try:
                 return [
-                    self.__get_default_header(col)
-                    for col in range(len(self._tabledata.value_matrix[0]))
+                    self.__get_default_header(col_idx)
+                    for col_idx
+                    in range(len(self._tabledata.value_dp_matrix[0]))
                 ]
             except IndexError:
                 raise EmptyDataError("header list and data body are empty")

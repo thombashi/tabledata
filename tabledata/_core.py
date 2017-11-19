@@ -108,10 +108,9 @@ class TableData(object):
             else:
                 self.max_workers = multiprocessing.cpu_count()
 
+        self.__table_name = table_name
         self.__dp_extractor.header_list = header_list
         self.__value_matrix = None
-
-        self.__table_name = table_name
         self.__value_dp_matrix = self.__dp_extractor.to_dp_matrix(
             self.__preprocess_value_matrix(record_list))
 
@@ -126,7 +125,7 @@ class TableData(object):
         except TypeError:
             element_list.append("header_list=None")
 
-        element_list.append("rows={}".format(len(self.value_matrix)))
+        element_list.append("rows={}".format(len(self.value_dp_matrix)))
 
         return ", ".join(element_list)
 
@@ -162,7 +161,7 @@ class TableData(object):
         body = (
             self.table_name +
             six.text_type(self.header_list) +
-            six.text_type(self.value_matrix)
+            six.text_type(self.value_dp_matrix)
         )
         return hashlib.sha1(body.encode("utf-8")).hexdigest()
 
@@ -218,17 +217,19 @@ class TableData(object):
                   OrderedDict([('a', 3.3), ('b', 4.4)])]}
         """
 
+        from typepy import Typecode
+
         self.__dp_extractor.float_type = float
 
         dict_body = []
-        for value_list in self.value_matrix:
-            if typepy.is_empty_sequence(value_list):
+        for value_dp_list in self.value_dp_matrix:
+            if typepy.is_empty_sequence(value_dp_list):
                 continue
 
             dict_record = [
-                (header, self.__dp_extractor.to_dp(value).data)
-                for header, value in zip(self.header_list, value_list)
-                if value is not None
+                (header, value_dp.data)
+                for header, value_dp in zip(self.header_list, value_dp_list)
+                if value_dp.typecode != Typecode.NONE
             ]
 
             if typepy.is_empty_sequence(dict_record):
@@ -303,8 +304,8 @@ class TableData(object):
         else:
             raise ValueError("unknown matching: {}".format(pattern_match))
 
-        for header, column_value_list in zip(
-                self.header_list, zip(*self.value_matrix)):
+        for header, column_value_dp_list in zip(
+                self.header_list, zip(*self.value_dp_matrix)):
             is_match_list = []
             for pattern in pattern_list:
                 is_match = self.__is_match(header, pattern, is_re_match)
@@ -316,7 +317,7 @@ class TableData(object):
 
             if match_method(is_match_list):
                 match_header_list.append(header)
-                match_column_matrix.append(column_value_list)
+                match_column_matrix.append(column_value_dp_list)
 
         logger.debug(
             "filter_column: table={}, match_header_list={}".format(
