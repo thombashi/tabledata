@@ -70,6 +70,15 @@ class TableData(object):
         return self.__value_matrix
 
     @property
+    def value_dp_matrix(self):
+        """
+        :return: DataProperty for table data.
+        :rtype: list
+        """
+
+        return self.__value_dp_matrix
+
+    @property
     def record_list(self):
         # alias property of value_matrix. this method will be deleted in the
         # future
