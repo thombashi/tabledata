@@ -327,15 +327,6 @@ class TableData(object):
             record_list=dataframe.values.tolist())
 
     @staticmethod
-    def __compare_helper(lhs, rhs):
-        from typepy.type import Nan
-
-        if Nan(lhs).is_type() and Nan(rhs).is_type():
-            return True
-
-        return lhs == rhs
-
-    @staticmethod
     def __is_match(header, pattern, is_re_match):
         if is_re_match:
             return re.search(pattern, header) is not None
