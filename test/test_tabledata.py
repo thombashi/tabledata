@@ -225,7 +225,6 @@ class Test_TableData_is_empty_header(object):
         ["table_name", "header_list", "record_list", "expected"], [
             ["tablename", [], [], True],
             ["tablename", ["a", "b"], [], False],
-            ["tablename", [], [1, 2], True],
         ])
     def test_normal(self, table_name, header_list, record_list, expected):
         tabledata = TableData(table_name, header_list, record_list)
@@ -239,7 +238,6 @@ class Test_TableData_is_empty_record(object):
         ["table_name", "header_list", "record_list", "expected"], [
             ["tablename", [], [], True],
             ["tablename", ["a", "b"], [], True],
-            ["tablename", [], [1, 2], False],
             ["tablename", ["a", "b"], [[1, 2]], False],
         ])
     def test_normal(self, table_name, header_list, record_list, expected):
@@ -254,7 +252,6 @@ class Test_TableData_is_empty(object):
         ["table_name", "header_list", "record_list", "expected"], [
             ["tablename", [], [], True],
             ["tablename", ["a", "b"], [], True],
-            ["tablename", [], [1, 2], True],
             ["tablename", ["a", "b"], [[1, 2]], False],
         ])
     def test_normal(self, table_name, header_list, record_list, expected):

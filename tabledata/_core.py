@@ -50,7 +50,7 @@ class TableData(object):
         :rtype: list
         """
 
-        return self.__header_list
+        return self.__dp_extractor.header_list
 
     @property
     def value_matrix(self):
@@ -58,6 +58,14 @@ class TableData(object):
         :return: Table data records.
         :rtype: list
         """
+
+        if self.__value_matrix:
+            return self.__value_matrix
+
+        self.__value_matrix = [
+            [value_dp.data for value_dp in value_dp_list]
+            for value_dp_list in self.__value_dp_matrix
+        ]
 
         return self.__value_matrix
 
@@ -86,9 +94,12 @@ class TableData(object):
             else:
                 self.max_workers = multiprocessing.cpu_count()
 
+        self.__dp_extractor.header_list = header_list
+        self.__value_matrix = None
+
         self.__table_name = table_name
-        self.__header_list = header_list
-        self.__value_matrix = self.__to_value_matrix(record_list)
+        self.__value_dp_matrix = self.__dp_extractor.to_dp_matrix(
+            self.__preprocess_value_matrix(record_list))
 
     def __repr__(self):
         element_list = [
@@ -155,7 +166,10 @@ class TableData(object):
         :rtype: bool
         """
 
-        return typepy.is_empty_sequence(self.value_matrix)
+        try:
+            return not typepy.is_not_empty_sequence(self.value_dp_matrix[0])
+        except (TypeError, IndexError):
+            return True
 
     def is_empty(self):
         """
@@ -198,7 +212,7 @@ class TableData(object):
                 continue
 
             dict_record = [
-                (header, self.__dp_extractor.to_dataproperty(value).data)
+                (header, self.__dp_extractor.to_dp(value).data)
                 for header, value in zip(self.header_list, value_list)
                 if value is not None
             ]
@@ -263,7 +277,7 @@ class TableData(object):
         if not pattern_list:
             return TableData(
                 table_name=self.table_name, header_list=self.header_list,
-                record_list=self.value_matrix)
+                record_list=self.value_dp_matrix)
 
         match_header_list = []
         match_column_matrix = []
@@ -296,7 +310,7 @@ class TableData(object):
 
         return TableData(
             table_name=self.table_name, header_list=match_header_list,
-            record_list=zip(*match_column_matrix))
+            record_list=list(zip(*match_column_matrix)))
 
     @staticmethod
     def from_dataframe(dataframe, table_name=""):
@@ -341,7 +355,7 @@ class TableData(object):
             # dictionary to list
             return [
                 dp.data
-                for dp in self.__dp_extractor.to_dataproperty_list([
+                for dp in self.__dp_extractor.to_dp_list([
                     values.get(header) for header in self.header_list])
             ]
         except AttributeError:
@@ -352,7 +366,7 @@ class TableData(object):
             dict_value = values._asdict()
             return [
                 dp.data
-                for dp in self.__dp_extractor.to_dataproperty_list([
+                for dp in self.__dp_extractor.to_dp_list([
                     dict_value.get(header) for header in self.header_list])
             ]
         except AttributeError:
@@ -361,7 +375,7 @@ class TableData(object):
         try:
             return [
                 dp.data
-                for dp in self.__dp_extractor.to_dataproperty_list(values)
+                for dp in self.__dp_extractor.to_dp_list(values)
             ]
         except TypeError:
             raise InvalidDataError(
@@ -455,7 +469,7 @@ def _to_record_helper(extractor, header_list, values, record_idx):
             record_idx,
             [
                 dp.data
-                for dp in extractor.to_dataproperty_list([
+                for dp in extractor.to_dp_list([
                     values.get(header) for header in header_list])
             ])
     except AttributeError:
@@ -468,7 +482,7 @@ def _to_record_helper(extractor, header_list, values, record_idx):
             record_idx,
             [
                 dp.data
-                for dp in extractor.to_dataproperty_list([
+                for dp in extractor.to_dp_list([
                     dict_value.get(header) for header in header_list])
             ])
     except AttributeError:
@@ -479,7 +493,7 @@ def _to_record_helper(extractor, header_list, values, record_idx):
             record_idx,
             [
                 dp.data
-                for dp in extractor.to_dataproperty_list(values)
+                for dp in extractor.to_dp_list(values)
             ])
     except TypeError:
         raise InvalidDataError(
