@@ -11,13 +11,13 @@ from decimal import Decimal
 import json
 
 import pytest
-
-import pytablewriter as ptw
 from tabledata import (
     InvalidDataError,
     PatternMatch,
     TableData,
 )
+
+import pytablewriter as ptw
 
 
 attr_list_2 = ["attr_a", "attr_b"]

@@ -10,10 +10,10 @@ from __future__ import unicode_literals
 import abc
 import re
 
+import dataproperty
 import six
 import typepy
 
-import dataproperty
 import pathvalidate as pv
 from six.moves import range
 
