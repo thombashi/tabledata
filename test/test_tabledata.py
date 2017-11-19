@@ -83,20 +83,32 @@ class Test_TableData_constructor(object):
                     [11, None],
                 ]),
             ],
+            [
+                "none_header", None, [[1, 2], [3, 4]],
+                TableData("none_header", None, [[1, 2], [3, 4]]),
+            ],
+            [
+                "none_records", ["a", "b"], None,
+                TableData("none_records", ["a", "b"], []),
+            ],
+            [
+                "none_data", None, None,
+                TableData("none_data", [], [])
+            ]
         ])
-    def test_normal_none_value(
+    def test_normal_with_none_value(
             self, table_name, header_list, record_list, expected):
         tabledata = TableData(
             table_name, header_list, record_list)
 
-        print("expected: {}".format(ptw.dump_tabledata(expected)))
-        print("actual: {}".format(ptw.dump_tabledata(tabledata)))
+        #print("expected: {}".format(ptw.dump_tabledata(expected)))
+        #print("actual: {}".format(ptw.dump_tabledata(tabledata)))
 
         assert tabledata == expected
 
     @pytest.mark.parametrize(
         ["table_name", "header_list", "record_list", "expected"], [
-            ["tablename", ["a", "b"], [1, 2], InvalidDataError],
+            ["invalid_data", ["a", "b"], [1, 2], InvalidDataError],
         ])
     def test_exception(self, table_name, header_list, record_list, expected):
         with pytest.raises(expected):
@@ -153,7 +165,7 @@ class Test_TableData_repr(object):
             ],
             [
                 "null_header", None, [[1, 2], [3, 4]],
-                "table_name=null_header, header_list=None, rows=2"
+                "table_name=null_header, header_list=[], rows=2"
             ],
             [
                 "null_header", [], [[1, 2], [3, 4]],
@@ -207,15 +219,6 @@ class Test_TableData_as_dict(object):
     def test_normal(self, table_name, header_list, record_list, expected):
         assert TableData(
             table_name, header_list, record_list).as_dict() == expected
-
-    @pytest.mark.parametrize(
-        ["table_name", "header_list", "record_list", "expected"], [
-            ["none_header", None, [[1, 2], [3, 4]], TypeError],
-            ["none_records", ["a", "b"], None, TypeError],
-        ])
-    def test_exception(self, table_name, header_list, record_list, expected):
-        with pytest.raises(expected):
-            TableData(table_name, header_list, record_list).as_dict()
 
 
 class Test_TableData_hash(object):

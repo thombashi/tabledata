@@ -111,10 +111,18 @@ class TableData(object):
                 self.max_workers = multiprocessing.cpu_count()
 
         self.__table_name = table_name
-        self.__dp_extractor.header_list = header_list
         self.__value_matrix = None
-        self.__value_dp_matrix = self.__dp_extractor.to_dp_matrix(
-            self.__preprocess_value_matrix(record_list))
+
+        if not header_list:
+            self.__dp_extractor.header_list = []
+        else:
+            self.__dp_extractor.header_list = header_list
+
+        if not record_list:
+            self.__value_dp_matrix = []
+        else:
+            self.__value_dp_matrix = self.__dp_extractor.to_dp_matrix(
+                self.__preprocess_value_matrix(record_list))
 
     def __repr__(self):
         element_list = [
