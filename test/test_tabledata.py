@@ -11,7 +11,6 @@ from collections import (
     OrderedDict,
 )
 from decimal import Decimal
-import json
 
 import pytest
 from tabledata import (

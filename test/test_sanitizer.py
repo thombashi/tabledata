@@ -107,10 +107,9 @@ class Test_SQLiteTableDataSanitizer(object):
             ],
         ])
     def test_normal(
-            self, table_name, header_list, record_list,
-            expected):
-        tabledata = TableData(table_name, header_list, record_list)
-        sanitizer = SQLiteTableDataSanitizer(tabledata)
+            self, table_name, header_list, record_list, expected):
+        sanitizer = SQLiteTableDataSanitizer(
+            TableData(table_name, header_list, record_list))
         new_tabledata = sanitizer.sanitize()
 
         print("lhs: {}".format(ptw.dump_tabledata(new_tabledata)))
