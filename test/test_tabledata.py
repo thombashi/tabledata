@@ -13,6 +13,7 @@ from collections import (
 from decimal import Decimal
 
 import pytest
+import six
 from tabledata import (
     InvalidDataError,
     PatternMatch,
@@ -174,11 +175,15 @@ class Test_TableData_repr(object):
                 "null_body", ["a", "b"], [],
                 "table_name=null_body, header_list=[a, b], rows=0"
             ],
+            [
+                "マルチバイト", ["いろは", "漢字"], [],
+                "table_name=マルチバイト, header_list=[いろは, 漢字], rows=0"
+            ],
         ])
     def test_normal(self, table_name, header_list, record_list, expected):
         tabledata = TableData(table_name, header_list, record_list)
 
-        assert str(tabledata) == expected
+        assert six.text_type(tabledata) == expected
 
 
 class Test_TableData_as_dict(object):
