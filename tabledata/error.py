@@ -7,7 +7,7 @@
 from __future__ import absolute_import
 
 
-class NameError(Exception):
+class NameError(ValueError):
     """
     Base name error class.
     """
