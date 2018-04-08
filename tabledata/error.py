@@ -7,19 +7,19 @@
 from __future__ import absolute_import
 
 
-class InvalidNameError(Exception):
+class NameError(Exception):
     """
     Base name error class.
     """
 
 
-class InvalidTableNameError(InvalidNameError):
+class InvalidTableNameError(NameError):
     """
     Exception raised when the table name is invalid.
     """
 
 
-class InvalidHeaderNameError(InvalidNameError):
+class InvalidHeaderNameError(NameError):
     """
     Exception raised when a table header name is invalid.
     """
