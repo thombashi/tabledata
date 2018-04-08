@@ -13,8 +13,15 @@ import sys
 import setuptools
 
 
+MODULE_NAME = "tabledata"
 REQUIREMENT_DIR = "requirements"
 ENCODING = "utf8"
+
+pkg_info = {}
+
+
+with open(os.path.join(MODULE_NAME, "__version__.py")) as f:
+    exec(f.read(), pkg_info)
 
 with io.open("README.rst", encoding=ENCODING) as f:
     LONG_DESCRIPTION = f.read()
@@ -36,22 +43,21 @@ with open(os.path.join(REQUIREMENT_DIR, "docs_requirements.txt")) as f:
 with open(os.path.join(REQUIREMENT_DIR, "build_requirements.txt")) as f:
     BUILD_REQUIRES = [line.strip() for line in f if line.strip()]
 
-MODULE_NAME = "tabledata"
 SETUPTOOLS_REQUIRES = ["setuptools>=20.2.2"]
 NEEDS_PYTEST = set(["pytest", "test", "ptr"]).intersection(sys.argv)
 PYTEST_RUNNER_REQUIRES = ["pytest-runner"] if NEEDS_PYTEST else []
 
 setuptools.setup(
     name=MODULE_NAME,
-    version="0.0.5",
+    version=pkg_info["__version__"],
     url="https://github.com/thombashi/{:s}".format(MODULE_NAME),
 
-    author="Tsuyoshi Hombashi",
-    author_email="tsuyoshi.hombashi@gmail.com",
+    author=pkg_info["__author__"],
+    author_email=pkg_info["__email__"],
     description=SUMMARY,
     include_package_data=True,
     keywords=[""],
-    license="MIT License",
+    license=pkg_info["__license__"],
     long_description=LONG_DESCRIPTION,
     packages=setuptools.find_packages(exclude=["test*"]),
 
