@@ -4,20 +4,18 @@
 .. codeauthor:: Tsuyoshi Hombashi <tsuyoshi.hombashi@gmail.com>
 """
 
-from __future__ import absolute_import
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
-from collections import OrderedDict
-from decimal import Decimal
 import hashlib
 import multiprocessing
 import re
 import warnings
-
-import six
-import typepy
+from collections import OrderedDict
+from decimal import Decimal
 
 import dataproperty as dp
+import six
+import typepy
 from six.moves import zip
 
 from ._constant import PatternMatch

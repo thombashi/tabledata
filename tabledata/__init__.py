@@ -8,18 +8,6 @@ from __future__ import absolute_import
 
 from ._constant import PatternMatch
 from ._core import TableData
-from ._logger import (
-    logger,
-    set_logger,
-    set_log_level,
-)
-from ._sanitizer import (
-    SQLiteTableDataSanitizer,
-    TableDataSanitizer,
-)
-from .error import (
-    InvalidTableNameError,
-    InvalidHeaderNameError,
-    InvalidDataError,
-    EmptyDataError,
-)
+from ._logger import logger, set_log_level, set_logger
+from ._sanitizer import SQLiteTableDataSanitizer, TableDataSanitizer
+from .error import EmptyDataError, InvalidDataError, InvalidHeaderNameError, InvalidTableNameError

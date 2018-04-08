@@ -7,13 +7,10 @@
 from __future__ import unicode_literals
 
 import pytest
+import tabledata
+from tabledata import SQLiteTableDataSanitizer, TableData
 
 import pytablewriter as ptw
-from tabledata import (
-    TableData,
-    SQLiteTableDataSanitizer,
-)
-import tabledata
 
 
 class Test_SQLiteTableDataSanitizer(object):

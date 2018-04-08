@@ -4,26 +4,20 @@
 .. codeauthor:: Tsuyoshi Hombashi <tsuyoshi.hombashi@gmail.com>
 """
 
-from __future__ import absolute_import
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 import abc
 import re
 
 import dataproperty
+import pathvalidate as pv
 import six
 import typepy
-
-import pathvalidate as pv
 from six.moves import range
 
 from ._common import convert_idx_to_alphabet
 from ._core import TableData
-from .error import (
-    InvalidTableNameError,
-    InvalidHeaderNameError,
-    EmptyDataError
-)
+from .error import EmptyDataError, InvalidHeaderNameError, InvalidTableNameError
 
 
 @six.add_metaclass(abc.ABCMeta)

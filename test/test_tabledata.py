@@ -6,19 +6,12 @@
 
 from __future__ import unicode_literals
 
-from collections import (
-    namedtuple,
-    OrderedDict,
-)
+from collections import OrderedDict, namedtuple
 from decimal import Decimal
 
 import pytest
 import six
-from tabledata import (
-    InvalidDataError,
-    PatternMatch,
-    TableData,
-)
+from tabledata import InvalidDataError, PatternMatch, TableData
 
 import pytablewriter as ptw
 
