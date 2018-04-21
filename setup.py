@@ -26,9 +26,7 @@ with open(os.path.join(MODULE_NAME, "__version__.py")) as f:
 with io.open("README.rst", encoding=ENCODING) as f:
     LONG_DESCRIPTION = f.read()
 
-with io.open(
-        os.path.join("docs", "pages", "introduction", "summary.txt"),
-        encoding=ENCODING) as f:
+with io.open(os.path.join("docs", "pages", "introduction", "summary.txt"), encoding=ENCODING) as f:
     SUMMARY = f.read()
 
 with open(os.path.join(REQUIREMENT_DIR, "requirements.txt")) as f:
