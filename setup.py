@@ -38,9 +38,6 @@ with open(os.path.join(REQUIREMENT_DIR, "test_requirements.txt")) as f:
 with open(os.path.join(REQUIREMENT_DIR, "docs_requirements.txt")) as f:
     DOCS_REQUIRES = [line.strip() for line in f if line.strip()]
 
-with open(os.path.join(REQUIREMENT_DIR, "build_requirements.txt")) as f:
-    BUILD_REQUIRES = [line.strip() for line in f if line.strip()]
-
 SETUPTOOLS_REQUIRES = ["setuptools>=20.2.2"]
 NEEDS_PYTEST = set(["pytest", "test", "ptr"]).intersection(sys.argv)
 PYTEST_RUNNER_REQUIRES = ["pytest-runner"] if NEEDS_PYTEST else []
@@ -64,8 +61,8 @@ setuptools.setup(
     tests_require=TESTS_REQUIRES,
     extras_require={
         "test": TESTS_REQUIRES,
+        "build": "wheel",
         "docs": DOCS_REQUIRES,
-        "build": BUILD_REQUIRES,
     },
 
     classifiers=[
