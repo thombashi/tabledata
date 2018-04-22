@@ -39,7 +39,7 @@ with open(os.path.join(REQUIREMENT_DIR, "test_requirements.txt")) as f:
 with open(os.path.join(REQUIREMENT_DIR, "docs_requirements.txt")) as f:
     DOCS_REQUIRES = [line.strip() for line in f if line.strip()]
 
-SETUPTOOLS_REQUIRES = ["setuptools>=20.2.2"]
+SETUPTOOLS_REQUIRES = ["setuptools>=38.3.0"]
 NEEDS_PYTEST = set(["pytest", "test", "ptr"]).intersection(sys.argv)
 PYTEST_RUNNER_REQUIRES = ["pytest-runner"] if NEEDS_PYTEST else []
 
@@ -52,7 +52,7 @@ setuptools.setup(
     author_email=pkg_info["__email__"],
     description=SUMMARY,
     include_package_data=True,
-    keywords=[""],
+    keywords=["table"],
     license=pkg_info["__license__"],
     long_description=LONG_DESCRIPTION,
     packages=setuptools.find_packages(exclude=["test*"]),
@@ -65,9 +65,9 @@ setuptools.setup(
     setup_requires=SETUPTOOLS_REQUIRES + PYTEST_RUNNER_REQUIRES,
     tests_require=TESTS_REQUIRES,
     extras_require={
-        "test": TESTS_REQUIRES,
         "build": "wheel",
         "docs": DOCS_REQUIRES,
+        "test": TESTS_REQUIRES,
     },
 
     classifiers=[
