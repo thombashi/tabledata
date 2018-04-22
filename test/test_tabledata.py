@@ -9,11 +9,10 @@ from __future__ import unicode_literals
 from collections import OrderedDict, namedtuple
 from decimal import Decimal
 
+import pytablewriter as ptw
 import pytest
 import six
 from tabledata import InvalidDataError, PatternMatch, TableData
-
-import pytablewriter as ptw
 
 
 attr_list_2 = ["attr_a", "attr_b"]
