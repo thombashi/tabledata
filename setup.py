@@ -14,6 +14,7 @@ import setuptools
 
 
 MODULE_NAME = "tabledata"
+REPOSITORY_URL = "https://github.com/thombashi/{:s}".format(MODULE_NAME)
 REQUIREMENT_DIR = "requirements"
 ENCODING = "utf8"
 
@@ -45,7 +46,7 @@ PYTEST_RUNNER_REQUIRES = ["pytest-runner"] if NEEDS_PYTEST else []
 setuptools.setup(
     name=MODULE_NAME,
     version=pkg_info["__version__"],
-    url="https://github.com/thombashi/{:s}".format(MODULE_NAME),
+    url=REPOSITORY_URL,
 
     author=pkg_info["__author__"],
     author_email=pkg_info["__email__"],
@@ -55,6 +56,10 @@ setuptools.setup(
     license=pkg_info["__license__"],
     long_description=LONG_DESCRIPTION,
     packages=setuptools.find_packages(exclude=["test*"]),
+    project_urls={
+        "Documentation": "http://{:s}.rtfd.io/".format(MODULE_NAME),
+        "Tracker": "{:s}/issues".format(REPOSITORY_URL),
+    },
 
     install_requires=SETUPTOOLS_REQUIRES + INSTALL_REQUIRES,
     setup_requires=SETUPTOOLS_REQUIRES + PYTEST_RUNNER_REQUIRES,
