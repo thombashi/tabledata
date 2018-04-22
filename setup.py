@@ -21,6 +21,10 @@ ENCODING = "utf8"
 pkg_info = {}
 
 
+def need_pytest():
+    return set(["pytest", "test", "ptr"]).intersection(sys.argv)
+
+
 with open(os.path.join(MODULE_NAME, "__version__.py")) as f:
     exec(f.read(), pkg_info)
 
@@ -40,8 +44,7 @@ with open(os.path.join(REQUIREMENT_DIR, "docs_requirements.txt")) as f:
     DOCS_REQUIRES = [line.strip() for line in f if line.strip()]
 
 SETUPTOOLS_REQUIRES = ["setuptools>=38.3.0"]
-NEEDS_PYTEST = set(["pytest", "test", "ptr"]).intersection(sys.argv)
-PYTEST_RUNNER_REQUIRES = ["pytest-runner"] if NEEDS_PYTEST else []
+PYTEST_RUNNER_REQUIRES = ["pytest-runner"] if need_pytest() else []
 
 setuptools.setup(
     name=MODULE_NAME,
