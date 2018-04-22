@@ -11,5 +11,4 @@ def convert_idx_to_alphabet(idx):
 
     div, mod = divmod(idx, 26)
 
-    return (
-        convert_idx_to_alphabet(div - 1) + convert_idx_to_alphabet(mod))
+    return (convert_idx_to_alphabet(div - 1) + convert_idx_to_alphabet(mod))

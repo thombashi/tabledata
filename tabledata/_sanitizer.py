@@ -205,8 +205,7 @@ class SQLiteTableDataSanitizer(AbstractTableDataSanitizer):
 
     def _preprocess_table_name(self):
         try:
-            new_name = self.__RE_PREPROCESS.sub(
-                "_", self._tabledata.table_name)
+            new_name = self.__RE_PREPROCESS.sub("_", self._tabledata.table_name)
             return new_name.strip("_")
         except TypeError:
             raise InvalidTableNameError(
@@ -253,8 +252,7 @@ class SQLiteTableDataSanitizer(AbstractTableDataSanitizer):
             try:
                 return [
                     self.__get_default_header(col_idx)
-                    for col_idx
-                    in range(len(self._tabledata.value_dp_matrix[0]))
+                    for col_idx in range(len(self._tabledata.value_dp_matrix[0]))
                 ]
             except IndexError:
                 raise EmptyDataError("header list and data body are empty")

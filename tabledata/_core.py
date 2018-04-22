@@ -142,10 +142,7 @@ class TableData(object):
             self.table_name == other.table_name,
             self.header_list == other.header_list,
             all([
-                all([
-                    lhs == rhs
-                    for lhs, rhs in zip(lhs_list, rhs_list)
-                ])
+                all([lhs == rhs for lhs, rhs in zip(lhs_list, rhs_list)])
                 for lhs_list, rhs_list
                 in zip(self.value_dp_matrix, other.value_dp_matrix)
             ]),
@@ -156,10 +153,7 @@ class TableData(object):
             self.table_name != other.table_name,
             self.header_list != other.header_list,
             any([
-                any([
-                    lhs != rhs
-                    for lhs, rhs in zip(lhs_list, rhs_list)
-                ])
+                any([lhs != rhs for lhs, rhs in zip(lhs_list, rhs_list)])
                 for lhs_list, rhs_list
                 in zip(self.value_dp_matrix, other.value_dp_matrix)
             ]),
@@ -169,8 +163,7 @@ class TableData(object):
         body = (
             self.table_name +
             six.text_type(self.header_list) +
-            six.text_type(self.value_dp_matrix)
-        )
+            six.text_type(self.value_dp_matrix))
         return hashlib.sha1(body.encode("utf-8")).hexdigest()
 
     def is_empty_header(self):
@@ -312,8 +305,7 @@ class TableData(object):
         else:
             raise ValueError("unknown matching: {}".format(pattern_match))
 
-        for header, column_value_dp_list in zip(
-                self.header_list, zip(*self.value_dp_matrix)):
+        for header, column_value_dp_list in zip(self.header_list, zip(*self.value_dp_matrix)):
             is_match_list = []
             for pattern in pattern_list:
                 is_match = self.__is_match(header, pattern, is_re_match)
@@ -387,18 +379,14 @@ class TableData(object):
             pass
 
         try:
-            return [
-                dp.data
-                for dp in self.__dp_extractor.to_dp_list(values)
-            ]
+            return [dp.data for dp in self.__dp_extractor.to_dp_list(values)]
         except TypeError:
             raise InvalidDataError(
                 "record must be a list or tuple: actual={}".format(values))
 
     def __preprocess_value_matrix(self, value_matrix):
         return [
-            _preprocess_value_list(
-                self.header_list, value_list, record_idx)[1]
+            _preprocess_value_list(self.header_list, value_list, record_idx)[1]
             for record_idx, value_list in enumerate(value_matrix)
         ]
 
@@ -419,9 +407,7 @@ class TableData(object):
 
     def __to_value_matrix_st(self, value_matrix):
         return [
-            _to_record_helper(
-                self.__dp_extractor, self.header_list, value_list,
-                record_idx)[1]
+            _to_record_helper(self.__dp_extractor, self.header_list, value_list, record_idx)[1]
             for record_idx, value_list in enumerate(value_matrix)
         ]
 
@@ -454,18 +440,14 @@ def _preprocess_value_list(header_list, values, record_idx):
     if header_list:
         try:
             # dictionary to list
-            return (
-                record_idx,
-                [values.get(header) for header in header_list])
+            return (record_idx, [values.get(header) for header in header_list])
         except (TypeError, AttributeError):
             pass
 
         try:
             # namedtuple to list
             dict_value = values._asdict()
-            return (
-                record_idx,
-                [dict_value.get(header) for header in header_list])
+            return (record_idx, [dict_value.get(header) for header in header_list])
         except (TypeError, AttributeError):
             pass
 
