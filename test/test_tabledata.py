@@ -210,21 +210,6 @@ class Test_TableData_as_dict(object):
         assert TableData(table_name, header_list, record_list).as_dict() == expected
 
 
-class Test_TableData_hash(object):
-
-    @pytest.mark.parametrize(
-        ["table_name", "header_list", "record_list"], [
-            ["tablename", ["a", "b"], []],
-        ])
-    def test_normal(self, table_name, header_list, record_list):
-        tabledata_a0 = TableData(table_name, header_list, record_list)
-        tabledata_a1 = TableData(table_name, header_list, record_list)
-        tabledata_b0 = TableData("dummy", header_list, record_list)
-
-        assert tabledata_a0.__hash__() == tabledata_a1.__hash__()
-        assert tabledata_a0.__hash__() != tabledata_b0.__hash__()
-
-
 class Test_TableData_is_empty_header(object):
 
     @pytest.mark.parametrize(

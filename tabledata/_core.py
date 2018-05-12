@@ -41,6 +41,10 @@ class TableData(object):
 
         return self.__table_name
 
+    @table_name.setter
+    def table_name(self, value):
+        self.__table_name = value
+
     @property
     def header_list(self):
         """
@@ -163,13 +167,6 @@ class TableData(object):
                 return True
 
         return False
-
-    def __hash__(self):
-        body = (self.table_name +
-                six.text_type(self.header_list) +
-                six.text_type(self.value_dp_matrix))
-
-        return hashlib.sha1(body.encode("utf-8")).hexdigest()
 
     def is_empty_header(self):
         """
