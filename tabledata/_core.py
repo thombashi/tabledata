@@ -157,7 +157,7 @@ class TableData(object):
         ])
 
     def __hash__(self):
-        body = (self.table_name + 
+        body = (self.table_name +
                 six.text_type(self.header_list) +
                 six.text_type(self.value_dp_matrix))
 
