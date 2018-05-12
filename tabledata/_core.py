@@ -316,9 +316,8 @@ class TableData(object):
                 match_header_list.append(header)
                 match_column_matrix.append(column_value_dp_list)
 
-        logger.debug(
-            "filter_column: table={}, match_header_list={}".format(
-                self.table_name, match_header_list))
+        logger.debug("filter_column: table={}, match_header_list={}".format(
+            self.table_name, match_header_list))
 
         return TableData(
             table_name=self.table_name, header_list=match_header_list,
@@ -378,8 +377,7 @@ class TableData(object):
         try:
             return [dp.data for dp in self.__dp_extractor.to_dp_list(values)]
         except TypeError:
-            raise InvalidDataError(
-                "record must be a list or tuple: actual={}".format(values))
+            raise InvalidDataError("record must be a list or tuple: actual={}".format(values))
 
     def __preprocess_value_matrix(self, value_matrix):
         return [
@@ -428,9 +426,7 @@ class TableData(object):
             logger.debug("shutdown ProcessPoolExecutor")
             executor.shutdown()
 
-        return [
-            record_mapping[record_idx] for record_idx in sorted(record_mapping)
-        ]
+        return [record_mapping[record_idx] for record_idx in sorted(record_mapping)]
 
 
 def _preprocess_value_list(header_list, values, record_idx):
@@ -449,8 +445,7 @@ def _preprocess_value_list(header_list, values, record_idx):
             pass
 
     if not isinstance(values, (tuple, list)):
-        raise InvalidDataError(
-            "record must be a list or tuple: actual={}".format(values))
+        raise InvalidDataError("record must be a list or tuple: actual={}".format(values))
 
     return (record_idx, values)
 
@@ -484,10 +479,6 @@ def _to_record_helper(extractor, header_list, values, record_idx):
     try:
         return (
             record_idx,
-            [
-                dp.data
-                for dp in extractor.to_dp_list(values)
-            ])
+            [dp.data for dp in extractor.to_dp_list(values)])
     except TypeError:
-        raise InvalidDataError(
-            "record must be a list or tuple: actual={}".format(values))
+        raise InvalidDataError("record must be a list or tuple: actual={}".format(values))

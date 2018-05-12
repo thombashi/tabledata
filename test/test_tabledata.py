@@ -88,13 +88,8 @@ class Test_TableData_constructor(object):
                 TableData("none_data", [], [])
             ]
         ])
-    def test_normal_with_none_value(
-            self, table_name, header_list, record_list, expected):
-        tabledata = TableData(
-            table_name, header_list, record_list)
-
-        #print("expected: {}".format(ptw.dump_tabledata(expected)))
-        #print("actual: {}".format(ptw.dump_tabledata(tabledata)))
+    def test_normal_with_none_value(self, table_name, header_list, record_list, expected):
+        tabledata = TableData(table_name, header_list, record_list)
 
         assert tabledata == expected
 
@@ -111,10 +106,7 @@ class Test_TableData_eq(object):
 
     __DATA_0 = TableData(
         "Sheet1",
-        [
-            'i', 'f', 'c', 'if', 'ifc', 'bool',
-            'inf', 'nan', 'mix_num', 'time',
-        ],
+        ['i', 'f', 'c', 'if', 'ifc', 'bool', 'inf', 'nan', 'mix_num', 'time'],
         [
             [
                 1, "1.1", 'aa', 1, 1, 'True',
@@ -132,7 +124,6 @@ class Test_TableData_eq(object):
                 '2017-01-01T00:00:00',
             ],
         ])
-
     __DATA_1 = TableData(
         "tablename",
         ["a", "b", "c", "dd", "e"],
@@ -192,10 +183,8 @@ class Test_TableData_as_dict(object):
             [
                 "number", ["a", "b"], [[1, 2.0], [3.3, Decimal("4.4")]],
                 {'number': [
-                    OrderedDict([
-                        ('a', 1), ('b', 2)]),
-                    OrderedDict([
-                        ('a', Decimal('3.3')), ('b', Decimal('4.4'))]),
+                    OrderedDict([('a', 1), ('b', 2)]),
+                    OrderedDict([('a', Decimal('3.3')), ('b', Decimal('4.4'))]),
                 ]}
             ],
             [
@@ -213,8 +202,7 @@ class Test_TableData_as_dict(object):
             ],
         ])
     def test_normal(self, table_name, header_list, record_list, expected):
-        assert TableData(
-            table_name, header_list, record_list).as_dict() == expected
+        assert TableData(table_name, header_list, record_list).as_dict() == expected
 
 
 class Test_TableData_hash(object):
@@ -278,10 +266,7 @@ class Test_TableData_filter_column(object):
     VALUE_MATRIX = [[1, 2], [3, 4]]
 
     @pytest.mark.parametrize(
-        [
-            "table_name", "header_list", "record_list", "pattern",
-            "is_invert_match", "expected",
-        ],
+        ["table_name", "header_list", "record_list", "pattern", "is_invert_match", "expected"],
         [
             [
                 "match", HEADER_LIST, VALUE_MATRIX,
@@ -291,8 +276,7 @@ class Test_TableData_filter_column(object):
             [
                 "multiple_match", HEADER_LIST, VALUE_MATRIX,
                 ["abcde", "test"], False,
-                TableData(
-                    "multiple_match", ["abcde", "test"], [[1, 2], [3, 4]])
+                TableData("multiple_match", ["abcde", "test"], [[1, 2], [3, 4]])
             ],
             [
                 "invert_match", HEADER_LIST, VALUE_MATRIX,
@@ -311,12 +295,10 @@ class Test_TableData_filter_column(object):
             ],
         ])
     def test_normal_match(
-            self, table_name, header_list, record_list, pattern,
-            is_invert_match, expected):
+            self, table_name, header_list, record_list, pattern, is_invert_match, expected):
         tabledata = TableData(table_name, header_list, record_list)
         actual = tabledata.filter_column(
-            pattern_list=pattern,
-            is_invert_match=is_invert_match)
+            pattern_list=pattern, is_invert_match=is_invert_match)
 
         print("expected: {}".format(ptw.dump_tabledata(expected)))
         print("actual: {}".format(ptw.dump_tabledata(actual)))
@@ -324,10 +306,7 @@ class Test_TableData_filter_column(object):
         assert actual == expected
 
     @pytest.mark.parametrize(
-        [
-            "table_name", "header_list", "record_list", "pattern",
-            "is_invert_match", "expected",
-        ],
+        ["table_name", "header_list", "record_list", "pattern", "is_invert_match", "expected"],
         [
             [
                 "multiple_patterns",
@@ -352,13 +331,11 @@ class Test_TableData_filter_column(object):
             [
                 "re_invert_unmatch_pattern", HEADER_LIST, VALUE_MATRIX,
                 ["unmatch_pattern"], True,
-                TableData(
-                    "re_invert_unmatch_pattern", HEADER_LIST, VALUE_MATRIX)
+                TableData("re_invert_unmatch_pattern", HEADER_LIST, VALUE_MATRIX)
             ],
         ])
     def test_normal_re_match(
-            self, table_name, header_list, record_list, pattern,
-            is_invert_match, expected):
+            self, table_name, header_list, record_list, pattern, is_invert_match, expected):
         tabledata = TableData(table_name, header_list, record_list)
         actual = tabledata.filter_column(
             pattern_list=pattern,
@@ -371,10 +348,7 @@ class Test_TableData_filter_column(object):
         assert actual == expected
 
     @pytest.mark.parametrize(
-        [
-            "table_name", "header_list", "record_list", "pattern",
-            "is_invert_match", "expected",
-        ],
+        ["table_name", "header_list", "record_list", "pattern", "is_invert_match", "expected"],
         [
             [
                 "match_and",
@@ -398,8 +372,7 @@ class Test_TableData_filter_column(object):
             ],
         ])
     def test_normal_pattern_match(
-            self, table_name, header_list, record_list, pattern,
-            is_invert_match, expected):
+            self, table_name, header_list, record_list, pattern, is_invert_match, expected):
         tabledata = TableData(table_name, header_list, record_list)
         actual = tabledata.filter_column(
             pattern_list=pattern,

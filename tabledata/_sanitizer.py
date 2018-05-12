@@ -136,8 +136,7 @@ class AbstractTableDataSanitizer(TableDataSanitizerInterface):
             self._validate_table_name(preprocessed_table_name)
             new_table_name = preprocessed_table_name
         except InvalidTableNameError:
-            new_table_name = self._sanitize_table_name(
-                preprocessed_table_name)
+            new_table_name = self._sanitize_table_name(preprocessed_table_name)
             self._validate_table_name(new_table_name)
         except pv.NullNameError as e:
             raise InvalidTableNameError(e)
@@ -208,9 +207,8 @@ class SQLiteTableDataSanitizer(AbstractTableDataSanitizer):
             new_name = self.__RE_PREPROCESS.sub("_", self._tabledata.table_name)
             return new_name.strip("_")
         except TypeError:
-            raise InvalidTableNameError(
-                "table name must be a string: value='{}'".format(
-                    self._tabledata.table_name))
+            raise InvalidTableNameError("table name must be a string: value='{}'".format(
+                self._tabledata.table_name))
 
     def _validate_table_name(self, table_name):
         try:
@@ -233,8 +231,7 @@ class SQLiteTableDataSanitizer(AbstractTableDataSanitizer):
         try:
             return self.__RE_PREPROCESS.sub("", header)
         except TypeError:
-            raise InvalidHeaderNameError(
-                "header must be a string: value='{}'".format(header))
+            raise InvalidHeaderNameError("header must be a string: value='{}'".format(header))
 
     def _validate_header(self, header):
         try:
