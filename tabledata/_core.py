@@ -128,8 +128,7 @@ class TableData(object):
         ]
 
         try:
-            element_list.append("header_list=[{}]".format(
-                ", ".join(self.header_list)))
+            element_list.append("header_list=[{}]".format(", ".join(self.header_list)))
         except TypeError:
             element_list.append("header_list=None")
 
@@ -143,8 +142,7 @@ class TableData(object):
             self.header_list == other.header_list,
             all([
                 all([lhs == rhs for lhs, rhs in zip(lhs_list, rhs_list)])
-                for lhs_list, rhs_list
-                in zip(self.value_dp_matrix, other.value_dp_matrix)
+                for lhs_list, rhs_list in zip(self.value_dp_matrix, other.value_dp_matrix)
             ]),
         ])
 
@@ -154,8 +152,7 @@ class TableData(object):
             self.header_list != other.header_list,
             any([
                 any([lhs != rhs for lhs, rhs in zip(lhs_list, rhs_list)])
-                for lhs_list, rhs_list
-                in zip(self.value_dp_matrix, other.value_dp_matrix)
+                for lhs_list, rhs_list in zip(self.value_dp_matrix, other.value_dp_matrix)
             ]),
         ])
 
