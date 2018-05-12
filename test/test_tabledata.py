@@ -124,14 +124,19 @@ class Test_TableData_eq(object):
                 '2017-01-01T00:00:00',
             ],
         ])
-    __DATA_1 = TableData(
+    __DATA_10 = TableData(
         "tablename",
-        ["a", "b", "c", "dd", "e"],
+        ["a", "b"],
         [])
+    __DATA_11 = TableData(
+        "tablename",
+        ["a", "b"],
+        [[1, 2], [11, 12]])
 
     @pytest.mark.parametrize(["lhs",  "rhs", "expected"], [
         [__DATA_0, __DATA_0, True],
-        [__DATA_0, __DATA_1, False],
+        [__DATA_0, __DATA_10, False],
+        [__DATA_10, __DATA_11, False],
     ])
     def test_normal(self, lhs, rhs, expected):
         assert (lhs == rhs) == expected

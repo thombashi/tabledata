@@ -137,24 +137,32 @@ class TableData(object):
         return ", ".join(element_list)
 
     def __eq__(self, other):
-        return all([
+        if not all([
             self.table_name == other.table_name,
             self.header_list == other.header_list,
-            all([
-                all([lhs == rhs for lhs, rhs in zip(lhs_list, rhs_list)])
-                for lhs_list, rhs_list in zip(self.value_dp_matrix, other.value_dp_matrix)
-            ]),
-        ])
+            len(self.value_dp_matrix) == len(other.value_dp_matrix),
+        ]):
+            return False
+
+        for lhs_list, rhs_list in zip(self.value_dp_matrix, other.value_dp_matrix):
+            if not all([lhs == rhs for lhs, rhs in zip(lhs_list, rhs_list)]):
+                return False
+
+        return True
 
     def __ne__(self, other):
-        return any([
+        if any([
             self.table_name != other.table_name,
             self.header_list != other.header_list,
-            any([
-                any([lhs != rhs for lhs, rhs in zip(lhs_list, rhs_list)])
-                for lhs_list, rhs_list in zip(self.value_dp_matrix, other.value_dp_matrix)
-            ]),
-        ])
+            len(self.value_dp_matrix) != len(other.value_dp_matrix),
+        ]):
+            return True
+
+        for lhs_list, rhs_list in zip(self.value_dp_matrix, other.value_dp_matrix):
+            if any([lhs != rhs for lhs, rhs in zip(lhs_list, rhs_list)]):
+                return True
+
+        return False
 
     def __hash__(self):
         body = (self.table_name +
