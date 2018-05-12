@@ -3,8 +3,8 @@
 import os
 import sys
 
-import pkg_resources
 import sphinx_rtd_theme
+from tabledata import __author__, __copyright__, __name__, __version__
 
 
 sys.path.insert(0, os.path.abspath('../tabledata'))
@@ -40,16 +40,16 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'tabledata'
-copyright = u'2017, Tsuyoshi Hombashi'
-author = u'Tsuyoshi Hombashi'
+project = __name__
+copyright = __copyright__
+author = __author__
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
-version = pkg_resources.get_distribution(project).version
+version = __version__
 # The full version, including alpha/beta/rc tags.
 release = version
 
