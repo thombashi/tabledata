@@ -182,7 +182,7 @@ rp_builtin = u"""
 
 rp_class = u"""
 .. |TableData| replace::
-    :py:class:`~pytablereader.TableData`
+    :py:class:`~tabledata.TableData`
 """
 
 rst_prolog = (
