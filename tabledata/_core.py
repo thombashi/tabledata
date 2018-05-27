@@ -8,7 +8,6 @@ from __future__ import absolute_import, unicode_literals
 
 import multiprocessing
 import re
-import warnings
 from collections import OrderedDict
 from decimal import Decimal
 
