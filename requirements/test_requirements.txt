@@ -1,4 +1,5 @@
 pytablewriter>=0.28.1
 pytest-cov
 pytest
+SimpleSQLite>=0.21.0
 tox

@@ -46,27 +46,27 @@ class Test_SQLiteTableDataSanitizer(object):
                     ["D", "A", "B", "c", "E"], [])
             ], [
                 r"@a!b\c#d$e%f&g'h(i)j_",
-                [r"a!b\c#d$e%f&g'h(i)j", r"k@l[m]n{o}p;q:r,s.t/u\\v", "a\nb"],
+                [r"a!bc#d$e%f&g'h(i)j", r"k@l[m]n{o}p;q:r,s.t/u", "a b"],
                 [[1, 2, 3], [11, 12, 13]],
                 TableData(
                     "a_b_c_d_e_f_g_h_i_j",
-                    ["abcdefghij", "klmnopqrstuv", "ab"],
+                    ["a!bc#d$e%f&g_h(i)j", "k@l[m]n{o}p;q:r_s.t/u", "a b"],
                     [[1, 2, 3], [11, 12, 13]])
             ], [
                 # SQLite reserved keywords
                 "ALL", ["and", "Index"], [[1, 2], [3, 4]],
                 TableData("rename_ALL", ["and", "Index"], [[1, 2], [3, 4]])
             ], [
-                "0invalid_tn", ["1invalid", "where"], [[1, 2], [3, 4]],
+                "invalid'tn", ["in'valid", "ALL"], [[1, 2], [3, 4]],
                 TableData(
-                    "rename_0invalid_tn",
-                    ["rename_1invalid", "where"], [[1, 2], [3, 4]])
+                    "invalid_tn",
+                    ["in_valid", "ALL"], [[1, 2], [3, 4]])
             ], [
                 "Python (programming language) - Wikipedia, the free encyclopedia.html",
                 ["a b", "c d"], [[1, 2], [3, 4]],
                 TableData(
                     "Python_programming_language_Wikipedia_the_free_encyclopedia_html",
-                    ["ab", "cd"], [[1, 2], [3, 4]])
+                    ["a b", "c d"], [[1, 2], [3, 4]])
             ], [
                 "multibyte csv",
                 ["姓", "名", "生年月日", "郵便番号", "住所", "電話番号"],
