@@ -222,16 +222,15 @@ class SQLiteTableDataSanitizer(AbstractTableDataSanitizer):
         return self.__RENAME_TEMPLATE.format(table_name)
 
     def _preprocess_header(self, col_idx, header):
+        from simplesqlite.query import Attr
+
         if typepy.is_null_string(header):
             return self.__get_default_header(col_idx)
 
         if dataproperty.is_multibyte_str(header):
             return header
 
-        try:
-            return self.__RE_PREPROCESS.sub("", header)
-        except TypeError:
-            raise InvalidHeaderNameError("header must be a string: value='{}'".format(header))
+        return Attr.sanitize(header)
 
     def _validate_header(self, header):
         try:
