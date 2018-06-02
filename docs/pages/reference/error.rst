@@ -7,8 +7,5 @@ Exceptions
 .. autoexception:: pytablereader.InvalidHeaderNameError
     :show-inheritance:
 
-.. autoexception:: pytablereader.InvalidDataError
-    :show-inheritance:
-
-.. autoexception:: pytablereader.EmptyDataError
+.. autoexception:: pytablereader.DataError
     :show-inheritance:
