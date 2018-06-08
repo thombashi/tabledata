@@ -402,7 +402,7 @@ def _preprocess_value_list(header_list, values, record_idx):
             values = values._asdict()
         except AttributeError:
             pass
-    
+
         try:
             return (record_idx, [values.get(header) for header in header_list])
         except (TypeError, AttributeError):
@@ -441,8 +441,6 @@ def _to_record_helper(extractor, header_list, values, record_idx):
             pass
 
     try:
-        return (
-            record_idx,
-            [dp.data for dp in extractor.to_dp_list(values)])
+        return (record_idx, [dp.data for dp in extractor.to_dp_list(values)])
     except TypeError:
         raise InvalidDataError("record must be a list or tuple: actual={}".format(values))
