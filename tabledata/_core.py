@@ -147,6 +147,9 @@ class TableData(object):
             return False
 
         for lhs_list, rhs_list in zip(self.value_dp_matrix, other.value_dp_matrix):
+            if len(lhs_list) != len(rhs_list):
+                return False
+
             if not all([lhs == rhs for lhs, rhs in zip(lhs_list, rhs_list)]):
                 return False
 
@@ -161,6 +164,9 @@ class TableData(object):
             return True
 
         for lhs_list, rhs_list in zip(self.value_dp_matrix, other.value_dp_matrix):
+            if len(lhs_list) != len(rhs_list):
+                return True
+
             if any([lhs != rhs for lhs, rhs in zip(lhs_list, rhs_list)]):
                 return True
 
