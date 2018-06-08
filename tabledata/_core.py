@@ -399,15 +399,12 @@ class TableData(object):
 def _preprocess_value_list(header_list, values, record_idx):
     if header_list:
         try:
-            # dictionary to list
-            return (record_idx, [values.get(header) for header in header_list])
-        except (TypeError, AttributeError):
+            values = values._asdict()
+        except AttributeError:
             pass
-
+    
         try:
-            # namedtuple to list
-            dict_value = values._asdict()
-            return (record_idx, [dict_value.get(header) for header in header_list])
+            return (record_idx, [values.get(header) for header in header_list])
         except (TypeError, AttributeError):
             pass
 
@@ -418,30 +415,30 @@ def _preprocess_value_list(header_list, values, record_idx):
 
 
 def _to_record_helper(extractor, header_list, values, record_idx):
+    """
+    Convert values to a row.
+
+    :param values: Value to be converted.
+    :type values: |dict|/|namedtuple|/|list|/|tuple|
+    :raises ValueError: If the ``value`` is invalid.
+    """
+
     try:
-        # dictionary to list
-        return (
-            record_idx,
-            [
-                dp.data
-                for dp in extractor.to_dp_list([
-                    values.get(header) for header in header_list])
-            ])
+        values = values._asdict()
     except AttributeError:
         pass
 
-    try:
-        # namedtuple to list
-        dict_value = values._asdict()
-        return (
-            record_idx,
-            [
-                dp.data
-                for dp in extractor.to_dp_list([
-                    dict_value.get(header) for header in header_list])
-            ])
-    except AttributeError:
-        pass
+    if isinstance(values, dict):
+        try:
+            return (
+                record_idx,
+                [
+                    dp.data
+                    for dp in extractor.to_dp_list([
+                        values.get(header) for header in header_list])
+                ])
+        except AttributeError:
+            pass
 
     try:
         return (
