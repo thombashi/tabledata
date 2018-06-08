@@ -340,41 +340,6 @@ class TableData(object):
 
         return header == pattern
 
-    def __to_record(self, values):
-        """
-        Convert values to a record.
-
-        :param values: Value to be converted.
-        :type values: |dict|/|namedtuple|/|list|/|tuple|
-        :raises ValueError: If the ``value`` is invalid.
-        """
-
-        try:
-            # dictionary to list
-            return [
-                dp.data
-                for dp in self.__dp_extractor.to_dp_list([
-                    values.get(header) for header in self.header_list])
-            ]
-        except AttributeError:
-            pass
-
-        try:
-            # namedtuple to list
-            dict_value = values._asdict()
-            return [
-                dp.data
-                for dp in self.__dp_extractor.to_dp_list([
-                    dict_value.get(header) for header in self.header_list])
-            ]
-        except AttributeError:
-            pass
-
-        try:
-            return [dp.data for dp in self.__dp_extractor.to_dp_list(values)]
-        except TypeError:
-            raise InvalidDataError("record must be a list or tuple: actual={}".format(values))
-
     def __preprocess_value_matrix(self, value_matrix):
         return [
             _preprocess_value_list(self.header_list, value_list, record_idx)[1]
