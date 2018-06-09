@@ -197,7 +197,7 @@ class TableData(object):
         :rtype: bool
         """
 
-        return any([self.is_empty_header(), self.is_empty_record()])
+        return any([self.is_empty_header(), self.is_empty_rows()])
 
     def as_dict(self):
         """
