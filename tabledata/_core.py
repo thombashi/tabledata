@@ -374,7 +374,7 @@ class TableData(object):
     def __to_value_matrix_mt(self, value_matrix):
         from concurrent import futures
 
-        record_mapping = {}
+        row_map = {}
         try:
             with futures.ProcessPoolExecutor(self.max_workers) as executor:
                 future_list = [
@@ -386,12 +386,12 @@ class TableData(object):
 
                 for future in futures.as_completed(future_list):
                     row_idx, record = future.result()
-                    record_mapping[row_idx] = record
+                    row_map[row_idx] = record
         finally:
             logger.debug("shutdown ProcessPoolExecutor")
             executor.shutdown()
 
-        return [record_mapping[row_idx] for row_idx in sorted(record_mapping)]
+        return [row_map[row_idx] for row_idx in sorted(row_map)]
 
 
 def _preprocess_value_list(header_list, values, row_idx):
