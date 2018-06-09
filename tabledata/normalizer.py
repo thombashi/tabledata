@@ -7,17 +7,13 @@
 from __future__ import absolute_import, unicode_literals
 
 import abc
-import re
 
-import dataproperty
 import pathvalidate as pv
 import six
 import typepy
-from six.moves import range
 
-from ._common import convert_idx_to_alphabet
 from ._core import TableData
-from .error import EmptyDataError, InvalidHeaderNameError, InvalidTableNameError
+from .error import InvalidHeaderNameError, InvalidTableNameError
 
 
 @six.add_metaclass(abc.ABCMeta)
