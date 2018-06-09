@@ -23,7 +23,7 @@ from .error import EmptyDataError, InvalidHeaderNameError, InvalidTableNameError
 @six.add_metaclass(abc.ABCMeta)
 class TableDataNormalizerInterface(object):
     """
-    Interface class to validate and sanitize data of |TableData|.
+    Interface class to validate and normalize data of |TableData|.
     """
 
     @abc.abstractmethod

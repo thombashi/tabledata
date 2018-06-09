@@ -55,7 +55,7 @@ class TableData(object):
     @property
     def value_matrix(self):
         """
-        :return: Table data records.
+        :return: Table data rows.
         :rtype: list
         """
 
@@ -352,7 +352,7 @@ class TableData(object):
 
     def __to_value_matrix(self, value_matrix):
         """
-        Convert matrix to records
+        Convert matrix to rows
         """
 
         self.__dp_extractor.float_type = Decimal
@@ -418,7 +418,7 @@ def _to_row_helper(extractor, header_list, values, row_idx):
 
     :param values: Value to be converted.
     :type values: |dict|/|namedtuple|/|list|/|tuple|
-    :raises ValueError: If the ``value`` is invalid.
+    :raises ValueError: If the ``values`` is invalid.
     """
 
     try:
