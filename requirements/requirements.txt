@@ -1,4 +1,4 @@
-DataProperty>=0.30.6
+DataProperty>=0.31.0
 enum34;python_version<"3.4"
 futures;python_version<"3.2"
 logbook
