@@ -367,7 +367,7 @@ class TableData(object):
 
     def __to_value_matrix_st(self, value_matrix):
         return [
-            _to_record_helper(self.__dp_extractor, self.header_list, value_list, record_idx)[1]
+            _to_row_helper(self.__dp_extractor, self.header_list, value_list, record_idx)[1]
             for record_idx, value_list in enumerate(value_matrix)
         ]
 
@@ -379,7 +379,7 @@ class TableData(object):
             with futures.ProcessPoolExecutor(self.max_workers) as executor:
                 future_list = [
                     executor.submit(
-                        _to_record_helper, self.__dp_extractor,
+                        _to_row_helper, self.__dp_extractor,
                         self.header_list, value_list, record_idx)
                     for record_idx, value_list in enumerate(value_matrix)
                 ]
@@ -412,7 +412,7 @@ def _preprocess_value_list(header_list, values, record_idx):
     return (record_idx, values)
 
 
-def _to_record_helper(extractor, header_list, values, record_idx):
+def _to_row_helper(extractor, header_list, values, record_idx):
     """
     Convert values to a row.
 
