@@ -21,7 +21,7 @@ from .error import EmptyDataError, InvalidHeaderNameError, InvalidTableNameError
 
 
 @six.add_metaclass(abc.ABCMeta)
-class TableDataSanitizerInterface(object):
+class TableDataNormalizerInterface(object):
     """
     Interface class to validate and sanitize data of |TableData|.
     """
@@ -35,7 +35,7 @@ class TableDataSanitizerInterface(object):
         pass
 
 
-class AbstractTableDataSanitizer(TableDataSanitizerInterface):
+class AbstractTableDataNormalizer(TableDataNormalizerInterface):
 
     def __init__(self, tabledata):
         self._tabledata = tabledata
@@ -163,7 +163,7 @@ class AbstractTableDataSanitizer(TableDataSanitizerInterface):
         return new_header_list
 
 
-class TableDataSanitizer(AbstractTableDataSanitizer):
+class TableDataNormalizer(AbstractTableDataNormalizer):
 
     def _preprocess_table_name(self):
         return self._tabledata.table_name
