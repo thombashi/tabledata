@@ -14,6 +14,8 @@ from decimal import Decimal
 import dataproperty as dp
 import six
 import typepy
+from typepy import Nan
+
 from six.moves import zip
 
 from ._constant import PatternMatch
@@ -141,38 +143,10 @@ class TableData(object):
         return ", ".join(element_list)
 
     def __eq__(self, other):
-        if not all([
-            self.table_name == other.table_name,
-            self.header_list == other.header_list,
-            len(self.value_dp_matrix) == len(other.value_dp_matrix),
-        ]):
-            return False
-
-        for lhs_list, rhs_list in zip(self.value_dp_matrix, other.value_dp_matrix):
-            if len(lhs_list) != len(rhs_list):
-                return False
-
-            if not all([lhs == rhs for lhs, rhs in zip(lhs_list, rhs_list)]):
-                return False
-
-        return True
+        return self.equals(other, is_strict=True)
 
     def __ne__(self, other):
-        if any([
-            self.table_name != other.table_name,
-            self.header_list != other.header_list,
-            len(self.value_dp_matrix) != len(other.value_dp_matrix),
-        ]):
-            return True
-
-        for lhs_list, rhs_list in zip(self.value_dp_matrix, other.value_dp_matrix):
-            if len(lhs_list) != len(rhs_list):
-                return True
-
-            if any([lhs != rhs for lhs, rhs in zip(lhs_list, rhs_list)]):
-                return True
-
-        return False
+        return not self.equals(other, is_strict=True)
 
     def is_empty_header(self):
         """
@@ -207,6 +181,48 @@ class TableData(object):
         """
 
         return any([self.is_empty_header(), self.is_empty_rows()])
+
+    def equals(self, other, is_strict=False):
+        if is_strict:
+            return self.__equals_raw(other)
+
+        return self.__equals_dp(other)
+
+    def __equals_base(self, other):
+        return all([
+            self.table_name == other.table_name,
+            self.header_list == other.header_list,
+            len(self.value_dp_matrix) == len(other.value_dp_matrix),
+        ])
+
+    def __equals_raw(self, other):
+        if not self.__equals_base(other):
+            return False
+
+        for lhs_row, rhs_row in zip(self.row_list, other.row_list):
+            if len(lhs_row) != len(rhs_row):
+                return False
+
+            if not all([
+                lhs == rhs for lhs, rhs in zip(lhs_row, rhs_row)
+                if not Nan(lhs).is_type() and not Nan(rhs).is_type()
+            ]):
+                return False
+
+        return True
+
+    def __equals_dp(self, other):
+        if not self.__equals_base(other):
+            return False
+
+        for lhs_list, rhs_list in zip(self.value_dp_matrix, other.value_dp_matrix):
+            if len(lhs_list) != len(rhs_list):
+                return False
+
+            if any([lhs != rhs for lhs, rhs in zip(lhs_list, rhs_list)]):
+                return False
+
+        return True
 
     def as_dict(self):
         """
