@@ -85,6 +85,10 @@ class TableData(object):
         return self.__value_dp_matrix is not None
 
     @property
+    def num_rows(self):
+        return len(self.row_list)
+
+    @property
     def value_dp_matrix(self):
         """
         :return: DataProperty for table data.
@@ -142,7 +146,7 @@ class TableData(object):
         except TypeError:
             element_list.append("header_list=None")
 
-        element_list.append("rows={}".format(len(self.row_list)))
+        element_list.append("rows={}".format(self.num_rows))
 
         return ", ".join(element_list)
 
@@ -171,10 +175,7 @@ class TableData(object):
         :rtype: bool
         """
 
-        try:
-            return not typepy.is_not_empty_sequence(self.row_list[0])
-        except (TypeError, IndexError):
-            return True
+        return self.num_rows == 0
 
     def is_empty(self):
         """
@@ -196,7 +197,7 @@ class TableData(object):
         return all([
             self.table_name == other.table_name,
             self.header_list == other.header_list,
-            len(self.value_dp_matrix) == len(other.value_dp_matrix),
+            self.num_rows == other.num_rows,
         ])
 
     def __equals_raw(self, other):
