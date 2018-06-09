@@ -53,6 +53,15 @@ class TableData(object):
         return self.__dp_extractor.header_list
 
     @property
+    def row_list(self):
+        """
+        :return: Table rows.
+        :rtype: list
+        """
+
+        return self.__row_list
+
+    @property
     def value_matrix(self):
         """
         :return: Table data rows.
@@ -78,7 +87,7 @@ class TableData(object):
 
         if self.__value_dp_matrix is None:
             self.__value_dp_matrix = self.__dp_extractor.to_dp_matrix(
-                self.__preprocess_value_matrix(self.__row_list))
+                self.__preprocess_value_matrix(self.row_list))
 
         return self.__value_dp_matrix
 
@@ -185,7 +194,7 @@ class TableData(object):
         """
 
         try:
-            return not typepy.is_not_empty_sequence(self.value_dp_matrix[0])
+            return not typepy.is_not_empty_sequence(self.row_list[0])
         except (TypeError, IndexError):
             return True
 
@@ -288,7 +297,7 @@ class TableData(object):
         if not pattern_list:
             return TableData(
                 table_name=self.table_name, header_list=self.header_list,
-                record_list=self.value_dp_matrix)
+                record_list=self.row_list)
 
         match_header_list = []
         match_column_matrix = []
