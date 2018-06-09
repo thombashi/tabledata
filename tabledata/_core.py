@@ -385,8 +385,8 @@ class TableData(object):
                 ]
 
                 for future in futures.as_completed(future_list):
-                    row_idx, record = future.result()
-                    row_map[row_idx] = record
+                    row_idx, row = future.result()
+                    row_map[row_idx] = row
         finally:
             logger.debug("shutdown ProcessPoolExecutor")
             executor.shutdown()
