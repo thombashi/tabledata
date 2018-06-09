@@ -64,7 +64,7 @@ class TableData(object):
 
         self.__value_matrix = [
             [value_dp.data for value_dp in value_dp_list]
-            for value_dp_list in self.__value_dp_matrix
+            for value_dp_list in self.value_dp_matrix
         ]
 
         return self.__value_matrix
@@ -75,6 +75,10 @@ class TableData(object):
         :return: DataProperty for table data.
         :rtype: list
         """
+
+        if self.__value_dp_matrix is None:
+            self.__value_dp_matrix = self.__dp_extractor.to_dp_matrix(
+                self.__preprocess_value_matrix(self.__row_list))
 
         return self.__value_dp_matrix
 
@@ -105,6 +109,7 @@ class TableData(object):
 
         self.__table_name = table_name
         self.__value_matrix = None
+        self.__value_dp_matrix = None
 
         if not header_list:
             self.__dp_extractor.header_list = []
@@ -112,10 +117,9 @@ class TableData(object):
             self.__dp_extractor.header_list = header_list
 
         if not record_list:
-            self.__value_dp_matrix = []
+            self.__row_list = []
         else:
-            self.__value_dp_matrix = self.__dp_extractor.to_dp_matrix(
-                self.__preprocess_value_matrix(record_list))
+            self.__row_list = record_list
 
     def __repr__(self):
         element_list = [
