@@ -231,16 +231,16 @@ class TableData(object):
             if typepy.is_empty_sequence(value_dp_list):
                 continue
 
-            dict_record = [
+            row = [
                 (header, value_dp.data)
                 for header, value_dp in zip(self.header_list, value_dp_list)
                 if value_dp.typecode != Typecode.NONE
             ]
 
-            if typepy.is_empty_sequence(dict_record):
+            if typepy.is_empty_sequence(row):
                 continue
 
-            dict_body.append(OrderedDict(dict_record))
+            dict_body.append(OrderedDict(row))
 
         return {self.table_name: dict_body}
 
