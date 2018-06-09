@@ -87,25 +87,23 @@ class TableData(object):
         return self.__dp_extractor.to_header_dp_list()
 
     def __init__(
-            self, table_name, header_list, record_list, is_strip_quote=False,
-            quoting_flags=None, max_workers=None):
+            self, table_name, header_list, record_list, dp_extractor=None, is_strip_quote=False,
+            quoting_flags=None):
 
-        self.__dp_extractor = dp.DataPropertyExtractor()
+        if dp_extractor:
+            self.__dp_extractor = dp_extractor
+        else:
+            self.__dp_extractor = dp.DataPropertyExtractor()
+
         if quoting_flags:
             self.__dp_extractor.quoting_flags = quoting_flags
         self.__dp_extractor.strip_str_header = '"'
         if is_strip_quote:
             self.__dp_extractor.strip_str_value = '"'
 
-        if max_workers:
-            self.max_workers = max_workers
-        else:
-            if six.PY2:
-                # avoid unit test execution hang up at Python 2 environment
-                self.max_workers = 1
-                self.__dp_extractor.max_workers = 1
-            else:
-                self.max_workers = multiprocessing.cpu_count()
+        if six.PY2:
+            # avoid unit test execution hang up at Python 2 environment
+            self.__dp_extractor.max_workers = 1
 
         self.__table_name = table_name
         self.__value_matrix = None
@@ -364,7 +362,7 @@ class TableData(object):
         if typepy.is_empty_sequence(self.header_list):
             return value_matrix
 
-        if self.max_workers <= 1:
+        if self.__dp_extractor.max_workers <= 1:
             return self.__to_value_matrix_st(value_matrix)
 
         return self.__to_value_matrix_mt(value_matrix)
@@ -380,7 +378,7 @@ class TableData(object):
 
         row_map = {}
         try:
-            with futures.ProcessPoolExecutor(self.max_workers) as executor:
+            with futures.ProcessPoolExecutor(self.__dp_extractor.max_workers) as executor:
                 future_list = [
                     executor.submit(
                         _to_row_helper, self.__dp_extractor,
