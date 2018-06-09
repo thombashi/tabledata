@@ -136,7 +136,7 @@ class TableData(object):
         except TypeError:
             element_list.append("header_list=None")
 
-        element_list.append("rows={}".format(len(self.value_dp_matrix)))
+        element_list.append("rows={}".format(len(self.row_list)))
 
         return ", ".join(element_list)
 
@@ -309,7 +309,7 @@ class TableData(object):
         else:
             raise ValueError("unknown matching: {}".format(pattern_match))
 
-        for header, column_value_dp_list in zip(self.header_list, zip(*self.value_dp_matrix)):
+        for header, column in zip(self.header_list, zip(*self.row_list)):
             is_match_list = []
             for pattern in pattern_list:
                 is_match = self.__is_match(header, pattern, is_re_match)
@@ -321,7 +321,7 @@ class TableData(object):
 
             if match_method(is_match_list):
                 match_header_list.append(header)
-                match_column_matrix.append(column_value_dp_list)
+                match_column_matrix.append(column)
 
         logger.debug("filter_column: table={}, match_header_list={}".format(
             self.table_name, match_header_list))
