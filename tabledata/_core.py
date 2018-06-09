@@ -87,7 +87,7 @@ class TableData(object):
         return self.__dp_extractor.to_header_dp_list()
 
     def __init__(
-            self, table_name, header_list, record_list, dp_extractor=None, is_strip_quote=False,
+            self, table_name, header_list, record_list, dp_extractor=None,
             quoting_flags=None):
 
         if dp_extractor:
@@ -98,8 +98,6 @@ class TableData(object):
         if quoting_flags:
             self.__dp_extractor.quoting_flags = quoting_flags
         self.__dp_extractor.strip_str_header = '"'
-        if is_strip_quote:
-            self.__dp_extractor.strip_str_value = '"'
 
         if six.PY2:
             # avoid unit test execution hang up at Python 2 environment
