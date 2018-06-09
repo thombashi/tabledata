@@ -174,8 +174,13 @@ class TableData(object):
         return typepy.is_empty_sequence(self.header_list)
 
     def is_empty_record(self):
+        """Depricated"""
+
+        return self.is_empty_rows()
+
+    def is_empty_rows(self):
         """
-        :return: |True| if the tabular data is not an empty nested list.
+        :return: |True| if the tabular data has no rows.
         :rtype: bool
         """
 

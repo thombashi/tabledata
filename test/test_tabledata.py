@@ -223,7 +223,7 @@ class Test_TableData_is_empty_header(object):
         assert tabledata.is_empty_header() == expected
 
 
-class Test_TableData_is_empty_record(object):
+class Test_TableData_is_empty_rows(object):
 
     @pytest.mark.parametrize(
         ["table_name", "header_list", "record_list", "expected"], [
@@ -234,7 +234,7 @@ class Test_TableData_is_empty_record(object):
     def test_normal(self, table_name, header_list, record_list, expected):
         tabledata = TableData(table_name, header_list, record_list)
 
-        assert tabledata.is_empty_record() == expected
+        assert tabledata.is_empty_rows() == expected
 
 
 class Test_TableData_is_empty(object):
