@@ -226,8 +226,6 @@ class TableData(object):
 
         from typepy import Typecode
 
-        self.__dp_extractor.float_type = float
-
         dict_body = []
         for value_dp_list in self.value_dp_matrix:
             if typepy.is_empty_sequence(value_dp_list):
