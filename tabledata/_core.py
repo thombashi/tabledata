@@ -346,8 +346,8 @@ class TableData(object):
 
     def __preprocess_value_matrix(self, value_matrix):
         return [
-            _preprocess_value_list(self.header_list, value_list, record_idx)[1]
-            for record_idx, value_list in enumerate(value_matrix)
+            _preprocess_value_list(self.header_list, value_list, row_idx)[1]
+            for row_idx, value_list in enumerate(value_matrix)
         ]
 
     def __to_value_matrix(self, value_matrix):
@@ -367,8 +367,8 @@ class TableData(object):
 
     def __to_value_matrix_st(self, value_matrix):
         return [
-            _to_row_helper(self.__dp_extractor, self.header_list, value_list, record_idx)[1]
-            for record_idx, value_list in enumerate(value_matrix)
+            _to_row_helper(self.__dp_extractor, self.header_list, value_list, row_idx)[1]
+            for row_idx, value_list in enumerate(value_matrix)
         ]
 
     def __to_value_matrix_mt(self, value_matrix):
@@ -380,21 +380,21 @@ class TableData(object):
                 future_list = [
                     executor.submit(
                         _to_row_helper, self.__dp_extractor,
-                        self.header_list, value_list, record_idx)
-                    for record_idx, value_list in enumerate(value_matrix)
+                        self.header_list, value_list, row_idx)
+                    for row_idx, value_list in enumerate(value_matrix)
                 ]
 
                 for future in futures.as_completed(future_list):
-                    record_idx, record = future.result()
-                    record_mapping[record_idx] = record
+                    row_idx, record = future.result()
+                    record_mapping[row_idx] = record
         finally:
             logger.debug("shutdown ProcessPoolExecutor")
             executor.shutdown()
 
-        return [record_mapping[record_idx] for record_idx in sorted(record_mapping)]
+        return [record_mapping[row_idx] for row_idx in sorted(record_mapping)]
 
 
-def _preprocess_value_list(header_list, values, record_idx):
+def _preprocess_value_list(header_list, values, row_idx):
     if header_list:
         try:
             values = values._asdict()
@@ -402,17 +402,17 @@ def _preprocess_value_list(header_list, values, record_idx):
             pass
 
         try:
-            return (record_idx, [values.get(header) for header in header_list])
+            return (row_idx, [values.get(header) for header in header_list])
         except (TypeError, AttributeError):
             pass
 
     if not isinstance(values, (tuple, list)):
         raise InvalidDataError("record must be a list or tuple: actual={}".format(values))
 
-    return (record_idx, values)
+    return (row_idx, values)
 
 
-def _to_row_helper(extractor, header_list, values, record_idx):
+def _to_row_helper(extractor, header_list, values, row_idx):
     """
     Convert values to a row.
 
@@ -429,7 +429,7 @@ def _to_row_helper(extractor, header_list, values, record_idx):
     if isinstance(values, dict):
         try:
             return (
-                record_idx,
+                row_idx,
                 [
                     dp.data
                     for dp in extractor.to_dp_list([
@@ -439,6 +439,6 @@ def _to_row_helper(extractor, header_list, values, record_idx):
             pass
 
     try:
-        return (record_idx, [dp.data for dp in extractor.to_dp_list(values)])
+        return (row_idx, [dp.data for dp in extractor.to_dp_list(values)])
     except TypeError:
         raise InvalidDataError("record must be a list or tuple: actual={}".format(values))
