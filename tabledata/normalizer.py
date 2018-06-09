@@ -37,7 +37,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         self._tabledata = tabledata
 
     def validate(self):
-        self._validate_table_name(self._tabledata)
+        self._validate_table_name(self._tabledata.table_name)
         self.__validate_header_list()
 
     def sanitize(self):
