@@ -81,6 +81,10 @@ class TableData(object):
         return self.__value_matrix
 
     @property
+    def has_value_dp_matrix(self):
+        return self.__value_dp_matrix is not None
+
+    @property
     def value_dp_matrix(self):
         """
         :return: DataProperty for table data.
