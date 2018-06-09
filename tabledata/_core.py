@@ -407,7 +407,7 @@ def _preprocess_value_list(header_list, values, row_idx):
             pass
 
     if not isinstance(values, (tuple, list)):
-        raise InvalidDataError("record must be a list or tuple: actual={}".format(values))
+        raise InvalidDataError("row must be a list or tuple: actual={}".format(values))
 
     return (row_idx, values)
 
@@ -441,4 +441,4 @@ def _to_row_helper(extractor, header_list, values, row_idx):
     try:
         return (row_idx, [dp.data for dp in extractor.to_dp_list(values)])
     except TypeError:
-        raise InvalidDataError("record must be a list or tuple: actual={}".format(values))
+        raise InvalidDataError("row must be a list or tuple: actual={}".format(values))
