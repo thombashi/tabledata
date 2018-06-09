@@ -224,6 +224,13 @@ class TableData(object):
 
         return True
 
+    def in_tabledata_list(self, other):
+        for table_data in other:
+            if self.equals(table_data):
+                return True
+
+        return False
+
     def as_dict(self):
         """
         :return: Table data as a |dict| instance.
