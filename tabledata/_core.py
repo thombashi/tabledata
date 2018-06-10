@@ -113,17 +113,12 @@ class TableData(object):
     def header_dp_list(self):
         return self.__dp_extractor.to_header_dp_list()
 
-    def __init__(
-            self, table_name, header_list, record_list, dp_extractor=None,
-            quoting_flags=None):
-
+    def __init__(self, table_name, header_list, record_list, dp_extractor=None):
         if dp_extractor:
             self.__dp_extractor = dp_extractor
         else:
             self.__dp_extractor = dp.DataPropertyExtractor()
 
-        if quoting_flags:
-            self.__dp_extractor.quoting_flags = quoting_flags
         self.__dp_extractor.strip_str_header = '"'
 
         if six.PY2:
