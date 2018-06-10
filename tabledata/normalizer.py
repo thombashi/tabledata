@@ -54,7 +54,8 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         return TableData(
             self.__normalize_table_name(),
             self._normalize_header_list(),
-            self._tabledata.value_dp_matrix)
+            self._normalize_row_list(),
+            dp_extractor=self._tabledata.dp_extractor)
 
     @abc.abstractmethod
     def _preprocess_table_name(self):
@@ -125,6 +126,9 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         :return: Renamed header name.
         :rtype: str
         """
+
+    def _normalize_row_list(self):
+        return self._tabledata.row_list
 
     def _validate_header_list(self):
         for header in self._tabledata.header_list:
