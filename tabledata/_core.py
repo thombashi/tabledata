@@ -236,6 +236,30 @@ class TableData(object):
 
         return False
 
+    def validate_rows(self):
+        """
+        :raises ValueError:
+        """
+
+        invalid_row_idx_list = []
+
+        for row_idx, row in enumerate(self.row_list):
+            if isinstance(row, (list, tuple)) and len(self.header_list) != len(row):
+                invalid_row_idx_list.append(row_idx)
+
+            if isinstance(row, dict):
+                if not all([header in row for header in self.header_list]):
+                    invalid_row_idx_list.append(row_idx)
+
+        if not invalid_row_idx_list:
+            return
+
+        raise ValueError(
+            "header length and value length are mismatch:\n" +
+            "  header({}): {}\n".format(len(self.header_list), self.header_list) +
+            "  # of miss match rows: {} ouf of {}\n".format(
+                len(invalid_row_idx_list), self.num_rows))
+
     def as_dict(self):
         """
         :return: Table data as a |dict| instance.
