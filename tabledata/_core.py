@@ -129,15 +129,15 @@ class TableData(object):
     def dp_extractor(self):
         return self.__dp_extractor
 
-    def __init__(self, table_name, header_list, record_list, dp_extractor=None):
+    def __init__(self, table_name, header_list, row_list, dp_extractor=None):
         self.__table_name = table_name
         self.__value_matrix = None
         self.__value_dp_matrix = None
 
-        if not record_list:
-            self.__row_list = []
+        if row_list:
+            self.__row_list = row_list
         else:
-            self.__row_list = record_list
+            self.__row_list = []
 
         if dp_extractor:
             self.__dp_extractor = dp_extractor
@@ -296,7 +296,7 @@ class TableData(object):
                 TableData(
                     table_name="sample",
                     header_list=["a", "b"],
-                    record_list=[[1, 2], [3.3, 4.4]]
+                    row_list=[[1, 2], [3.3, 4.4]]
                 ).as_dict()
 
         :Output:
@@ -339,7 +339,7 @@ class TableData(object):
                 TableData(
                     table_name="sample",
                     header_list=["a", "b"],
-                    record_list=[[1, 2], [3.3, 4.4]]
+                    row_list=[[1, 2], [3.3, 4.4]]
                 ).as_dict()
 
         :Output:
@@ -371,8 +371,7 @@ class TableData(object):
 
         if not pattern_list:
             return TableData(
-                table_name=self.table_name, header_list=self.header_list,
-                record_list=self.row_list)
+                table_name=self.table_name, header_list=self.header_list, row_list=self.row_list)
 
         match_header_list = []
         match_column_matrix = []
@@ -403,7 +402,7 @@ class TableData(object):
 
         return TableData(
             table_name=self.table_name, header_list=match_header_list,
-            record_list=list(zip(*match_column_matrix)))
+            row_list=list(zip(*match_column_matrix)))
 
     @staticmethod
     def from_dataframe(dataframe, table_name=""):
@@ -417,7 +416,7 @@ class TableData(object):
         return TableData(
             table_name=table_name,
             header_list=list(dataframe.columns.values),
-            record_list=dataframe.values.tolist())
+            row_list=dataframe.values.tolist())
 
     @staticmethod
     def __is_match(header, pattern, is_re_match):
