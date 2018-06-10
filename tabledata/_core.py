@@ -13,9 +13,8 @@ from decimal import Decimal
 import dataproperty as dp
 import six
 import typepy
-from typepy import Nan
-
 from six.moves import zip
+from typepy import Nan
 
 from ._constant import PatternMatch
 from ._logger import logger
