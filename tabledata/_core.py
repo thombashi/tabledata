@@ -114,6 +114,15 @@ class TableData(object):
         return self.__dp_extractor.to_header_dp_list()
 
     def __init__(self, table_name, header_list, record_list, dp_extractor=None):
+        self.__table_name = table_name
+        self.__value_matrix = None
+        self.__value_dp_matrix = None
+
+        if not record_list:
+            self.__row_list = []
+        else:
+            self.__row_list = record_list
+
         if dp_extractor:
             self.__dp_extractor = dp_extractor
         else:
@@ -125,19 +134,10 @@ class TableData(object):
             # avoid unit test execution hang up at Python 2 environment
             self.__dp_extractor.max_workers = 1
 
-        self.__table_name = table_name
-        self.__value_matrix = None
-        self.__value_dp_matrix = None
-
         if not header_list:
             self.__dp_extractor.header_list = []
         else:
             self.__dp_extractor.header_list = header_list
-
-        if not record_list:
-            self.__row_list = []
-        else:
-            self.__row_list = record_list
 
     def __repr__(self):
         element_list = [
