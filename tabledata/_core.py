@@ -84,7 +84,17 @@ class TableData(object):
 
     @property
     def num_rows(self):
-        return len(self.row_list)
+        """
+        :return:
+            Number of rows in the tabular data.
+            |None| if the ``row_list`` is neither list nor tuple.
+        :rtype: int
+        """
+
+        try:
+            return len(self.row_list)
+        except TypeError:
+            return None
 
     @property
     def value_dp_matrix(self):
@@ -192,11 +202,15 @@ class TableData(object):
         return self.__equals_dp(other)
 
     def __equals_base(self, other):
-        return all([
+        compare_item_list = [
             self.table_name == other.table_name,
             self.header_list == other.header_list,
-            self.num_rows == other.num_rows,
-        ])
+        ]
+
+        if self.num_rows is not None:
+            compare_item_list.append(self.num_rows == other.num_rows)
+
+        return all(compare_item_list)
 
     def __equals_raw(self, other):
         if not self.__equals_base(other):

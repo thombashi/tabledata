@@ -6,6 +6,7 @@
 
 from __future__ import unicode_literals
 
+import itertools
 from collections import OrderedDict, namedtuple
 from decimal import Decimal
 
@@ -70,6 +71,29 @@ class Test_TableData_constructor(object):
     def test_exception(self, table_name, header_list, record_list, expected):
         with pytest.raises(expected):
             TableData(table_name, header_list, record_list).value_matrix
+
+
+def yield_rows():
+    row_list = [[1, 2], [3, 4]]
+
+    for row in row_list:
+        yield row
+
+
+class Test_TableData_num_rows(object):
+
+    @pytest.mark.parametrize(
+        ["table_name", "header_list", "record_list", "expected"],
+        [
+            ["normal", ["a", "b"], [[1, 2], [3, 4]], 2],
+            ["empty", ["a", "b"], [], 0],
+            ["zip", ["a", "b"], zip(["a", 1], ["b", 2]), None],
+            ["empty", ["a", "b"], yield_rows(), None],
+            ["empty", ["a", "b"], itertools.product([[1, 2], [3, 4]]), None],
+            
+        ])
+    def test_normal(self, table_name, header_list, record_list, expected):
+        assert TableData(table_name, header_list, record_list).num_rows == expected
 
 
 class Test_TableData_eq(object):
