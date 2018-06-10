@@ -97,6 +97,18 @@ class TableData(object):
             return None
 
     @property
+    def num_columns(self):
+        if typepy.is_not_empty_sequence(self.header_list):
+            return len(self.header_list)
+
+        try:
+            return len(self.row_list[0])
+        except TypeError:
+            return None
+        except IndexError:
+            return 0
+
+    @property
     def value_dp_matrix(self):
         """
         :return: DataProperty for table data.
