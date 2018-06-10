@@ -90,10 +90,12 @@ class Test_TableData_num_rows(object):
             ["zip", ["a", "b"], zip(["a", 1], ["b", 2]), None],
             ["empty", ["a", "b"], yield_rows(), None],
             ["empty", ["a", "b"], itertools.product([[1, 2], [3, 4]]), None],
-            
         ])
     def test_normal(self, table_name, header_list, record_list, expected):
-        assert TableData(table_name, header_list, record_list).num_rows == expected
+        table_data = TableData(table_name, header_list, record_list)
+
+        assert table_data.num_columns == 2
+        assert table_data.num_rows == expected
 
 
 class Test_TableData_eq(object):
