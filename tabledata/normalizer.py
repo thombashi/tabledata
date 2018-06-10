@@ -38,7 +38,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
 
     def validate(self):
         self._validate_table_name(self._tabledata.table_name)
-        self.__validate_header_list()
+        self._validate_header_list()
 
     def sanitize(self):
         """Deprecated"""
@@ -126,7 +126,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         :rtype: str
         """
 
-    def __validate_header_list(self):
+    def _validate_header_list(self):
         for header in self._tabledata.header_list:
             self._validate_header(header)
 
