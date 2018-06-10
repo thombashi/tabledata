@@ -125,6 +125,10 @@ class TableData(object):
     def header_dp_list(self):
         return self.__dp_extractor.to_header_dp_list()
 
+    @property
+    def dp_extractor(self):
+        return self.__dp_extractor
+
     def __init__(self, table_name, header_list, record_list, dp_extractor=None):
         self.__table_name = table_name
         self.__value_matrix = None
