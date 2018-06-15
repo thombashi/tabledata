@@ -13,6 +13,7 @@ from decimal import Decimal
 import pytablewriter as ptw
 import pytest
 import six
+from six.moves import zip
 from tabledata import InvalidDataError, PatternMatch, TableData
 
 
