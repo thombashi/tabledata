@@ -17,6 +17,7 @@ from six.moves import zip
 from typepy import Nan
 
 from ._constant import PatternMatch
+from ._converter import to_value_matrix
 from ._logger import logger
 from .error import InvalidDataError
 
@@ -117,7 +118,7 @@ class TableData(object):
 
         if self.__value_dp_matrix is None:
             self.__value_dp_matrix = self.__dp_extractor.to_dp_matrix(
-                self.__preprocess_value_matrix(self.row_list))
+                to_value_matrix(self.header_list, self.row_list))
 
         return self.__value_dp_matrix
 
@@ -425,12 +426,6 @@ class TableData(object):
 
         return header == pattern
 
-    def __preprocess_value_matrix(self, value_matrix):
-        return [
-            _preprocess_value_list(self.header_list, value_list, row_idx)[1]
-            for row_idx, value_list in enumerate(value_matrix)
-        ]
-
     def __to_value_matrix(self, value_matrix):
         """
         Convert matrix to rows
@@ -473,24 +468,6 @@ class TableData(object):
             executor.shutdown()
 
         return [row_map[row_idx] for row_idx in sorted(row_map)]
-
-
-def _preprocess_value_list(header_list, values, row_idx):
-    if header_list:
-        try:
-            values = values._asdict()
-        except AttributeError:
-            pass
-
-        try:
-            return (row_idx, [values.get(header) for header in header_list])
-        except (TypeError, AttributeError):
-            pass
-
-    if not isinstance(values, (tuple, list)):
-        raise InvalidDataError("row must be a list or tuple: actual={}".format(values))
-
-    return (row_idx, values)
 
 
 def _to_row_helper(extractor, header_list, values, row_idx):
