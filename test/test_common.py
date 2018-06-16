@@ -24,8 +24,7 @@ class Test_convert_idx_to_alphabet(object):
                 "U", "V", "W", "X", "Y",
                 "Z", "AA", "AB", "AC", "AD",
             ]
-        ],
-        [
+        ], [
             range(0, 900, 30),
             [
                 "A", "AE", "BI", "CM", "DQ",
