@@ -253,9 +253,9 @@ class TableData(object):
 
         return True
 
-    def in_tabledata_list(self, other):
+    def in_tabledata_list(self, other, is_strict=False):
         for table_data in other:
-            if self.equals(table_data):
+            if self.equals(table_data, is_strict=is_strict):
                 return True
 
         return False
