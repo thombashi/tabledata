@@ -138,6 +138,28 @@ class Test_TableData_eq(object):
         assert (lhs != rhs) == (not expected)
 
 
+class Test_TableData_equals(object):
+
+    __LHS = TableData(
+        "tablename",
+        ["a", "b"],
+        [{"a": 1, "b": 2}, {"a": 11, "b": 12}])
+    __RHS = TableData(
+        "tablename",
+        ["a", "b"],
+        [[1, 2], [11, 12]])
+
+    @pytest.mark.parametrize(["lhs",  "rhs", "is_strict", "expected"], [
+        [__LHS, __RHS, False, True],
+        [__LHS, __RHS, True, False],
+    ])
+    def test_normal(self, lhs, rhs, is_strict, expected):
+        assert lhs.equals(rhs, is_strict=is_strict) == expected
+        assert lhs.in_tabledata_list([rhs], is_strict=is_strict) == expected
+        assert lhs.in_tabledata_list([lhs], is_strict=is_strict)
+        assert lhs.in_tabledata_list([rhs, lhs], is_strict=is_strict)
+
+
 class Test_TableData_repr(object):
 
     @pytest.mark.parametrize(
