@@ -216,7 +216,6 @@ class TableData(object):
     def __equals_base(self, other):
         compare_item_list = [
             self.table_name == other.table_name,
-            self.header_list == other.header_list,
         ]
 
         if self.num_rows is not None:
@@ -226,6 +225,9 @@ class TableData(object):
 
     def __equals_raw(self, other):
         if not self.__equals_base(other):
+            return False
+
+        if self.header_list != other.header_list:
             return False
 
         for lhs_row, rhs_row in zip(self.row_list, other.row_list):
@@ -242,6 +244,9 @@ class TableData(object):
 
     def __equals_dp(self, other):
         if not self.__equals_base(other):
+            return False
+
+        if self.header_dp_list != other.header_dp_list:
             return False
 
         for lhs_list, rhs_list in zip(self.value_dp_matrix, other.value_dp_matrix):
