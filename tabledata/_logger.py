@@ -25,13 +25,6 @@ def set_logger(is_enable):
 
     dataproperty.set_logger(is_enable)
 
-    try:
-        import simplesqlite
-
-        simplesqlite.set_logger(is_enable)
-    except ImportError:
-        pass
-
 
 def set_log_level(log_level):
     """
@@ -58,10 +51,3 @@ def set_log_level(log_level):
 
     logger.level = log_level
     dataproperty.set_log_level(log_level)
-
-    try:
-        import simplesqlite
-
-        simplesqlite.set_log_level(log_level)
-    except ImportError:
-        pass
