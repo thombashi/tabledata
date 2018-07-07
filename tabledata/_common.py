@@ -4,10 +4,12 @@
 .. codeauthor:: Tsuyoshi Hombashi <tsuyoshi.hombashi@gmail.com>
 """
 
+import six
+
 
 def convert_idx_to_alphabet(idx):
     if idx < 26:
-        return chr(65 + idx)
+        return six.unichr(65 + idx)
 
     div, mod = divmod(idx, 26)
 
