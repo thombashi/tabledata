@@ -1,7 +1,7 @@
-DataProperty>=0.31.0
+DataProperty>=0.31.1
 enum34;python_version<"3.4"
 futures;python_version<"3.2"
 logbook
-pathvalidate>=0.17.3
+pathvalidate>=0.18.0
 six
 typepy
