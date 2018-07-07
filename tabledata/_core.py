@@ -283,6 +283,10 @@ class TableData(object):
         if not invalid_row_idx_list:
             return
 
+        for invalid_row_idx in invalid_row_idx_list:
+            logger.debug("invalid row (line={}): {}".format(
+                invalid_row_idx, self.row_list[invalid_row_idx]))
+
         raise ValueError(
             "header length and value length are mismatch:\n" +
             "  header({}): {}\n".format(len(self.header_list), self.header_list) +
