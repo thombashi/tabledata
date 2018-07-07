@@ -288,8 +288,8 @@ class TableData(object):
                 invalid_row_idx, self.row_list[invalid_row_idx]))
 
         raise ValueError(
-            "header length and value length are mismatch:\n" +
-            "  header({}): {}\n".format(len(self.header_list), self.header_list) +
+            "table header length and row length are mismatch:\n" +
+            "  header(len={}): {}\n".format(len(self.header_list), self.header_list) +
             "  # of miss match rows: {} ouf of {}\n".format(
                 len(invalid_row_idx_list), self.num_rows))
 
