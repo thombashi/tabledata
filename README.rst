@@ -3,7 +3,10 @@ tabledata
 .. image:: https://badge.fury.io/py/tabledata.svg
     :target: https://badge.fury.io/py/tabledata
 
-.. image:: https://img.shields.io/travis/thombashi/tabledata/master.svg?label=Linux
+.. image:: https://img.shields.io/pypi/pyversions/tabledata.svg
+   :target: https://pypi.python.org/pypi/tabledata
+
+.. image:: https://img.shields.io/travis/thombashi/tabledata/master.svg?label=Linux/macOS
     :target: https://travis-ci.org/thombashi/tabledata
     :alt: Linux CI test status
 
