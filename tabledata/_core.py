@@ -73,8 +73,7 @@ class TableData(object):
             return self.__value_matrix
 
         self.__value_matrix = [
-            [value_dp.data for value_dp in value_dp_list]
-            for value_dp_list in self.value_dp_matrix
+            [value_dp.data for value_dp in value_dp_list] for value_dp_list in self.value_dp_matrix
         ]
 
         return self.__value_matrix
@@ -118,7 +117,8 @@ class TableData(object):
 
         if self.__value_dp_matrix is None:
             self.__value_dp_matrix = self.__dp_extractor.to_dp_matrix(
-                to_value_matrix(self.header_list, self.row_list))
+                to_value_matrix(self.header_list, self.row_list)
+            )
 
         return self.__value_dp_matrix
 
@@ -157,9 +157,7 @@ class TableData(object):
             self.__dp_extractor.header_list = header_list
 
     def __repr__(self):
-        element_list = [
-            "table_name={}".format(self.table_name),
-        ]
+        element_list = ["table_name={}".format(self.table_name)]
 
         try:
             element_list.append("header_list=[{}]".format(", ".join(self.header_list)))
@@ -214,9 +212,7 @@ class TableData(object):
         return self.__equals_dp(other)
 
     def __equals_base(self, other):
-        compare_item_list = [
-            self.table_name == other.table_name,
-        ]
+        compare_item_list = [self.table_name == other.table_name]
 
         if self.num_rows is not None:
             compare_item_list.append(self.num_rows == other.num_rows)
@@ -234,10 +230,13 @@ class TableData(object):
             if len(lhs_row) != len(rhs_row):
                 return False
 
-            if not all([
-                lhs == rhs for lhs, rhs in zip(lhs_row, rhs_row)
-                if not Nan(lhs).is_type() and not Nan(rhs).is_type()
-            ]):
+            if not all(
+                [
+                    lhs == rhs
+                    for lhs, rhs in zip(lhs_row, rhs_row)
+                    if not Nan(lhs).is_type() and not Nan(rhs).is_type()
+                ]
+            ):
                 return False
 
         return True
@@ -284,14 +283,17 @@ class TableData(object):
             return
 
         for invalid_row_idx in invalid_row_idx_list:
-            logger.debug("invalid row (line={}): {}".format(
-                invalid_row_idx, self.row_list[invalid_row_idx]))
+            logger.debug(
+                "invalid row (line={}): {}".format(invalid_row_idx, self.row_list[invalid_row_idx])
+            )
 
         raise ValueError(
-            "table header length and row length are mismatch:\n" +
-            "  header(len={}): {}\n".format(len(self.header_list), self.header_list) +
-            "  # of miss match rows: {} ouf of {}\n".format(
-                len(invalid_row_idx_list), self.num_rows))
+            "table header length and row length are mismatch:\n"
+            + "  header(len={}): {}\n".format(len(self.header_list), self.header_list)
+            + "  # of miss match rows: {} ouf of {}\n".format(
+                len(invalid_row_idx_list), self.num_rows
+            )
+        )
 
     def as_dict(self):
         """
@@ -372,16 +374,23 @@ class TableData(object):
         return dataframe
 
     def filter_column(
-            self, pattern_list=None, is_invert_match=False,
-            is_re_match=False, pattern_match=PatternMatch.OR):
+        self,
+        pattern_list=None,
+        is_invert_match=False,
+        is_re_match=False,
+        pattern_match=PatternMatch.OR,
+    ):
         logger.debug(
             "filter_column: pattern_list={}, is_invert_match={}, "
             "is_re_match={}, pattern_match={}".format(
-                pattern_list, is_invert_match, is_re_match, pattern_match))
+                pattern_list, is_invert_match, is_re_match, pattern_match
+            )
+        )
 
         if not pattern_list:
             return TableData(
-                table_name=self.table_name, header_list=self.header_list, row_list=self.row_list)
+                table_name=self.table_name, header_list=self.header_list, row_list=self.row_list
+            )
 
         match_header_list = []
         match_column_matrix = []
@@ -398,21 +407,25 @@ class TableData(object):
             for pattern in pattern_list:
                 is_match = self.__is_match(header, pattern, is_re_match)
 
-                is_match_list.append(any([
-                    is_match and not is_invert_match,
-                    not is_match and is_invert_match,
-                ]))
+                is_match_list.append(
+                    any([is_match and not is_invert_match, not is_match and is_invert_match])
+                )
 
             if match_method(is_match_list):
                 match_header_list.append(header)
                 match_column_matrix.append(column)
 
-        logger.debug("filter_column: table={}, match_header_list={}".format(
-            self.table_name, match_header_list))
+        logger.debug(
+            "filter_column: table={}, match_header_list={}".format(
+                self.table_name, match_header_list
+            )
+        )
 
         return TableData(
-            table_name=self.table_name, header_list=match_header_list,
-            row_list=list(zip(*match_column_matrix)))
+            table_name=self.table_name,
+            header_list=match_header_list,
+            row_list=list(zip(*match_column_matrix)),
+        )
 
     @staticmethod
     def from_dataframe(dataframe, table_name=""):
@@ -426,7 +439,8 @@ class TableData(object):
         return TableData(
             table_name=table_name,
             header_list=list(dataframe.columns.values),
-            row_list=dataframe.values.tolist())
+            row_list=dataframe.values.tolist(),
+        )
 
     @staticmethod
     def __is_match(header, pattern, is_re_match):
@@ -464,8 +478,8 @@ class TableData(object):
             with futures.ProcessPoolExecutor(self.__dp_extractor.max_workers) as executor:
                 future_list = [
                     executor.submit(
-                        _to_row_helper, self.__dp_extractor,
-                        self.header_list, value_list, row_idx)
+                        _to_row_helper, self.__dp_extractor, self.header_list, value_list, row_idx
+                    )
                     for row_idx, value_list in enumerate(value_matrix)
                 ]
 
@@ -499,9 +513,9 @@ def _to_row_helper(extractor, header_list, values, row_idx):
                 row_idx,
                 [
                     dp.data
-                    for dp in extractor.to_dp_list([
-                        values.get(header) for header in header_list])
-                ])
+                    for dp in extractor.to_dp_list([values.get(header) for header in header_list])
+                ],
+            )
         except AttributeError:
             pass
 

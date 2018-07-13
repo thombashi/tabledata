@@ -32,7 +32,6 @@ class TableDataNormalizerInterface(object):
 
 
 class AbstractTableDataNormalizer(TableDataNormalizerInterface):
-
     def __init__(self, tabledata):
         self._tabledata = tabledata
 
@@ -57,7 +56,8 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
             self.__normalize_table_name(),
             normalize_header_list,
             self._normalize_row_list(normalize_header_list),
-            dp_extractor=self._tabledata.dp_extractor)
+            dp_extractor=self._tabledata.dp_extractor,
+        )
 
     @abc.abstractmethod
     def _preprocess_table_name(self):
@@ -171,7 +171,6 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
 
 
 class TableDataNormalizer(AbstractTableDataNormalizer):
-
     def _preprocess_table_name(self):
         return self._tabledata.table_name
 
