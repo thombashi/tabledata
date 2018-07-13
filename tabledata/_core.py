@@ -19,7 +19,7 @@ from typepy import Nan
 from ._constant import PatternMatch
 from ._converter import to_value_matrix
 from ._logger import logger
-from .error import InvalidDataError
+from .error import DataError
 
 
 class TableData(object):
@@ -522,4 +522,4 @@ def _to_row_helper(extractor, header_list, values, row_idx):
     try:
         return (row_idx, [dp.data for dp in extractor.to_dp_list(values)])
     except TypeError:
-        raise InvalidDataError("row must be a list or tuple: actual={}".format(values))
+        raise DataError("row must be a list or tuple: actual={}".format(values))

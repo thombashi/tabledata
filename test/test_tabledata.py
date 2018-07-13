@@ -14,7 +14,7 @@ import pytablewriter as ptw
 import pytest
 import six
 from six.moves import zip
-from tabledata import InvalidDataError, PatternMatch, TableData
+from tabledata import DataError, PatternMatch, TableData
 
 
 attr_list_2 = ["attr_a", "attr_b"]
@@ -64,7 +64,7 @@ class Test_TableData_constructor(object):
 
     @pytest.mark.parametrize(
         ["table_name", "header_list", "record_list", "expected"],
-        [["invalid_data", ["a", "b"], [1, 2], InvalidDataError]],
+        [["invalid_data", ["a", "b"], [1, 2], DataError]],
     )
     def test_exception(self, table_name, header_list, record_list, expected):
         with pytest.raises(expected):

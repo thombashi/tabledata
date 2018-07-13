@@ -6,7 +6,7 @@
 
 from __future__ import absolute_import, unicode_literals
 
-from .error import InvalidDataError
+from .error import DataError
 
 
 def to_value_matrix(header_list, value_matrix):
@@ -32,6 +32,6 @@ def _to_row(header_list, values, row_idx):
             pass
 
     if not isinstance(values, (tuple, list)):
-        raise InvalidDataError("row must be a list or tuple: actual={}".format(values))
+        raise DataError("row must be a list or tuple: actual={}".format(values))
 
     return (row_idx, values)
