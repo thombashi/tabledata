@@ -54,5 +54,5 @@ Test dependencies
 
 Documentation
 ===============
-http://tabledata.rtfd.io/
+https://tabledata.rtfd.io/
 
