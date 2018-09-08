@@ -362,7 +362,7 @@ class TableData(object):
                 1  3.3  4.4
 
         :Dependency Packages:
-            - `pandas <http://pandas.pydata.org/>`__
+            - `pandas <https://pandas.pydata.org/>`__
         """
 
         import pandas
