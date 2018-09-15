@@ -14,7 +14,7 @@ Mandatory Python packages
 - `DataPropery <https://github.com/thombashi/DataProperty>`__ (Used to extract data types)
 - `logbook <https://logbook.readthedocs.io/en/stable/>`__
 - `pathvalidate <https://github.com/thombashi/pathvalidate>`__
-- `six <https://pypi.python.org/pypi/six/>`__
+- `six <https://pypi.org/project/six/>`__
 - `typepy <https://github.com/thombashi/typepy>`__
 
 Optional Python packages
@@ -26,5 +26,5 @@ Test dependencies
 -----------------
 - `pytablewriter <https://github.com/thombashi/pytablewriter>`__
 - `pytest <https://docs.pytest.org/en/latest/>`__
-- `pytest-runner <https://pypi.python.org/pypi/pytest-runner>`__
+- `pytest-runner <https://github.com/pytest-dev/pytest-runner>`__
 - `tox <https://testrun.org/tox/latest/>`__
