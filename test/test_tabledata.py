@@ -10,9 +10,9 @@ import itertools
 from collections import OrderedDict, namedtuple
 from decimal import Decimal
 
-import pytablewriter as ptw
 import pytest
 import six
+from pytablewriter import dump_tabledata
 from six.moves import zip
 from tabledata import DataError, PatternMatch, TableData
 
@@ -39,8 +39,8 @@ class Test_TableData_constructor(object):
     def test_normal(self, table_name, header_list, record_list, expected):
         tabledata = TableData(table_name, header_list, record_list)
 
-        print("expected: {}".format(ptw.dump_tabledata(expected)))
-        print("actual: {}".format(ptw.dump_tabledata(tabledata)))
+        print("expected: {}".format(dump_tabledata(expected)))
+        print("actual: {}".format(dump_tabledata(tabledata)))
 
         assert tabledata == expected
 
@@ -387,8 +387,8 @@ class Test_TableData_filter_column(object):
         tabledata = TableData(table_name, header_list, record_list)
         actual = tabledata.filter_column(pattern_list=pattern, is_invert_match=is_invert_match)
 
-        print("expected: {}".format(ptw.dump_tabledata(expected)))
-        print("actual: {}".format(ptw.dump_tabledata(actual)))
+        print("expected: {}".format(dump_tabledata(expected)))
+        print("actual: {}".format(dump_tabledata(actual)))
 
         assert actual == expected
 
@@ -441,8 +441,8 @@ class Test_TableData_filter_column(object):
             pattern_list=pattern, is_invert_match=is_invert_match, is_re_match=True
         )
 
-        print("expected: {}".format(ptw.dump_tabledata(expected)))
-        print("actual: {}".format(ptw.dump_tabledata(actual)))
+        print("expected: {}".format(dump_tabledata(expected)))
+        print("actual: {}".format(dump_tabledata(actual)))
 
         assert actual == expected
 
@@ -478,8 +478,8 @@ class Test_TableData_filter_column(object):
             pattern_match=PatternMatch.AND,
         )
 
-        print("expected: {}".format(ptw.dump_tabledata(expected)))
-        print("actual: {}".format(ptw.dump_tabledata(actual)))
+        print("expected: {}".format(dump_tabledata(expected)))
+        print("actual: {}".format(dump_tabledata(actual)))
 
         assert actual == expected
 
