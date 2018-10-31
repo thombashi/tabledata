@@ -34,7 +34,7 @@ Python 2.7+ or 3.4+
 
 Mandatory Python packages
 ----------------------------------
-- `DataPropery <https://github.com/thombashi/DataProperty>`__ (Used to extract data types)
+- `DataProperty <https://github.com/thombashi/DataProperty>`__ (Used to extract data types)
 - `logbook <https://logbook.readthedocs.io/en/stable/>`__
 - `pathvalidate <https://github.com/thombashi/pathvalidate>`__
 - `six <https://pypi.org/project/six/>`__
