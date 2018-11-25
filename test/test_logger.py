@@ -4,7 +4,7 @@ from __future__ import print_function, unicode_literals
 
 import logbook
 import pytest
-from dataproperty import set_log_level, set_logger
+from tabledata import set_log_level, set_logger
 
 
 class Test_set_logger(object):
