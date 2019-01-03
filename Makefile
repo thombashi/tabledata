@@ -1,3 +1,4 @@
+AUTHOR := thombashi
 PACKAGE := tabledata
 BUILD_DIR := build
 BUILD_WORK_DIR := _work
@@ -10,9 +11,10 @@ build:
 	@rm -rf $(BUILD_WORK_DIR)/
 	@mkdir -p $(BUILD_WORK_DIR)/
 	@cd $(BUILD_WORK_DIR); \
-		git clone https://github.com/thombashi/$(PACKAGE).git; \
+		git clone https://github.com/$(AUTHOR)/$(PACKAGE).git; \
 		cd $(PACKAGE); \
 		python setup.py build
+	ls $(BUILD_WORK_DIR)/$(PACKAGE)/dist/
 
 .PHONY: clean
 clean:
