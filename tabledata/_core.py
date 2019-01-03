@@ -315,7 +315,7 @@ class TableData(object):
             .. code:: json
 
                 {'sample': [OrderedDict([('a', 1), ('b', 2)]),
-                  OrderedDict([('a', 3.3), ('b', 4.4)])]}
+                  OrderedDict([('a', Decimal('3.3')), ('b', Decimal('4.4'))])]}
         """
 
         from typepy import Typecode
@@ -352,7 +352,7 @@ class TableData(object):
                     table_name="sample",
                     header_list=["a", "b"],
                     row_list=[[1, 2], [3.3, 4.4]]
-                ).as_dict()
+                ).as_dataframe()
 
         :Output:
             .. code-block:: none
