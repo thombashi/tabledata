@@ -19,10 +19,10 @@ build:
 .PHONY: clean
 clean:
 	@rm -rf $(PACKAGE)-*.*.*/ \
-		$(BUILD_DIR)/ \
-		$(BUILD_WORK_DIR)/ \
+		$(BUILD_DIR) \
+		$(BUILD_WORK_DIR) \
 		dist/ \
-		$(DOCS_BUILD_DIR)/ \
+		$(DOCS_BUILD_DIR) \
 		.eggs/ \
 		.pytest_cache/ \
 		.tox/ \
@@ -45,4 +45,4 @@ readme:
 .PHONY: release
 release:
 	@cd $(BUILD_WORK_DIR)/$(PACKAGE); python setup.py release
-	@rm -rf $(BUILD_WORK_DIR)/
+	@rm -rf $(BUILD_WORK_DIR)
