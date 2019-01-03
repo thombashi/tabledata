@@ -7,7 +7,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import re
-from collections import OrderedDict
+from collections import OrderedDict, namedtuple
 from decimal import Decimal
 
 import dataproperty as dp
@@ -337,6 +337,41 @@ class TableData(object):
             dict_body.append(OrderedDict(row))
 
         return {self.table_name: dict_body}
+
+    def as_tuple(self):
+        """
+        :return: Table data as |namedtuple| instances.
+        :rtype: namedtuple
+
+        :Sample Code:
+            .. code:: python
+
+                from tabledata import TableData
+
+                records = TableData(
+                    table_name="sample",
+                    header_list=["a", "b"],
+                    row_list=[[1, 2], [3.3, 4.4]]
+                ).as_tuple()
+                for record in records:
+                    print(record)
+
+        :Output:
+            .. code-block:: none
+
+                Row(a=1, b=2)
+                Row(a=Decimal('3.3'), b=Decimal('4.4'))
+        """
+
+        Row = namedtuple("Row", self.header_list)
+
+        for value_dp_list in self.value_dp_matrix:
+            if typepy.is_empty_sequence(value_dp_list):
+                continue
+
+            row = Row(*[value_dp.data for value_dp in value_dp_list])
+
+            yield row
 
     def as_dataframe(self):
         """

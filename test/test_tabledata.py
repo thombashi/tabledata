@@ -195,6 +195,12 @@ class Test_TableData_as_dict(object):
                 {"normal": [OrderedDict([("a", 1), ("b", 2)]), OrderedDict([("a", 3), ("b", 4)])]},
             ],
             [
+                None,
+                ["a", "b"],
+                [[1, 2], [3, 4]],
+                {None: [OrderedDict([("a", 1), ("b", 2)]), OrderedDict([("a", 3), ("b", 4)])]},
+            ],
+            [
                 "number",
                 ["a", "b"],
                 [[1, 2.0], [3.3, Decimal("4.4")]],
@@ -216,6 +222,31 @@ class Test_TableData_as_dict(object):
     )
     def test_normal(self, table_name, header_list, record_list, expected):
         assert TableData(table_name, header_list, record_list).as_dict() == expected
+
+
+class Test_TableData_as_tuple(object):
+    @pytest.mark.parametrize(
+        ["table_name", "header_list", "record_list", "expected"],
+        [
+            ["normal", ["a", "b"], [[1, 2], [3, 4]], [(1, 2), (3, 4)]],
+            [None, ["a", "b"], [[1, 2], [3, 4]], [(1, 2), (3, 4)]],
+            [
+                "number",
+                ["a", "b"],
+                [[1, 2.0], [3.3, Decimal("4.4")]],
+                [(1, 2), (Decimal("3.3"), Decimal("4.4"))],
+            ],
+            [
+                "include_none",
+                ["a", "b"],
+                [[None, 2], [None, None], [3, None], [None, None]],
+                [(None, 2), (None, None), (3, None), (None, None)],
+            ],
+            ["empty_records", ["a", "b"], [], []],
+        ],
+    )
+    def test_normal(self, table_name, header_list, record_list, expected):
+        assert list(TableData(table_name, header_list, record_list).as_tuple()) == expected
 
 
 class Test_TableData_value_dp_matrix(object):
