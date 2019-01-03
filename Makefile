@@ -1,18 +1,31 @@
 PACKAGE := tabledata
 BUILD_DIR := build
+BUILD_WORK_DIR := _work
 DOCS_DIR := docs
 DOCS_BUILD_DIR := $(DOCS_DIR)/_build
 
 
 .PHONY: build
 build:
-	@make clean
-	@python setup.py build
-	@rm -rf $(BUILD_DIR)/
+	@rm -rf $(BUILD_WORK_DIR)/
+	@mkdir -p $(BUILD_WORK_DIR)/
+	@cd $(BUILD_WORK_DIR); \
+		git clone https://github.com/thombashi/$(PACKAGE).git; \
+		cd $(PACKAGE); \
+		python setup.py build
 
 .PHONY: clean
 clean:
-	@rm -rf $(PACKAGE)-*.*.*/ $(BUILD_DIR)/ dist/ $(DOCS_BUILD_DIR)/ .eggs/ .pytest_cache/ .tox/ **/*/__pycache__/ *.egg-info/
+	@rm -rf $(PACKAGE)-*.*.*/ \
+		$(BUILD_DIR)/ \
+		$(BUILD_WORK_DIR)/ \
+		dist/ \
+		$(DOCS_BUILD_DIR)/ \
+		.eggs/ \
+		.pytest_cache/ \
+		.tox/ \
+		**/*/__pycache__/ \
+		*.egg-info/
 
 .PHONY: docs
 docs:
@@ -29,5 +42,5 @@ readme:
 
 .PHONY: release
 release:
-	@python setup.py release
-	@rm -rf dist/
+	@cd $(BUILD_WORK_DIR)/$(PACKAGE); python setup.py release
+	@rm -rf $(BUILD_WORK_DIR)/
