@@ -2,17 +2,19 @@ tabledata
 ===========
 .. image:: https://badge.fury.io/py/tabledata.svg
     :target: https://badge.fury.io/py/tabledata
+    :alt: PyPI package version
 
 .. image:: https://img.shields.io/pypi/pyversions/tabledata.svg
-   :target: https://pypi.org/project/tabledata
+    :target: https://pypi.org/project/tabledata
+    :alt: Supported Python versions
 
-.. image:: https://img.shields.io/travis/thombashi/tabledata/master.svg?label=Linux/macOS
+.. image:: https://img.shields.io/travis/thombashi/tabledata/master.svg?label=Linux/macOS-CI
     :target: https://travis-ci.org/thombashi/tabledata
-    :alt: Linux CI test status
+    :alt: Linux/macOS CI status
 
-.. image:: https://img.shields.io/appveyor/ci/thombashi/tabledata/master.svg?label=Windows
+.. image:: https://img.shields.io/appveyor/ci/thombashi/tabledata/master.svg?label=Windows-CI
     :target: https://ci.appveyor.com/project/thombashi/tabledata/branch/master
-    :alt: Windows CI test status
+    :alt: Windows CI status
 
 .. image:: https://coveralls.io/repos/github/thombashi/tabledata/badge.svg?branch=master
     :target: https://coveralls.io/github/thombashi/tabledata?branch=master
