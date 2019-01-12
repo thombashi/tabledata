@@ -127,6 +127,10 @@ class TableData(object):
         return self.__dp_extractor.to_header_dp_list()
 
     @property
+    def column_dp_list(self):
+        return self.__dp_extractor.to_column_dp_list(self.value_dp_matrix)
+
+    @property
     def dp_extractor(self):
         return self.__dp_extractor
 
