@@ -9,12 +9,24 @@ from __future__ import absolute_import, unicode_literals
 import dataproperty
 import logbook
 
+from ._null_logger import NullLogger
 
-logger = logbook.Logger("tabledata")
-logger.disable()
+
+try:
+    import logbook
+
+    logger = logbook.Logger("tabledata")
+    logger.disable()
+    LOGBOOK_INSTALLED = True
+except ImportError:
+    logger = NullLogger()
+    LOGBOOK_INSTALLED = False
 
 
 def set_logger(is_enable):
+    if not LOGBOOK_INSTALLED:
+        return
+
     if is_enable != logger.disabled:
         # logger setting have not changed
         return
@@ -38,6 +50,9 @@ def set_log_level(log_level):
         Disabled logging if ``log_level`` is ``logbook.NOTSET``.
     :raises LookupError: If ``log_level`` is an invalid value.
     """
+
+    if not LOGBOOK_INSTALLED:
+        return
 
     # validate log level
     logbook.get_level_name(log_level)

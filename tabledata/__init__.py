@@ -11,7 +11,7 @@ from ._common import convert_idx_to_alphabet
 from ._constant import PatternMatch
 from ._converter import to_value_matrix
 from ._core import TableData
-from ._logger import logger, set_log_level, set_logger
+from .logger import logger, set_log_level, set_logger
 from .error import (
     DataError,
     EmptyDataError,
