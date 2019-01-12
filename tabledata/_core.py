@@ -18,8 +18,8 @@ from typepy import Nan
 
 from ._constant import PatternMatch
 from ._converter import to_value_matrix
+from ._logger import logger
 from .error import DataError
-from .logger import logger
 
 
 class TableData(object):
