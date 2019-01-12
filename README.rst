@@ -1,5 +1,11 @@
-tabledata
-===========
+.. contents:: **tabledata**
+   :backlinks: top
+   :depth: 2
+
+Summary
+---------
+`tabledata <https://github.com/thombashi/tabledata>`__ is a Python library to represent tabular data for pytablewriter/pytablereader/SimpleSQLite.
+
 .. image:: https://badge.fury.io/py/tabledata.svg
     :target: https://badge.fury.io/py/tabledata
     :alt: PyPI package version
@@ -20,10 +26,6 @@ tabledata
     :target: https://coveralls.io/github/thombashi/tabledata?branch=master
     :alt: Test coverage
 
-Summary
----------
-A Python library to represent tabular data for pytablewriter/pytablereader/SimpleSQLite.
-
 Installation
 ============
 ::
@@ -38,13 +40,13 @@ Python 2.7+ or 3.4+
 Mandatory Python packages
 ----------------------------------
 - `DataProperty <https://github.com/thombashi/DataProperty>`__ (Used to extract data types)
-- `logbook <https://logbook.readthedocs.io/en/stable/>`__
-- `pathvalidate <https://github.com/thombashi/pathvalidate>`__
 - `six <https://pypi.org/project/six/>`__
 - `typepy <https://github.com/thombashi/typepy>`__
 
 Optional Python packages
 ------------------------------------------------
+- `logbook <https://logbook.readthedocs.io/en/stable/>`__
+    - Logging using logbook if the package installed
 - `pandas <https://pandas.pydata.org/>`__
     - required to get table data as a pandas data frame
 
