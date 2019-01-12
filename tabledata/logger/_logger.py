@@ -7,7 +7,6 @@
 from __future__ import absolute_import, unicode_literals
 
 import dataproperty
-import logbook
 
 from ._null_logger import NullLogger
 
