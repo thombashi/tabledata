@@ -134,7 +134,7 @@ class TableData(object):
     def dp_extractor(self):
         return self.__dp_extractor
 
-    def __init__(self, table_name, header_list, row_list, dp_extractor=None):
+    def __init__(self, table_name, header_list, row_list, dp_extractor=None, type_hint_list=None):
         self.__table_name = table_name
         self.__value_matrix = None
         self.__value_dp_matrix = None
@@ -148,6 +148,9 @@ class TableData(object):
             self.__dp_extractor = dp_extractor
         else:
             self.__dp_extractor = dp.DataPropertyExtractor()
+
+        if type_hint_list:
+            self.__dp_extractor.column_type_hint_list = type_hint_list
 
         self.__dp_extractor.strip_str_header = '"'
 

@@ -15,6 +15,7 @@ import six
 from pytablewriter import dump_tabledata
 from six.moves import zip
 from tabledata import DataError, PatternMatch, TableData
+from typepy import Integer, String
 
 
 attr_list_2 = ["attr_a", "attr_b"]
@@ -61,6 +62,23 @@ class Test_TableData_constructor(object):
         tabledata = TableData(table_name, header_list, record_list)
 
         assert tabledata == expected
+
+    def test_normal_type_hints(self,):
+        type_hint_list = [Integer, String]
+        tabledata = TableData(
+            "type hints", ["a", "b"], [[1, 2], [1, 2]], type_hint_list=type_hint_list
+        )
+
+        for col_dp in tabledata.column_dp_list:
+            print(col_dp)
+
+        print("actual: {}".format(dump_tabledata(tabledata)))
+
+        for row_dp in tabledata.value_dp_matrix:
+            for dp, type_hint in zip(row_dp, type_hint_list):
+                print(dp)
+
+            assert dp.type_class == type_hint
 
     @pytest.mark.parametrize(
         ["table_name", "header_list", "record_list", "expected"],
