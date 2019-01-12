@@ -12,13 +12,13 @@ Python 2.7+ or 3.4+
 Mandatory Python packages
 ----------------------------------
 - `DataProperty <https://github.com/thombashi/DataProperty>`__ (Used to extract data types)
-- `logbook <https://logbook.readthedocs.io/en/stable/>`__
-- `pathvalidate <https://github.com/thombashi/pathvalidate>`__
 - `six <https://pypi.org/project/six/>`__
 - `typepy <https://github.com/thombashi/typepy>`__
 
 Optional Python packages
 ------------------------------------------------
+- `logbook <https://logbook.readthedocs.io/en/stable/>`__
+    - Logging using logbook if the package installed
 - `pandas <https://pandas.pydata.org/>`__
     - required to get table data as a pandas data frame
 
