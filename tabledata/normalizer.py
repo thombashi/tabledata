@@ -10,7 +10,6 @@ import abc
 
 import six
 import typepy
-from pathvalidate import ErrorReason, ValidationError
 
 from ._core import TableData
 from .error import InvalidHeaderNameError, InvalidTableNameError
@@ -145,11 +144,6 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         except InvalidTableNameError:
             new_table_name = self._normalize_table_name(preprocessed_table_name)
             self._validate_table_name(new_table_name)
-        except ValidationError as e:
-            if e.reason is ErrorReason.NULL_NAME:
-                raise InvalidHeaderNameError(e)
-            else:
-                raise
 
         return new_table_name
 
@@ -165,11 +159,6 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
             except InvalidHeaderNameError:
                 new_header = self._normalize_header(header)
                 self._validate_header(new_header)
-            except ValidationError as e:
-                if e.reason is ErrorReason.NULL_NAME:
-                    raise InvalidHeaderNameError(e)
-                else:
-                    raise
 
             new_header_list.append(new_header)
 
