@@ -167,9 +167,9 @@ class TableData(object):
         element_list = ["table_name={}".format(self.table_name)]
 
         try:
-            element_list.append("header_list=[{}]".format(", ".join(self.header_list)))
+            element_list.append("headers=[{}]".format(", ".join(self.header_list)))
         except TypeError:
-            element_list.append("header_list=None")
+            element_list.append("headers=None")
 
         element_list.append("rows={}".format(self.num_rows))
 

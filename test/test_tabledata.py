@@ -179,21 +179,11 @@ class Test_TableData_repr(object):
     @pytest.mark.parametrize(
         ["table_name", "headers", "record_list", "expected"],
         [
-            [
-                "normal",
-                ["a", "b"],
-                [[1, 2], [3, 4]],
-                "table_name=normal, header_list=[a, b], rows=2",
-            ],
-            [
-                "null_header",
-                None,
-                [[1, 2], [3, 4]],
-                "table_name=null_header, header_list=[], rows=2",
-            ],
-            ["null_header", [], [[1, 2], [3, 4]], "table_name=null_header, header_list=[], rows=2"],
-            ["null_body", ["a", "b"], [], "table_name=null_body, header_list=[a, b], rows=0"],
-            ["マルチバイト", ["いろは", "漢字"], [], "table_name=マルチバイト, header_list=[いろは, 漢字], rows=0"],
+            ["normal", ["a", "b"], [[1, 2], [3, 4]], "table_name=normal, headers=[a, b], rows=2"],
+            ["null_header", None, [[1, 2], [3, 4]], "table_name=null_header, headers=[], rows=2"],
+            ["null_header", [], [[1, 2], [3, 4]], "table_name=null_header, headers=[], rows=2"],
+            ["null_body", ["a", "b"], [], "table_name=null_body, headers=[a, b], rows=0"],
+            ["マルチバイト", ["いろは", "漢字"], [], "table_name=マルチバイト, headers=[いろは, 漢字], rows=0"],
         ],
     )
     def test_normal(self, table_name, headers, record_list, expected):
