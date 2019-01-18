@@ -9,25 +9,24 @@ from __future__ import absolute_import, unicode_literals
 from .error import DataError
 
 
-def to_value_matrix(header_list, value_matrix):
+def to_value_matrix(headers, value_matrix):
     if value_matrix is None:
         return []
 
     return [
-        _to_row(header_list, value_list, row_idx)[1]
-        for row_idx, value_list in enumerate(value_matrix)
+        _to_row(headers, value_list, row_idx)[1] for row_idx, value_list in enumerate(value_matrix)
     ]
 
 
-def _to_row(header_list, values, row_idx):
-    if header_list:
+def _to_row(headers, values, row_idx):
+    if headers:
         try:
             values = values._asdict()
         except AttributeError:
             pass
 
         try:
-            return (row_idx, [values.get(header) for header in header_list])
+            return (row_idx, [values.get(header) for header in headers])
         except (TypeError, AttributeError):
             pass
 

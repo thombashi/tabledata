@@ -535,7 +535,7 @@ class TableData(object):
         return [row_map[row_idx] for row_idx in sorted(row_map)]
 
 
-def _to_row_helper(extractor, header_list, values, row_idx):
+def _to_row_helper(extractor, headers, values, row_idx):
     """
     Convert values to a row.
 
@@ -555,7 +555,7 @@ def _to_row_helper(extractor, header_list, values, row_idx):
                 row_idx,
                 [
                     dp.data
-                    for dp in extractor.to_dp_list([values.get(header) for header in header_list])
+                    for dp in extractor.to_dp_list([values.get(header) for header in headers])
                 ],
             )
         except AttributeError:

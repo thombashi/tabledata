@@ -9,7 +9,7 @@ from tabledata.normalizer import TableDataNormalizer
 
 class Test_SQLiteTableDataSanitizer(object):
     @pytest.mark.parametrize(
-        ["table_name", "header_list", "record_list", "expected"],
+        ["table_name", "headers", "record_list", "expected"],
         [
             [
                 "normal",
@@ -45,9 +45,7 @@ class Test_SQLiteTableDataSanitizer(object):
             ],
         ],
     )
-    def test_normal(self, table_name, header_list, record_list, expected):
-        new_tabledata = TableDataNormalizer(
-            TableData(table_name, header_list, record_list)
-        ).normalize()
+    def test_normal(self, table_name, headers, record_list, expected):
+        new_tabledata = TableDataNormalizer(TableData(table_name, headers, record_list)).normalize()
 
         assert new_tabledata.equals(expected)
