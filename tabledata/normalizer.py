@@ -49,12 +49,12 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         :rtype: tabledata.TableData
         """
 
-        normalize_header_list = self._normalize_headers()
+        normalize_headers = self._normalize_headers()
 
         return TableData(
             self.__normalize_table_name(),
-            normalize_header_list,
-            self._normalize_row_list(normalize_header_list),
+            normalize_headers,
+            self._normalize_row_list(normalize_headers),
             dp_extractor=self._tabledata.dp_extractor,
         )
 
