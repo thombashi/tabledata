@@ -132,7 +132,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         return self._tabledata.row_list
 
     def _validate_headers(self):
-        for header in self._tabledata.header_list:
+        for header in self._tabledata.headers:
             self._validate_header(header)
 
     def __normalize_table_name(self):
@@ -150,7 +150,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
     def _normalize_headers(self):
         new_header_list = []
 
-        for col_idx, header in enumerate(self._tabledata.header_list):
+        for col_idx, header in enumerate(self._tabledata.headers):
             header = self._preprocess_header(col_idx, header)
 
             try:

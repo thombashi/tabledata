@@ -27,7 +27,7 @@ class TableData(object):
     Class to represent a table data structure.
 
     :param str table_name: Name of the table.
-    :param list header_list: Table header names.
+    :param list headers: Table header names.
     :param list record_list: Table data records.
     """
 
@@ -45,13 +45,20 @@ class TableData(object):
         self.__table_name = value
 
     @property
-    def header_list(self):
-        """
-        :return: Table header names.
-        :rtype: list
+    def headers(self):
+        """Get table header names.
+
+        Returns:
+            |list| or |tuple|: Table header names.
         """
 
-        return self.__dp_extractor.header_list
+        return self.__dp_extractor.headers
+
+    @property
+    def header_list(self):
+        """alias to :py:attr:`.headers`"""
+
+        return self.headers
 
     @property
     def row_list(self):
@@ -98,8 +105,8 @@ class TableData(object):
 
     @property
     def num_columns(self):
-        if typepy.is_not_empty_sequence(self.header_list):
-            return len(self.header_list)
+        if typepy.is_not_empty_sequence(self.headers):
+            return len(self.headers)
 
         try:
             return len(self.row_list[0])
@@ -117,7 +124,7 @@ class TableData(object):
 
         if self.__value_dp_matrix is None:
             self.__value_dp_matrix = self.__dp_extractor.to_dp_matrix(
-                to_value_matrix(self.header_list, self.row_list)
+                to_value_matrix(self.headers, self.row_list)
             )
 
         return self.__value_dp_matrix
@@ -167,7 +174,7 @@ class TableData(object):
         element_list = ["table_name={}".format(self.table_name)]
 
         try:
-            element_list.append("headers=[{}]".format(", ".join(self.header_list)))
+            element_list.append("headers=[{}]".format(", ".join(self.headers)))
         except TypeError:
             element_list.append("headers=None")
 
@@ -183,11 +190,11 @@ class TableData(object):
 
     def is_empty_header(self):
         """
-        :return: |True| if the data :py:attr:`.header_list` is empty.
+        :return: |True| if the data :py:attr:`.headers` is empty.
         :rtype: bool
         """
 
-        return typepy.is_empty_sequence(self.header_list)
+        return typepy.is_empty_sequence(self.headers)
 
     def is_empty_record(self):
         """Depricated"""
@@ -205,7 +212,7 @@ class TableData(object):
     def is_empty(self):
         """
         :return:
-            |True| if the data :py:attr:`.header_list` or
+            |True| if the data :py:attr:`.headers` or
             :py:attr:`.value_matrix` is empty.
         :rtype: bool
         """
@@ -230,7 +237,7 @@ class TableData(object):
         if not self.__equals_base(other):
             return False
 
-        if self.header_list != other.header_list:
+        if self.headers != other.headers:
             return False
 
         for lhs_row, rhs_row in zip(self.row_list, other.row_list):
@@ -279,11 +286,11 @@ class TableData(object):
         invalid_row_idx_list = []
 
         for row_idx, row in enumerate(self.row_list):
-            if isinstance(row, (list, tuple)) and len(self.header_list) != len(row):
+            if isinstance(row, (list, tuple)) and len(self.headers) != len(row):
                 invalid_row_idx_list.append(row_idx)
 
             if isinstance(row, dict):
-                if not all([header in row for header in self.header_list]):
+                if not all([header in row for header in self.headers]):
                     invalid_row_idx_list.append(row_idx)
 
         if not invalid_row_idx_list:
@@ -296,7 +303,7 @@ class TableData(object):
 
         raise ValueError(
             "table header length and row length are mismatch:\n"
-            + "  header(len={}): {}\n".format(len(self.header_list), self.header_list)
+            + "  header(len={}): {}\n".format(len(self.headers), self.headers)
             + "  # of miss match rows: {} ouf of {}\n".format(
                 len(invalid_row_idx_list), self.num_rows
             )
@@ -334,7 +341,7 @@ class TableData(object):
 
             row = [
                 (header, value_dp.data)
-                for header, value_dp in zip(self.header_list, value_dp_list)
+                for header, value_dp in zip(self.headers, value_dp_list)
                 if value_dp.typecode != Typecode.NONE
             ]
 
@@ -370,7 +377,7 @@ class TableData(object):
                 Row(a=Decimal('3.3'), b=Decimal('4.4'))
         """
 
-        Row = namedtuple("Row", self.header_list)
+        Row = namedtuple("Row", self.headers)
 
         for value_dp_list in self.value_dp_matrix:
             if typepy.is_empty_sequence(value_dp_list):
@@ -411,7 +418,7 @@ class TableData(object):
 
         dataframe = pandas.DataFrame(self.value_matrix)
         if not self.is_empty_header():
-            dataframe.columns = self.header_list
+            dataframe.columns = self.headers
 
         return dataframe
 
@@ -431,7 +438,7 @@ class TableData(object):
 
         if not pattern_list:
             return TableData(
-                table_name=self.table_name, header_list=self.header_list, row_list=self.row_list
+                table_name=self.table_name, header_list=self.headers, row_list=self.row_list
             )
 
         match_header_list = []
@@ -444,7 +451,7 @@ class TableData(object):
         else:
             raise ValueError("unknown matching: {}".format(pattern_match))
 
-        for header, column in zip(self.header_list, zip(*self.row_list)):
+        for header, column in zip(self.headers, zip(*self.row_list)):
             is_match_list = []
             for pattern in pattern_list:
                 is_match = self.__is_match(header, pattern, is_re_match)
@@ -498,7 +505,7 @@ class TableData(object):
 
         self.__dp_extractor.float_type = Decimal
 
-        if typepy.is_empty_sequence(self.header_list):
+        if typepy.is_empty_sequence(self.headers):
             return value_matrix
 
         if self.__dp_extractor.max_workers <= 1:
@@ -508,7 +515,7 @@ class TableData(object):
 
     def __to_value_matrix_st(self, value_matrix):
         return [
-            _to_row_helper(self.__dp_extractor, self.header_list, value_list, row_idx)[1]
+            _to_row_helper(self.__dp_extractor, self.headers, value_list, row_idx)[1]
             for row_idx, value_list in enumerate(value_matrix)
         ]
 
@@ -520,7 +527,7 @@ class TableData(object):
             with futures.ProcessPoolExecutor(self.__dp_extractor.max_workers) as executor:
                 future_list = [
                     executor.submit(
-                        _to_row_helper, self.__dp_extractor, self.header_list, value_list, row_idx
+                        _to_row_helper, self.__dp_extractor, self.headers, value_list, row_idx
                     )
                     for row_idx, value_list in enumerate(value_matrix)
                 ]
