@@ -150,7 +150,7 @@ class TableData(object):
             self.__dp_extractor = dp.DataPropertyExtractor()
 
         if type_hint_list:
-            self.__dp_extractor.column_type_hint_list = type_hint_list
+            self.__dp_extractor.column_type_hints = type_hint_list
 
         self.__dp_extractor.strip_str_header = '"'
 
@@ -159,9 +159,9 @@ class TableData(object):
             self.__dp_extractor.max_workers = 1
 
         if not header_list:
-            self.__dp_extractor.header_list = []
+            self.__dp_extractor.headers = []
         else:
-            self.__dp_extractor.header_list = header_list
+            self.__dp_extractor.headers = header_list
 
     def __repr__(self):
         element_list = ["table_name={}".format(self.table_name)]
