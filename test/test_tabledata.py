@@ -257,6 +257,20 @@ class Test_TableData_as_tuple(object):
         assert list(TableData(table_name, headers, record_list).as_tuple()) == expected
 
 
+class Test_TableData_transpose(object):
+    @pytest.mark.parametrize(
+        ["value", "expected"],
+        [
+            [
+                TableData("tablename", ["a", "b"], [[1, 2, 3], [1, 2, 3]]),
+                TableData("tablename", ["a", "b"], [[1, 1], [2, 2], [3, 3]]),
+            ]
+        ],
+    )
+    def test_normal(self, value, expected):
+        assert value.transpose() == expected
+
+
 class Test_TableData_value_dp_matrix(object):
 
     __MIXED_DATA = [

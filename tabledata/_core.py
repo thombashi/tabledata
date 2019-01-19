@@ -429,6 +429,9 @@ class TableData(object):
 
         return dataframe
 
+    def transpose(self):
+        return TableData(self.table_name, self.headers, [row for row in zip(*self.rows)])
+
     def filter_column(
         self,
         pattern_list=None,
