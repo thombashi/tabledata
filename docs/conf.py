@@ -176,6 +176,7 @@ rp_builtin = u"""
 .. |dict| replace:: :py:class:`dict`
 .. |int| replace:: :py:class:`int`
 .. |list| replace:: :py:class:`list`
+.. |namedtuple| replace:: :py:class:`namedtuple`
 .. |float| replace:: :py:class:`float`
 .. |str| replace:: :py:class:`str`
 .. |tuple| replace:: :py:obj:`tuple`
