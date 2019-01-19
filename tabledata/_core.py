@@ -327,9 +327,9 @@ class TableData(object):
                 from tabledata import TableData
 
                 TableData(
-                    table_name="sample",
-                    header_list=["a", "b"],
-                    row_list=[[1, 2], [3.3, 4.4]]
+                    "sample",
+                    ["a", "b"],
+                    [[1, 2], [3.3, 4.4]]
                 ).as_dict()
 
         :Output:
@@ -370,9 +370,9 @@ class TableData(object):
                 from tabledata import TableData
 
                 records = TableData(
-                    table_name="sample",
-                    header_list=["a", "b"],
-                    row_list=[[1, 2], [3.3, 4.4]]
+                    "sample",
+                    ["a", "b"],
+                    [[1, 2], [3.3, 4.4]]
                 ).as_tuple()
                 for record in records:
                     print(record)
@@ -405,9 +405,9 @@ class TableData(object):
                 from tabledata import TableData
 
                 TableData(
-                    table_name="sample",
-                    header_list=["a", "b"],
-                    row_list=[[1, 2], [3.3, 4.4]]
+                    "sample",
+                    ["a", "b"],
+                    [[1, 2], [3.3, 4.4]]
                 ).as_dataframe()
 
         :Output:
