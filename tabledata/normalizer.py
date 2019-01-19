@@ -54,7 +54,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         return TableData(
             self.__normalize_table_name(),
             normalize_headers,
-            self._normalize_row_list(normalize_headers),
+            self._normalize_rows(normalize_headers),
             dp_extractor=self._tabledata.dp_extractor,
         )
 
@@ -128,7 +128,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         :rtype: str
         """
 
-    def _normalize_row_list(self, normalize_headers):
+    def _normalize_rows(self, normalize_headers):
         return self._tabledata.rows
 
     def _validate_headers(self):
