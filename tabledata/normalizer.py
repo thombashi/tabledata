@@ -128,7 +128,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         :rtype: str
         """
 
-    def _normalize_row_list(self, normalize_header_list):
+    def _normalize_row_list(self, normalize_headers):
         return self._tabledata.rows
 
     def _validate_headers(self):
