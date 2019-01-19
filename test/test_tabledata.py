@@ -90,9 +90,9 @@ class Test_TableData_constructor(object):
 
 
 def yield_rows():
-    row_list = [[1, 2], [3, 4]]
+    rows = [[1, 2], [3, 4]]
 
-    for row in row_list:
+    for row in rows:
         yield row
 
 
