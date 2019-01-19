@@ -67,7 +67,7 @@ class TableData(object):
         :rtype: list
         """
 
-        return self.__row_list
+        return self.__rows
 
     @property
     def value_matrix(self):
@@ -147,9 +147,9 @@ class TableData(object):
         self.__value_dp_matrix = None
 
         if row_list:
-            self.__row_list = row_list
+            self.__rows = row_list
         else:
-            self.__row_list = []
+            self.__rows = []
 
         if dp_extractor:
             self.__dp_extractor = dp_extractor
