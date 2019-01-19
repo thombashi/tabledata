@@ -129,7 +129,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         """
 
     def _normalize_row_list(self, normalize_header_list):
-        return self._tabledata.row_list
+        return self._tabledata.rows
 
     def _validate_headers(self):
         for header in self._tabledata.headers:

@@ -61,13 +61,20 @@ class TableData(object):
         return self.headers
 
     @property
-    def row_list(self):
-        """
-        :return: Table rows.
-        :rtype: list
+    def rows(self):
+        """Get table rows.
+
+        Returns:
+            |list| or |tuple|: Table rows.
         """
 
         return self.__rows
+
+    @property
+    def row_list(self):
+        """alias to :py:attr:`.rows`"""
+
+        return self.rows
 
     @property
     def value_matrix(self):
@@ -94,12 +101,12 @@ class TableData(object):
         """
         :return:
             Number of rows in the tabular data.
-            |None| if the ``row_list`` is neither list nor tuple.
+            |None| if the ``rows`` is neither list nor tuple.
         :rtype: int
         """
 
         try:
-            return len(self.row_list)
+            return len(self.rows)
         except TypeError:
             return None
 
@@ -109,7 +116,7 @@ class TableData(object):
             return len(self.headers)
 
         try:
-            return len(self.row_list[0])
+            return len(self.rows[0])
         except TypeError:
             return None
         except IndexError:
@@ -124,7 +131,7 @@ class TableData(object):
 
         if self.__value_dp_matrix is None:
             self.__value_dp_matrix = self.__dp_extractor.to_dp_matrix(
-                to_value_matrix(self.headers, self.row_list)
+                to_value_matrix(self.headers, self.rows)
             )
 
         return self.__value_dp_matrix
@@ -240,7 +247,7 @@ class TableData(object):
         if self.headers != other.headers:
             return False
 
-        for lhs_row, rhs_row in zip(self.row_list, other.row_list):
+        for lhs_row, rhs_row in zip(self.rows, other.rows):
             if len(lhs_row) != len(rhs_row):
                 return False
 
@@ -285,7 +292,7 @@ class TableData(object):
 
         invalid_row_idx_list = []
 
-        for row_idx, row in enumerate(self.row_list):
+        for row_idx, row in enumerate(self.rows):
             if isinstance(row, (list, tuple)) and len(self.headers) != len(row):
                 invalid_row_idx_list.append(row_idx)
 
@@ -298,7 +305,7 @@ class TableData(object):
 
         for invalid_row_idx in invalid_row_idx_list:
             logger.debug(
-                "invalid row (line={}): {}".format(invalid_row_idx, self.row_list[invalid_row_idx])
+                "invalid row (line={}): {}".format(invalid_row_idx, self.rows[invalid_row_idx])
             )
 
         raise ValueError(
@@ -438,7 +445,7 @@ class TableData(object):
 
         if not pattern_list:
             return TableData(
-                table_name=self.table_name, header_list=self.headers, row_list=self.row_list
+                table_name=self.table_name, header_list=self.headers, row_list=self.rows
             )
 
         match_header_list = []
@@ -451,7 +458,7 @@ class TableData(object):
         else:
             raise ValueError("unknown matching: {}".format(pattern_match))
 
-        for header, column in zip(self.headers, zip(*self.row_list)):
+        for header, column in zip(self.headers, zip(*self.rows)):
             is_match_list = []
             for pattern in pattern_list:
                 is_match = self.__is_match(header, pattern, is_re_match)
