@@ -7,7 +7,7 @@ from tabledata import TableData
 from tabledata.normalizer import TableDataNormalizer
 
 
-class Test_SQLiteTableDataSanitizer(object):
+class Test_TableDataNormalizer(object):
     @pytest.mark.parametrize(
         ["table_name", "headers", "record_list", "expected"],
         [
