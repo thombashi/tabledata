@@ -25,7 +25,7 @@ NamedTuple2 = namedtuple("NamedTuple2", " ".join(attr_list_2))
 
 class Test_TableData_constructor(object):
     @pytest.mark.parametrize(
-        ["table_name", "headers", "record_list", "expected"],
+        ["table_name", "headers", "rows", "expected"],
         [
             [
                 "normal",
@@ -37,8 +37,8 @@ class Test_TableData_constructor(object):
             ["empty_header", [], [[1, 2], [3, 4]], TableData("empty_header", [], [[1, 2], [3, 4]])],
         ],
     )
-    def test_normal(self, table_name, headers, record_list, expected):
-        tabledata = TableData(table_name, headers, record_list)
+    def test_normal(self, table_name, headers, rows, expected):
+        tabledata = TableData(table_name, headers, rows)
 
         print("expected: {}".format(dump_tabledata(expected)))
         print("actual: {}".format(dump_tabledata(tabledata)))
@@ -46,7 +46,7 @@ class Test_TableData_constructor(object):
         assert tabledata == expected
 
     @pytest.mark.parametrize(
-        ["table_name", "headers", "record_list", "expected"],
+        ["table_name", "headers", "rows", "expected"],
         [
             [
                 "none_header",
@@ -58,8 +58,8 @@ class Test_TableData_constructor(object):
             ["none_data", None, None, TableData("none_data", [], [])],
         ],
     )
-    def test_normal_with_none_value(self, table_name, headers, record_list, expected):
-        tabledata = TableData(table_name, headers, record_list)
+    def test_normal_with_none_value(self, table_name, headers, rows, expected):
+        tabledata = TableData(table_name, headers, rows)
 
         assert tabledata == expected
 
@@ -81,12 +81,12 @@ class Test_TableData_constructor(object):
             assert dp.type_class == type_hint
 
     @pytest.mark.parametrize(
-        ["table_name", "headers", "record_list", "expected"],
+        ["table_name", "headers", "rows", "expected"],
         [["invalid_data", ["a", "b"], [1, 2], DataError]],
     )
-    def test_exception(self, table_name, headers, record_list, expected):
+    def test_exception(self, table_name, headers, rows, expected):
         with pytest.raises(expected):
-            TableData(table_name, headers, record_list).value_matrix
+            TableData(table_name, headers, rows).value_matrix
 
 
 def yield_rows():
@@ -98,7 +98,7 @@ def yield_rows():
 
 class Test_TableData_num_rows(object):
     @pytest.mark.parametrize(
-        ["table_name", "headers", "record_list", "expected"],
+        ["table_name", "headers", "rows", "expected"],
         [
             ["normal", ["a", "b"], [[1, 2], [3, 4]], 2],
             ["empty", ["a", "b"], [], 0],
@@ -107,8 +107,8 @@ class Test_TableData_num_rows(object):
             ["empty", ["a", "b"], itertools.product([[1, 2], [3, 4]]), None],
         ],
     )
-    def test_normal(self, table_name, headers, record_list, expected):
-        table_data = TableData(table_name, headers, record_list)
+    def test_normal(self, table_name, headers, rows, expected):
+        table_data = TableData(table_name, headers, rows)
 
         assert table_data.num_columns == 2
         assert table_data.num_rows == expected
@@ -177,7 +177,7 @@ class Test_TableData_equals(object):
 
 class Test_TableData_repr(object):
     @pytest.mark.parametrize(
-        ["table_name", "headers", "record_list", "expected"],
+        ["table_name", "headers", "rows", "expected"],
         [
             ["normal", ["a", "b"], [[1, 2], [3, 4]], "table_name=normal, headers=[a, b], rows=2"],
             ["null_header", None, [[1, 2], [3, 4]], "table_name=null_header, headers=[], rows=2"],
@@ -186,15 +186,15 @@ class Test_TableData_repr(object):
             ["マルチバイト", ["いろは", "漢字"], [], "table_name=マルチバイト, headers=[いろは, 漢字], rows=0"],
         ],
     )
-    def test_normal(self, table_name, headers, record_list, expected):
-        tabledata = TableData(table_name, headers, record_list)
+    def test_normal(self, table_name, headers, rows, expected):
+        tabledata = TableData(table_name, headers, rows)
 
         assert six.text_type(tabledata) == expected
 
 
 class Test_TableData_as_dict(object):
     @pytest.mark.parametrize(
-        ["table_name", "headers", "record_list", "expected"],
+        ["table_name", "headers", "rows", "expected"],
         [
             [
                 "normal",
@@ -228,13 +228,13 @@ class Test_TableData_as_dict(object):
             ["empty_records", ["a", "b"], [], {"empty_records": []}],
         ],
     )
-    def test_normal(self, table_name, headers, record_list, expected):
-        assert TableData(table_name, headers, record_list).as_dict() == expected
+    def test_normal(self, table_name, headers, rows, expected):
+        assert TableData(table_name, headers, rows).as_dict() == expected
 
 
 class Test_TableData_as_tuple(object):
     @pytest.mark.parametrize(
-        ["table_name", "headers", "record_list", "expected"],
+        ["table_name", "headers", "rows", "expected"],
         [
             ["normal", ["a", "b"], [[1, 2], [3, 4]], [(1, 2), (3, 4)]],
             [None, ["a", "b"], [[1, 2], [3, 4]], [(1, 2), (3, 4)]],
@@ -253,8 +253,8 @@ class Test_TableData_as_tuple(object):
             ["empty_records", ["a", "b"], [], []],
         ],
     )
-    def test_normal(self, table_name, headers, record_list, expected):
-        assert list(TableData(table_name, headers, record_list).as_tuple()) == expected
+    def test_normal(self, table_name, headers, rows, expected):
+        assert list(TableData(table_name, headers, rows).as_tuple()) == expected
 
 
 class Test_TableData_transpose(object):
@@ -285,7 +285,7 @@ class Test_TableData_value_dp_matrix(object):
     ]
 
     @pytest.mark.parametrize(
-        ["table_name", "headers", "record_list", "expected"],
+        ["table_name", "headers", "rows", "expected"],
         [
             [
                 "mixdata",
@@ -316,8 +316,8 @@ class Test_TableData_value_dp_matrix(object):
             ["none_data", None, None, TableData("none_data", [], [])],
         ],
     )
-    def test_normal(self, table_name, headers, record_list, expected):
-        tabledata = TableData(table_name, headers, record_list)
+    def test_normal(self, table_name, headers, rows, expected):
+        tabledata = TableData(table_name, headers, rows)
 
         assert not tabledata.has_value_dp_matrix
         assert tabledata.value_dp_matrix == expected.value_dp_matrix
@@ -326,63 +326,63 @@ class Test_TableData_value_dp_matrix(object):
 
 class Test_TableData_is_empty_header(object):
     @pytest.mark.parametrize(
-        ["table_name", "headers", "record_list", "expected"],
+        ["table_name", "headers", "rows", "expected"],
         [["tablename", [], [], True], ["tablename", ["a", "b"], [], False]],
     )
-    def test_normal(self, table_name, headers, record_list, expected):
-        tabledata = TableData(table_name, headers, record_list)
+    def test_normal(self, table_name, headers, rows, expected):
+        tabledata = TableData(table_name, headers, rows)
 
         assert tabledata.is_empty_header() == expected
 
 
 class Test_TableData_is_empty_rows(object):
     @pytest.mark.parametrize(
-        ["table_name", "headers", "record_list", "expected"],
+        ["table_name", "headers", "rows", "expected"],
         [
             ["tablename", [], [], True],
             ["tablename", ["a", "b"], [], True],
             ["tablename", ["a", "b"], [[1, 2]], False],
         ],
     )
-    def test_normal(self, table_name, headers, record_list, expected):
-        tabledata = TableData(table_name, headers, record_list)
+    def test_normal(self, table_name, headers, rows, expected):
+        tabledata = TableData(table_name, headers, rows)
 
         assert tabledata.is_empty_rows() == expected
 
 
 class Test_TableData_is_empty(object):
     @pytest.mark.parametrize(
-        ["table_name", "headers", "record_list", "expected"],
+        ["table_name", "headers", "rows", "expected"],
         [
             ["tablename", [], [], True],
             ["tablename", ["a", "b"], [], True],
             ["tablename", ["a", "b"], [[1, 2]], False],
         ],
     )
-    def test_normal(self, table_name, headers, record_list, expected):
-        tabledata = TableData(table_name, headers, record_list)
+    def test_normal(self, table_name, headers, rows, expected):
+        tabledata = TableData(table_name, headers, rows)
 
         assert tabledata.is_empty() == expected
 
 
 class Test_TableData_validate_rows(object):
     @pytest.mark.parametrize(
-        ["table_name", "headers", "record_list"],
+        ["table_name", "headers", "rows"],
         [["tablename", [], []], ["tablename", ["a", "b"], []], ["tablename", ["a", "b"], [[1, 2]]]],
     )
-    def test_normal(self, table_name, headers, record_list):
-        TableData(table_name, headers, record_list).validate_rows()
+    def test_normal(self, table_name, headers, rows):
+        TableData(table_name, headers, rows).validate_rows()
 
     @pytest.mark.parametrize(
-        ["table_name", "headers", "record_list", "expected"],
+        ["table_name", "headers", "rows", "expected"],
         [
             ["tablename", ["a", "b"], [[1]], ValueError],
             ["tablename", ["a", "b"], [[1, 2, 3]], ValueError],
         ],
     )
-    def test_exception(self, table_name, headers, record_list, expected):
+    def test_exception(self, table_name, headers, rows, expected):
         with pytest.raises(expected):
-            TableData(table_name, headers, record_list).validate_rows()
+            TableData(table_name, headers, rows).validate_rows()
 
 
 class Test_TableData_filter_column(object):
@@ -390,7 +390,7 @@ class Test_TableData_filter_column(object):
     VALUE_MATRIX = [[1, 2], [3, 4]]
 
     @pytest.mark.parametrize(
-        ["table_name", "headers", "record_list", "pattern", "is_invert_match", "expected"],
+        ["table_name", "headers", "rows", "pattern", "is_invert_match", "expected"],
         [
             [
                 "match",
@@ -434,10 +434,8 @@ class Test_TableData_filter_column(object):
             ],
         ],
     )
-    def test_normal_match(
-        self, table_name, headers, record_list, pattern, is_invert_match, expected
-    ):
-        tabledata = TableData(table_name, headers, record_list)
+    def test_normal_match(self, table_name, headers, rows, pattern, is_invert_match, expected):
+        tabledata = TableData(table_name, headers, rows)
         actual = tabledata.filter_column(pattern_list=pattern, is_invert_match=is_invert_match)
 
         print("expected: {}".format(dump_tabledata(expected)))
@@ -446,7 +444,7 @@ class Test_TableData_filter_column(object):
         assert actual == expected
 
     @pytest.mark.parametrize(
-        ["table_name", "headers", "record_list", "pattern", "is_invert_match", "expected"],
+        ["table_name", "headers", "rows", "pattern", "is_invert_match", "expected"],
         [
             [
                 "multiple_patterns",
@@ -486,10 +484,8 @@ class Test_TableData_filter_column(object):
             ],
         ],
     )
-    def test_normal_re_match(
-        self, table_name, headers, record_list, pattern, is_invert_match, expected
-    ):
-        tabledata = TableData(table_name, headers, record_list)
+    def test_normal_re_match(self, table_name, headers, rows, pattern, is_invert_match, expected):
+        tabledata = TableData(table_name, headers, rows)
         actual = tabledata.filter_column(
             pattern_list=pattern, is_invert_match=is_invert_match, is_re_match=True
         )
@@ -500,7 +496,7 @@ class Test_TableData_filter_column(object):
         assert actual == expected
 
     @pytest.mark.parametrize(
-        ["table_name", "headers", "record_list", "pattern", "is_invert_match", "expected"],
+        ["table_name", "headers", "rows", "pattern", "is_invert_match", "expected"],
         [
             [
                 "match_and",
@@ -521,9 +517,9 @@ class Test_TableData_filter_column(object):
         ],
     )
     def test_normal_pattern_match(
-        self, table_name, headers, record_list, pattern, is_invert_match, expected
+        self, table_name, headers, rows, pattern, is_invert_match, expected
     ):
-        tabledata = TableData(table_name, headers, record_list)
+        tabledata = TableData(table_name, headers, rows)
         actual = tabledata.filter_column(
             pattern_list=pattern,
             is_invert_match=is_invert_match,
@@ -537,15 +533,7 @@ class Test_TableData_filter_column(object):
         assert actual == expected
 
     @pytest.mark.parametrize(
-        [
-            "table_name",
-            "headers",
-            "record_list",
-            "pattern",
-            "is_invert_match",
-            "is_re_match",
-            "expected",
-        ],
+        ["table_name", "headers", "rows", "pattern", "is_invert_match", "is_re_match", "expected"],
         [
             [
                 "unmatch_pattern",
@@ -559,7 +547,7 @@ class Test_TableData_filter_column(object):
         ],
     )
     def test_normal_unmatch(
-        self, table_name, headers, record_list, pattern, is_invert_match, is_re_match, expected
+        self, table_name, headers, rows, pattern, is_invert_match, is_re_match, expected
     ):
         tabledata = TableData(table_name, headers, record_list)
         actual = tabledata.filter_column(

@@ -9,7 +9,7 @@ from tabledata.normalizer import TableDataNormalizer
 
 class Test_TableDataNormalizer(object):
     @pytest.mark.parametrize(
-        ["table_name", "headers", "record_list", "expected"],
+        ["table_name", "headers", "rows", "expected"],
         [
             [
                 "normal",
@@ -45,7 +45,7 @@ class Test_TableDataNormalizer(object):
             ],
         ],
     )
-    def test_normal(self, table_name, headers, record_list, expected):
-        new_tabledata = TableDataNormalizer(TableData(table_name, headers, record_list)).normalize()
+    def test_normal(self, table_name, headers, rows, expected):
+        new_tabledata = TableDataNormalizer(TableData(table_name, headers, rows)).normalize()
 
         assert new_tabledata.equals(expected)
