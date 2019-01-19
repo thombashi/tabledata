@@ -549,7 +549,7 @@ class Test_TableData_filter_column(object):
     def test_normal_unmatch(
         self, table_name, headers, rows, pattern, is_invert_match, is_re_match, expected
     ):
-        tabledata = TableData(table_name, headers, record_list)
+        tabledata = TableData(table_name, headers, records)
         actual = tabledata.filter_column(
             pattern_list=pattern, is_invert_match=is_invert_match, is_re_match=is_re_match
         )
