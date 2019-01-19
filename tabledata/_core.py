@@ -444,9 +444,7 @@ class TableData(object):
         )
 
         if not pattern_list:
-            return TableData(
-                table_name=self.table_name, header_list=self.headers, row_list=self.rows
-            )
+            return TableData(self.table_name, self.headers, self.rows)
 
         match_header_list = []
         match_column_matrix = []
@@ -477,11 +475,7 @@ class TableData(object):
             )
         )
 
-        return TableData(
-            table_name=self.table_name,
-            header_list=match_header_list,
-            row_list=list(zip(*match_column_matrix)),
-        )
+        return TableData(self.table_name, match_header_list, list(zip(*match_column_matrix)))
 
     @staticmethod
     def from_dataframe(dataframe, table_name=""):
@@ -492,11 +486,7 @@ class TableData(object):
         :param str table_name: Table name to create.
         """
 
-        return TableData(
-            table_name=table_name,
-            header_list=list(dataframe.columns.values),
-            row_list=dataframe.values.tolist(),
-        )
+        return TableData(table_name, list(dataframe.columns.values), dataframe.values.tolist())
 
     @staticmethod
     def __is_match(header, pattern, is_re_match):
