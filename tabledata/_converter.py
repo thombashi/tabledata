@@ -31,6 +31,6 @@ def _to_row(headers, values, row_idx):
             pass
 
     if not isinstance(values, (tuple, list)):
-        raise DataError("row must be a list or tuple: actual={}".format(values))
+        raise DataError("row must be a list or tuple: actual={}".format(type(values)))
 
     return (row_idx, values)
