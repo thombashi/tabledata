@@ -148,7 +148,7 @@ class TableData(object):
     def dp_extractor(self):
         return self.__dp_extractor
 
-    def __init__(self, table_name, header_list, rows, dp_extractor=None, type_hints=None):
+    def __init__(self, table_name, headers, rows, dp_extractor=None, type_hints=None):
         self.__table_name = table_name
         self.__value_matrix = None
         self.__value_dp_matrix = None
@@ -172,10 +172,10 @@ class TableData(object):
             # avoid unit test execution hang up at Python 2 environment
             self.__dp_extractor.max_workers = 1
 
-        if not header_list:
+        if not headers:
             self.__dp_extractor.headers = []
         else:
-            self.__dp_extractor.headers = header_list
+            self.__dp_extractor.headers = headers
 
     def __repr__(self):
         element_list = ["table_name={}".format(self.table_name)]
