@@ -8,7 +8,6 @@ from __future__ import absolute_import, unicode_literals
 
 import re
 from collections import OrderedDict, namedtuple
-from decimal import Decimal
 
 import dataproperty as dp
 import six
@@ -19,7 +18,6 @@ from typepy import Nan
 from ._constant import PatternMatch
 from ._converter import to_value_matrix
 from ._logger import logger
-from .error import DataError
 
 
 class TableData(object):
