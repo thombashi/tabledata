@@ -64,10 +64,8 @@ class Test_TableData_constructor(object):
         assert tabledata == expected
 
     def test_normal_type_hints(self,):
-        type_hint_list = [Integer, String]
-        tabledata = TableData(
-            "type hints", ["a", "b"], [[1, 2], [1, 2]], type_hint_list=type_hint_list
-        )
+        type_hints = [Integer, String]
+        tabledata = TableData("type hints", ["a", "b"], [[1, 2], [1, 2]], type_hints=type_hints)
 
         for col_dp in tabledata.column_dp_list:
             print(col_dp)
@@ -75,7 +73,7 @@ class Test_TableData_constructor(object):
         print("actual: {}".format(dump_tabledata(tabledata)))
 
         for row_dp in tabledata.value_dp_matrix:
-            for dp, type_hint in zip(row_dp, type_hint_list):
+            for dp, type_hint in zip(row_dp, type_hints):
                 print(dp)
 
             assert dp.type_class == type_hint
