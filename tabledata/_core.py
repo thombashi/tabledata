@@ -28,7 +28,7 @@ class TableData(object):
 
     :param str table_name: Name of the table.
     :param list headers: Table header names.
-    :param list record_list: Table data records.
+    :param list rows: Data of the table.
     """
 
     @property
@@ -46,7 +46,7 @@ class TableData(object):
 
     @property
     def headers(self):
-        """Get table header names.
+        """Get the table header names.
 
         Returns:
             |list| or |tuple|: Table header names.
@@ -62,7 +62,7 @@ class TableData(object):
 
     @property
     def rows(self):
-        """Get table rows.
+        """Get the table rows.
 
         Returns:
             |list| or |tuple|: Table rows.
