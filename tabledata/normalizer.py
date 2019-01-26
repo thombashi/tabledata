@@ -59,6 +59,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
             normalize_headers,
             self._normalize_rows(normalize_headers),
             dp_extractor=self._tabledata.dp_extractor,
+            type_hints=self._tabledata.dp_extractor.column_type_hints,
         )
 
     @abc.abstractmethod
