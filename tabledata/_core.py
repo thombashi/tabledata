@@ -433,20 +433,16 @@ class TableData(object):
         return TableData(self.table_name, self.headers, [row for row in zip(*self.rows)])
 
     def filter_column(
-        self,
-        pattern_list=None,
-        is_invert_match=False,
-        is_re_match=False,
-        pattern_match=PatternMatch.OR,
+        self, patterns=None, is_invert_match=False, is_re_match=False, pattern_match=PatternMatch.OR
     ):
         logger.debug(
-            "filter_column: pattern_list={}, is_invert_match={}, "
+            "filter_column: patterns={}, is_invert_match={}, "
             "is_re_match={}, pattern_match={}".format(
-                pattern_list, is_invert_match, is_re_match, pattern_match
+                patterns, is_invert_match, is_re_match, pattern_match
             )
         )
 
-        if not pattern_list:
+        if not patterns:
             return TableData(self.table_name, self.headers, self.rows)
 
         match_header_list = []
@@ -461,7 +457,7 @@ class TableData(object):
 
         for header, column in zip(self.headers, zip(*self.rows)):
             is_match_list = []
-            for pattern in pattern_list:
+            for pattern in patterns:
                 is_match = self.__is_match(header, pattern, is_re_match)
 
                 is_match_list.append(

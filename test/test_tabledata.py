@@ -420,7 +420,7 @@ class Test_TableData_filter_column(object):
     )
     def test_normal_match(self, table_name, headers, rows, pattern, is_invert_match, expected):
         tabledata = TableData(table_name, headers, rows)
-        actual = tabledata.filter_column(pattern_list=pattern, is_invert_match=is_invert_match)
+        actual = tabledata.filter_column(patterns=pattern, is_invert_match=is_invert_match)
 
         print("expected: {}".format(dump_tabledata(expected)))
         print("actual: {}".format(dump_tabledata(actual)))
@@ -471,7 +471,7 @@ class Test_TableData_filter_column(object):
     def test_normal_re_match(self, table_name, headers, rows, pattern, is_invert_match, expected):
         tabledata = TableData(table_name, headers, rows)
         actual = tabledata.filter_column(
-            pattern_list=pattern, is_invert_match=is_invert_match, is_re_match=True
+            patterns=pattern, is_invert_match=is_invert_match, is_re_match=True
         )
 
         print("expected: {}".format(dump_tabledata(expected)))
@@ -505,7 +505,7 @@ class Test_TableData_filter_column(object):
     ):
         tabledata = TableData(table_name, headers, rows)
         actual = tabledata.filter_column(
-            pattern_list=pattern,
+            patterns=pattern,
             is_invert_match=is_invert_match,
             is_re_match=True,
             pattern_match=PatternMatch.AND,
@@ -535,7 +535,7 @@ class Test_TableData_filter_column(object):
     ):
         tabledata = TableData(table_name, headers, rows)
         actual = tabledata.filter_column(
-            pattern_list=pattern, is_invert_match=is_invert_match, is_re_match=is_re_match
+            patterns=pattern, is_invert_match=is_invert_match, is_re_match=is_re_match
         )
 
         assert actual == expected
