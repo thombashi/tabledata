@@ -12,6 +12,7 @@ import six
 import typepy
 
 from ._core import TableData
+from ._logger import logger
 from .error import InvalidHeaderNameError, InvalidTableNameError
 
 
@@ -48,6 +49,8 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         :return: Sanitized table data.
         :rtype: tabledata.TableData
         """
+
+        logger.debug("normalize: {}".format(type(self).__name__))
 
         normalize_headers = self._normalize_headers()
 
