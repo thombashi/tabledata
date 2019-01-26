@@ -443,7 +443,7 @@ class TableData(object):
         )
 
         if not patterns:
-            return TableData(self.table_name, self.headers, self.rows)
+            return self
 
         match_header_list = []
         match_column_matrix = []

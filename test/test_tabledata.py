@@ -527,7 +527,16 @@ class Test_TableData_filter_column(object):
                 False,
                 False,
                 TableData("unmatch_pattern", [], []),
-            ]
+            ],
+            [
+                "none_pattern",
+                HEADERS,
+                VALUE_MATRIX,
+                None,
+                False,
+                False,
+                TableData("none_pattern", HEADERS, VALUE_MATRIX),
+            ],
         ],
     )
     def test_normal_unmatch(
