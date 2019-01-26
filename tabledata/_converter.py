@@ -13,9 +13,7 @@ def to_value_matrix(headers, value_matrix):
     if value_matrix is None:
         return []
 
-    return [
-        _to_row(headers, value_list, row_idx)[1] for row_idx, value_list in enumerate(value_matrix)
-    ]
+    return [_to_row(headers, values, row_idx)[1] for row_idx, values in enumerate(value_matrix)]
 
 
 def _to_row(headers, values, row_idx):
