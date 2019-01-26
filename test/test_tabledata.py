@@ -384,7 +384,7 @@ class Test_TableData_validate_rows(object):
 
 
 class Test_TableData_filter_column(object):
-    HEADER_LIST = ["abcde", "test"]
+    HEADERS = ["abcde", "test"]
     VALUE_MATRIX = [[1, 2], [3, 4]]
 
     @pytest.mark.parametrize(
@@ -392,7 +392,7 @@ class Test_TableData_filter_column(object):
         [
             [
                 "match",
-                HEADER_LIST,
+                HEADERS,
                 VALUE_MATRIX,
                 ["abcde"],
                 False,
@@ -400,7 +400,7 @@ class Test_TableData_filter_column(object):
             ],
             [
                 "multiple_match",
-                HEADER_LIST,
+                HEADERS,
                 VALUE_MATRIX,
                 ["abcde", "test"],
                 False,
@@ -408,28 +408,14 @@ class Test_TableData_filter_column(object):
             ],
             [
                 "invert_match",
-                HEADER_LIST,
+                HEADERS,
                 VALUE_MATRIX,
                 ["abcde"],
                 True,
                 TableData("invert_match", ["test"], [[2], [4]]),
             ],
-            [
-                "none",
-                HEADER_LIST,
-                VALUE_MATRIX,
-                None,
-                False,
-                TableData("none", HEADER_LIST, VALUE_MATRIX),
-            ],
-            [
-                "empty",
-                HEADER_LIST,
-                VALUE_MATRIX,
-                [],
-                False,
-                TableData("empty", HEADER_LIST, VALUE_MATRIX),
-            ],
+            ["none", HEADERS, VALUE_MATRIX, None, False, TableData("none", HEADERS, VALUE_MATRIX)],
+            ["empty", HEADERS, VALUE_MATRIX, [], False, TableData("empty", HEADERS, VALUE_MATRIX)],
         ],
     )
     def test_normal_match(self, table_name, headers, rows, pattern, is_invert_match, expected):
@@ -458,7 +444,7 @@ class Test_TableData_filter_column(object):
             ],
             [
                 "re_match_pattern",
-                HEADER_LIST,
+                HEADERS,
                 VALUE_MATRIX,
                 ["abc*"],
                 False,
@@ -466,7 +452,7 @@ class Test_TableData_filter_column(object):
             ],
             [
                 "re_invert_match_pattern",
-                HEADER_LIST,
+                HEADERS,
                 VALUE_MATRIX,
                 ["abc*"],
                 True,
@@ -474,11 +460,11 @@ class Test_TableData_filter_column(object):
             ],
             [
                 "re_invert_unmatch_pattern",
-                HEADER_LIST,
+                HEADERS,
                 VALUE_MATRIX,
                 ["unmatch_pattern"],
                 True,
-                TableData("re_invert_unmatch_pattern", HEADER_LIST, VALUE_MATRIX),
+                TableData("re_invert_unmatch_pattern", HEADERS, VALUE_MATRIX),
             ],
         ],
     )
@@ -535,7 +521,7 @@ class Test_TableData_filter_column(object):
         [
             [
                 "unmatch_pattern",
-                HEADER_LIST,
+                HEADERS,
                 VALUE_MATRIX,
                 ["abc"],
                 False,
