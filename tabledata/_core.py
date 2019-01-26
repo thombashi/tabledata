@@ -515,8 +515,8 @@ class TableData(object):
 
     def __to_value_matrix_st(self, value_matrix):
         return [
-            _to_row_helper(self.__dp_extractor, self.headers, value_list, row_idx)[1]
-            for row_idx, value_list in enumerate(value_matrix)
+            _to_row_helper(self.__dp_extractor, self.headers, values, row_idx)[1]
+            for row_idx, values in enumerate(value_matrix)
         ]
 
     def __to_value_matrix_mt(self, value_matrix):
@@ -527,9 +527,9 @@ class TableData(object):
             with futures.ProcessPoolExecutor(self.__dp_extractor.max_workers) as executor:
                 future_list = [
                     executor.submit(
-                        _to_row_helper, self.__dp_extractor, self.headers, value_list, row_idx
+                        _to_row_helper, self.__dp_extractor, self.headers, values, row_idx
                     )
-                    for row_idx, value_list in enumerate(value_matrix)
+                    for row_idx, values in enumerate(value_matrix)
                 ]
 
                 for future in futures.as_completed(future_list):
