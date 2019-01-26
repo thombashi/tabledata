@@ -148,13 +148,13 @@ class TableData(object):
     def dp_extractor(self):
         return self.__dp_extractor
 
-    def __init__(self, table_name, header_list, row_list, dp_extractor=None, type_hints=None):
+    def __init__(self, table_name, header_list, rows, dp_extractor=None, type_hints=None):
         self.__table_name = table_name
         self.__value_matrix = None
         self.__value_dp_matrix = None
 
-        if row_list:
-            self.__rows = row_list
+        if rows:
+            self.__rows = rows
         else:
             self.__rows = []
 
