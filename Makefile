@@ -4,6 +4,7 @@ BUILD_DIR := build
 BUILD_WORK_DIR := _work
 DOCS_DIR := docs
 DOCS_BUILD_DIR := $(DOCS_DIR)/_build
+DIST_DIR := $(BUILD_WORK_DIR)/$(PACKAGE)/dist
 
 
 .PHONY: build
@@ -14,6 +15,7 @@ build:
 		git clone https://github.com/$(AUTHOR)/$(PACKAGE).git; \
 		cd $(PACKAGE); \
 		python setup.py build
+	@twine check $(DIST_DIR)/*
 	ls $(BUILD_WORK_DIR)/$(PACKAGE)/dist/
 
 .PHONY: clean
