@@ -9,13 +9,13 @@ from __future__ import absolute_import
 
 class NameValidationError(ValueError):
     """
-    Base name error class.
+    Exception raised when a name is invalid.
     """
 
 
 class InvalidTableNameError(NameValidationError):
     """
-    Exception raised when the table name is invalid.
+    Exception raised when a table name is invalid.
     """
 
 

@@ -359,8 +359,8 @@ class TableData(object):
 
     def as_tuple(self):
         """
-        :return: Table data as |namedtuple| instances.
-        :rtype: namedtuple
+        :return: Rows of the table.
+        :rtype: list of |namedtuple|
 
         :Sample Code:
             .. code:: python

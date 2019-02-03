@@ -76,7 +76,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         when you consider the table name invalid.
 
         :param str header: Table name to validate.
-        :raises pytablereader.InvalidTableNameError:
+        :raises tabledata.InvalidTableNameError:
             If the table name is invalid.
             |raises_validate_table_name|
         """
@@ -114,7 +114,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         header element found.
 
         :param str header: Table header name.
-        :raises pytablereader.InvalidHeaderNameError:
+        :raises tabledata.InvalidHeaderNameError:
             If the ``header`` is invalid.
         """
 
