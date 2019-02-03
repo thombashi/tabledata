@@ -1,1 +1,1 @@
-tabledata is a Python library to represent tabular data for pytablewriter/pytablereader/SimpleSQLite.
+tabledata is a Python library to represent tabular data. Used for pytablewriter/pytablereader/SimpleSQLite.

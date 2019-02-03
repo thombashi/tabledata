@@ -1,11 +1,14 @@
 Exceptions
 ----------------------------
 
-.. autoexception:: pytablereader.InvalidTableNameError
+.. autoexception:: tabledata.NameValidationError
     :show-inheritance:
 
-.. autoexception:: pytablereader.InvalidHeaderNameError
+.. autoexception:: tabledata.InvalidTableNameError
     :show-inheritance:
 
-.. autoexception:: pytablereader.DataError
+.. autoexception:: tabledata.InvalidHeaderNameError
+    :show-inheritance:
+
+.. autoexception:: tabledata.DataError
     :show-inheritance:
