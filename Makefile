@@ -30,6 +30,7 @@ clean:
 		.tox/ \
 		**/*/__pycache__/ \
 		*.egg-info/
+	@find . -not -path '*/\.*' -type f | grep -E .+\.py\.[a-z0-9]{32,}\.py$ | xargs -r rm
 
 .PHONY: idocs
 idocs:
