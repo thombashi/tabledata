@@ -36,10 +36,3 @@ class InvalidDataError(DataError):
     Deprecate:
     Exception raised when data is invalid as tabular data.
     """
-
-
-class EmptyDataError(InvalidDataError):
-    """
-    Deprecate:
-    Exception raised when data does not include valid table data.
-    """

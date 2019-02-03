@@ -14,7 +14,6 @@ from ._core import TableData
 from ._logger import set_log_level, set_logger
 from .error import (
     DataError,
-    EmptyDataError,
     InvalidDataError,
     InvalidHeaderNameError,
     InvalidTableNameError,
