@@ -29,10 +29,3 @@ class DataError(ValueError):
     """
     Exception raised when data is invalid as tabular data.
     """
-
-
-class InvalidDataError(DataError):
-    """
-    Deprecate:
-    Exception raised when data is invalid as tabular data.
-    """
