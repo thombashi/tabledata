@@ -12,9 +12,4 @@ from ._constant import PatternMatch
 from ._converter import to_value_matrix
 from ._core import TableData
 from ._logger import set_log_level, set_logger
-from .error import (
-    DataError,
-    InvalidHeaderNameError,
-    InvalidTableNameError,
-    NameValidationError,
-)
+from .error import DataError, InvalidHeaderNameError, InvalidTableNameError, NameValidationError
