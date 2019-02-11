@@ -1,6 +1,5 @@
 AUTHOR := thombashi
 PACKAGE := tabledata
-BUILD_DIR := build
 BUILD_WORK_DIR := _work
 DOCS_DIR := docs
 DOCS_BUILD_DIR := $(DOCS_DIR)/_build
@@ -21,10 +20,10 @@ build:
 .PHONY: clean
 clean:
 	@rm -rf $(PACKAGE)-*.*.*/ \
-		$(BUILD_DIR) \
 		$(BUILD_WORK_DIR) \
-		dist/ \
 		$(DOCS_BUILD_DIR) \
+		dist/ \
+		pip-wheel-metadata/ \
 		.eggs/ \
 		.pytest_cache/ \
 		.tox/ \
