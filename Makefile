@@ -27,6 +27,7 @@ clean:
 		.eggs/ \
 		.pytest_cache/ \
 		.tox/ \
+		**/__pycache__/ \
 		**/*/__pycache__/ \
 		*.egg-info/
 	@find . -not -path '*/\.*' -type f | grep -E .+\.py\.[a-z0-9]{32,}\.py$ | xargs -r rm
