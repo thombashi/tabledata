@@ -60,7 +60,7 @@ class TableData(object):
 
     @property
     def rows(self):
-        """Get the table rows.
+        """Original rows of tabular data.
 
         Returns:
             |list| or |tuple|: Table rows.
@@ -76,9 +76,10 @@ class TableData(object):
 
     @property
     def value_matrix(self):
-        """
-        :return: Table data rows.
-        :rtype: list
+        """Converted rows of tabular data.
+
+        Returns:
+            |list| or |tuple|: Table rows.
         """
 
         if self.__value_matrix:
