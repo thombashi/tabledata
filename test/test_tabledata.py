@@ -163,14 +163,14 @@ class Test_TableData_equals(object):
     __RHS = TableData("tablename", ["a", "b"], [[1, 2], [11, 12]])
 
     @pytest.mark.parametrize(
-        ["lhs", "rhs", "is_strict", "expected"],
+        ["lhs", "rhs", "cmp_by_dp", "expected"],
         [[__LHS, __RHS, False, True], [__LHS, __RHS, True, False]],
     )
-    def test_normal(self, lhs, rhs, is_strict, expected):
-        assert lhs.equals(rhs, is_strict=is_strict) == expected
-        assert lhs.in_tabledata_list([rhs], is_strict=is_strict) == expected
-        assert lhs.in_tabledata_list([lhs], is_strict=is_strict)
-        assert lhs.in_tabledata_list([rhs, lhs], is_strict=is_strict)
+    def test_normal(self, lhs, rhs, cmp_by_dp, expected):
+        assert lhs.equals(rhs, cmp_by_dp=cmp_by_dp) == expected
+        assert lhs.in_tabledata_list([rhs], cmp_by_dp=cmp_by_dp) == expected
+        assert lhs.in_tabledata_list([lhs], cmp_by_dp=cmp_by_dp)
+        assert lhs.in_tabledata_list([rhs, lhs], cmp_by_dp=cmp_by_dp)
 
 
 class Test_TableData_repr(object):

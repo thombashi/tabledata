@@ -189,10 +189,10 @@ class TableData(object):
         return ", ".join(element_list)
 
     def __eq__(self, other):
-        return self.equals(other, is_strict=True)
+        return self.equals(other, cmp_by_dp=True)
 
     def __ne__(self, other):
-        return not self.equals(other, is_strict=True)
+        return not self.equals(other, cmp_by_dp=True)
 
     def is_empty_header(self):
         """
@@ -225,8 +225,8 @@ class TableData(object):
 
         return any([self.is_empty_header(), self.is_empty_rows()])
 
-    def equals(self, other, is_strict=False):
-        if is_strict:
+    def equals(self, other, cmp_by_dp=False):
+        if cmp_by_dp:
             return self.__equals_raw(other)
 
         return self.__equals_dp(other)
@@ -277,9 +277,9 @@ class TableData(object):
 
         return True
 
-    def in_tabledata_list(self, other, is_strict=False):
+    def in_tabledata_list(self, other, cmp_by_dp=False):
         for table_data in other:
-            if self.equals(table_data, is_strict=is_strict):
+            if self.equals(table_data, cmp_by_dp=cmp_by_dp):
                 return True
 
         return False
