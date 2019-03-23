@@ -184,7 +184,7 @@ class TableData(object):
         except TypeError:
             element_list.append("headers=None")
 
-        element_list.append("rows={}".format(self.num_rows))
+        element_list.extend(["cols={}".format(self.num_columns), "rows={}".format(self.num_rows)])
 
         return ", ".join(element_list)
 
