@@ -4,9 +4,10 @@
 .. codeauthor:: Tsuyoshi Hombashi <tsuyoshi.hombashi@gmail.com>
 """
 
-from __future__ import unicode_literals
+from __future__ import print_function, unicode_literals
 
 import itertools
+import sys
 from collections import OrderedDict, namedtuple
 from decimal import Decimal
 
@@ -228,7 +229,7 @@ class Test_TableData_as_dict(object):
                 {
                     "number": [
                         OrderedDict([("a", 1), ("b", 2)]),
-                        OrderedDict([("a", Decimal("3.3")), ("b", Decimal("4.4"))]),
+                        OrderedDict([("a", 3.3), ("b", Decimal("4.4"))]),
                     ]
                 },
             ],
@@ -255,7 +256,7 @@ class Test_TableData_as_tuple(object):
                 "number",
                 ["a", "b"],
                 [[1, 2.0], [3.3, Decimal("4.4")]],
-                [(1, 2), (Decimal("3.3"), Decimal("4.4"))],
+                [(1, 2.0), (Decimal("3.3"), Decimal("4.4"))],
             ],
             [
                 "include_none",
@@ -267,7 +268,11 @@ class Test_TableData_as_tuple(object):
         ],
     )
     def test_normal(self, table_name, headers, rows, expected):
-        assert list(TableData(table_name, headers, rows).as_tuple()) == expected
+        for lhs, rhs in zip(TableData(table_name, headers, rows).as_tuple(), expected):
+            print("lhs: {}".format(lhs), file=sys.stderr)
+            print("rhs: {}".format(rhs), file=sys.stderr)
+
+            assert tuple(lhs) == rhs
 
 
 class Test_TableData_transpose(object):

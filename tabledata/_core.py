@@ -13,7 +13,7 @@ import dataproperty as dp
 import six
 import typepy
 from six.moves import zip
-from typepy import Nan, Typecode
+from typepy import Nan
 
 from ._constant import PatternMatch
 from ._converter import to_value_matrix
@@ -334,25 +334,22 @@ class TableData(object):
         :Output:
             .. code:: json
 
-                {'sample': [OrderedDict([('a', 1), ('b', 2)]),
-                  OrderedDict([('a', Decimal('3.3')), ('b', Decimal('4.4'))])]}
+                {'sample': [OrderedDict([('a', 1), ('b', 2)]), OrderedDict([('a', 3.3), ('b', 4.4)])]}
         """
 
         dict_body = []
-        for value_dp_list in self.value_dp_matrix:
-            if typepy.is_empty_sequence(value_dp_list):
+        for row in self.rows:
+            if not row:
                 continue
 
-            row = [
-                (header, value_dp.data)
-                for header, value_dp in zip(self.headers, value_dp_list)
-                if value_dp.typecode != Typecode.NONE
+            values = [
+                (header, value) for header, value in zip(self.headers, row) if value is not None
             ]
 
-            if typepy.is_empty_sequence(row):
+            if not values:
                 continue
 
-            dict_body.append(OrderedDict(row))
+            dict_body.append(OrderedDict(values))
 
         return {self.table_name: dict_body}
 
