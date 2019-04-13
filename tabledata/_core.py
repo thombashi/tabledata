@@ -13,7 +13,7 @@ import dataproperty as dp
 import six
 import typepy
 from six.moves import zip
-from typepy import Nan
+from typepy import Nan, Typecode
 
 from ._constant import PatternMatch
 from ._converter import to_value_matrix
@@ -337,8 +337,6 @@ class TableData(object):
                 {'sample': [OrderedDict([('a', 1), ('b', 2)]),
                   OrderedDict([('a', Decimal('3.3')), ('b', Decimal('4.4'))])]}
         """
-
-        from typepy import Typecode
 
         dict_body = []
         for value_dp_list in self.value_dp_matrix:
