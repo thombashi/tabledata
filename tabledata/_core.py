@@ -7,6 +7,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import re
+import warnings
 from collections import OrderedDict, namedtuple
 
 import dataproperty as dp
@@ -54,7 +55,7 @@ class TableData(object):
 
     @property
     def header_list(self):
-        """alias to :py:attr:`.headers`"""
+        warnings.warn("'header_list' has moved to 'headers'", DeprecationWarning)
 
         return self.headers
 
@@ -70,7 +71,7 @@ class TableData(object):
 
     @property
     def row_list(self):
-        """alias to :py:attr:`.rows`"""
+        warnings.warn("'row_list' has moved to 'rows'", DeprecationWarning)
 
         return self.rows
 
@@ -203,7 +204,7 @@ class TableData(object):
         return typepy.is_empty_sequence(self.headers)
 
     def is_empty_record(self):
-        """Depricated"""
+        warnings.warn("'is_empty_record()' has moved to 'is_empty_rows()'", DeprecationWarning)
 
         return self.is_empty_rows()
 
