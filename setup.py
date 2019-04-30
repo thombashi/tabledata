@@ -80,7 +80,7 @@ setuptools.setup(
     extras_require={
         "build": ["twine", "wheel"],
         "docs": DOCS_REQUIRES,
-        "logging": ["Logbook>=1.1.0,<2.0.0"],
+        "logging": ["Logbook>=0.12.3,<2.0.0"],
         "release": ["releasecmd>=0.0.18,<0.1.0"],
         "test": TESTS_REQUIRES,
     },
