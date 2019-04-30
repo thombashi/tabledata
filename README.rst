@@ -26,11 +26,23 @@ Summary
     :target: https://coveralls.io/github/thombashi/tabledata?branch=master
     :alt: Test coverage
 
+
 Installation
 ============
+
+Install from PyPI
+------------------------------
 ::
 
     pip install tabledata
+
+Install from PPA (for Ubuntu)
+------------------------------
+::
+
+    sudo add-apt-repository ppa:thombashi/ppa
+    sudo apt update
+    sudo apt install python3-tabledata
 
 
 Dependencies
