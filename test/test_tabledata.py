@@ -13,7 +13,6 @@ from decimal import Decimal
 
 import pytest
 import six
-from pytablewriter import dump_tabledata
 from six.moves import zip
 from tabledata import DataError, PatternMatch, TableData
 from typepy import Integer, String
@@ -22,6 +21,19 @@ from typepy import Integer, String
 attr_list_2 = ["attr_a", "attr_b"]
 
 NamedTuple2 = namedtuple("NamedTuple2", " ".join(attr_list_2))
+
+
+def dumps_results(expected=None, actual=None):
+    try:
+        from pytablewriter import dumps_tabledata
+    except ImportError:
+        return
+
+    if expected:
+        print("expected: {}".format(dumps_tabledata(expected)))
+
+    if actual:
+        print("actual: {}".format(dumps_tabledata(actual)))
 
 
 class Test_TableData_constructor(object):
@@ -41,8 +53,7 @@ class Test_TableData_constructor(object):
     def test_normal(self, table_name, headers, rows, expected):
         tabledata = TableData(table_name, headers, rows)
 
-        print("expected: {}".format(dump_tabledata(expected)))
-        print("actual: {}".format(dump_tabledata(tabledata)))
+        dumps_results(expected=expected, actual=tabledata)
 
         assert tabledata == expected
 
@@ -71,7 +82,7 @@ class Test_TableData_constructor(object):
         for col_dp in tabledata.column_dp_list:
             print(col_dp)
 
-        print("actual: {}".format(dump_tabledata(tabledata)))
+        dumps_results(actual=tabledata)
 
         for row_dp in tabledata.value_dp_matrix:
             for dp, type_hint in zip(row_dp, type_hints):
@@ -442,8 +453,7 @@ class Test_TableData_filter_column(object):
         tabledata = TableData(table_name, headers, rows)
         actual = tabledata.filter_column(patterns=pattern, is_invert_match=is_invert_match)
 
-        print("expected: {}".format(dump_tabledata(expected)))
-        print("actual: {}".format(dump_tabledata(actual)))
+        dumps_results(expected=expected, actual=tabledata)
 
         assert actual == expected
 
@@ -494,8 +504,7 @@ class Test_TableData_filter_column(object):
             patterns=pattern, is_invert_match=is_invert_match, is_re_match=True
         )
 
-        print("expected: {}".format(dump_tabledata(expected)))
-        print("actual: {}".format(dump_tabledata(actual)))
+        dumps_results(expected=expected, actual=tabledata)
 
         assert actual == expected
 
@@ -531,8 +540,7 @@ class Test_TableData_filter_column(object):
             pattern_match=PatternMatch.AND,
         )
 
-        print("expected: {}".format(dump_tabledata(expected)))
-        print("actual: {}".format(dump_tabledata(actual)))
+        dumps_results(expected=expected, actual=tabledata)
 
         assert actual == expected
 
