@@ -26,7 +26,6 @@ Summary
     :target: https://coveralls.io/github/thombashi/tabledata?branch=master
     :alt: Test coverage
 
-
 Installation
 ============
 
@@ -47,7 +46,7 @@ Install from PPA (for Ubuntu)
 
 Dependencies
 ============
-Python 2.7+ or 3.4+
+Python 2.7+ or 3.5+
 
 Mandatory Python packages
 ----------------------------------
