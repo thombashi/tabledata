@@ -22,6 +22,11 @@ build:
 	@tox -e build
 	ls -lh dist/*
 
+.PHONY: check
+check:
+	@tox -e lint
+	travis lint
+
 .PHONY: clean
 clean:
 	@rm -rf $(BUILD_WORK_DIR)
