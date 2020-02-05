@@ -8,6 +8,7 @@ from __future__ import unicode_literals
 
 import pytest
 from six.moves import range
+
 from tabledata._common import convert_idx_to_alphabet
 
 

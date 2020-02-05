@@ -14,8 +14,9 @@ from decimal import Decimal
 import pytest
 import six
 from six.moves import zip
-from tabledata import DataError, PatternMatch, TableData
 from typepy import Integer, String
+
+from tabledata import DataError, PatternMatch, TableData
 
 
 attr_list_2 = ["attr_a", "attr_b"]
@@ -240,7 +241,7 @@ class Test_TableData_as_dict(object):
                 {
                     "number": [
                         OrderedDict([("a", 1), ("b", 2)]),
-                        OrderedDict([("a", 3.3), ("b", Decimal("4.4"))]),
+                        OrderedDict([("a", Decimal("3.3")), ("b", Decimal("4.4"))]),
                     ]
                 },
             ],
