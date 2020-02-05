@@ -1,5 +1,5 @@
-DataProperty>=0.43.1,<1.0.0
+DataProperty>=0.44.0,<2
 enum34;python_version<"3.4"
 futures;python_version<"3.2"
-six>=1.10.0,<2.0.0
-typepy>=0.6.0,<1.0.0
+six>=1.10.0,<2
+typepy>=0.6.4,<2
