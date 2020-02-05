@@ -339,7 +339,7 @@ class TableData(object):
         """
 
         dict_body = []
-        for row in self.rows:
+        for row in self.value_matrix:
             if not row:
                 continue
 
