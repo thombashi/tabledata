@@ -135,7 +135,9 @@ class TableData(object):
     def dp_extractor(self):
         return self.__dp_extractor
 
-    def __init__(self, table_name, headers, rows, dp_extractor=None, type_hints=None):
+    def __init__(
+        self, table_name, headers, rows, dp_extractor=None, type_hints=None, max_workers=None
+    ):
         self.__table_name = table_name
         self.__value_matrix = None
         self.__value_dp_matrix = None
@@ -158,6 +160,9 @@ class TableData(object):
         if six.PY2:
             # avoid unit test execution hang up at Python 2 environment
             self.__dp_extractor.max_workers = 1
+        else:
+            if max_workers:
+                self.__dp_extractor.max_workers = max_workers
 
         if not headers:
             self.__dp_extractor.headers = []
