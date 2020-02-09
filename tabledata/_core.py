@@ -7,7 +7,6 @@
 from __future__ import absolute_import, unicode_literals
 
 import re
-import warnings
 from collections import OrderedDict, namedtuple
 
 import dataproperty as dp
