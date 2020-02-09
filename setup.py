@@ -73,10 +73,7 @@ setuptools.setup(
     install_requires=SETUPTOOLS_REQUIRES + INSTALL_REQUIRES,
     setup_requires=SETUPTOOLS_REQUIRES + PYTEST_RUNNER_REQUIRES,
     tests_require=TESTS_REQUIRES,
-    extras_require={
-        "logging": ["Logbook>=0.12.3,<2.0.0"],
-        "test": TESTS_REQUIRES,
-    },
+    extras_require={"logging": ["Logbook>=0.12.3,<2.0.0"], "test": TESTS_REQUIRES,},
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
