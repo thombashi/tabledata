@@ -54,12 +54,6 @@ class TableData(object):
         return self.__dp_extractor.headers
 
     @property
-    def header_list(self):
-        warnings.warn("'header_list' has moved to 'headers'", DeprecationWarning)
-
-        return self.headers
-
-    @property
     def rows(self):
         """Original rows of tabular data.
 
@@ -68,12 +62,6 @@ class TableData(object):
         """
 
         return self.__rows
-
-    @property
-    def row_list(self):
-        warnings.warn("'row_list' has moved to 'rows'", DeprecationWarning)
-
-        return self.rows
 
     @property
     def value_matrix(self):
@@ -202,11 +190,6 @@ class TableData(object):
         """
 
         return typepy.is_empty_sequence(self.headers)
-
-    def is_empty_record(self):
-        warnings.warn("'is_empty_record()' has moved to 'is_empty_rows()'", DeprecationWarning)
-
-        return self.is_empty_rows()
 
     def is_empty_rows(self):
         """
