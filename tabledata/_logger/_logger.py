@@ -12,6 +12,7 @@ from ._null_logger import NullLogger
 
 
 MODULE_NAME = "tabledata"
+_is_enable = False
 
 try:
     from loguru import logger
@@ -22,6 +23,11 @@ except ImportError:
 
 
 def set_logger(is_enable):
+    global _is_enable
+
+    if is_enable == _is_enable:
+        return
+
     if is_enable:
         logger.enable(MODULE_NAME)
     else:
