@@ -53,3 +53,7 @@ readme:
 release:
 	@cd $(BUILD_WORK_DIR)/$(PACKAGE); tox -e release
 	@make clean
+
+.PHONY: setup
+setup:
+	@pip install --upgrade -e .[test] tox
