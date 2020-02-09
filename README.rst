@@ -56,8 +56,8 @@ Mandatory Python packages
 
 Optional Python packages
 ------------------------------------------------
-- `logbook <https://logbook.readthedocs.io/en/stable/>`__
-    - Logging using logbook if the package installed
+- `loguru <https://github.com/Delgan/loguru>`__
+    - Used for logging if the package installed
 - `pandas <https://pandas.pydata.org/>`__
     - required to get table data as a pandas data frame
 
