@@ -323,7 +323,7 @@ class TableData(object):
             .. code:: json
 
                 {'sample': [OrderedDict([('a', 1), ('b', 2)]), OrderedDict([('a', 3.3), ('b', 4.4)])]}
-        """
+        """  # noqa
 
         dict_body = []
         for row in self.value_matrix:
