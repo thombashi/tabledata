@@ -266,7 +266,7 @@ class TableData:
 
         return True
 
-    def in_tabledata_list(self, other, cmp_by_dp: bool = True) -> bool:
+    def in_tabledata_list(self, other: Sequence, cmp_by_dp: bool = True) -> bool:
         for table_data in other:
             if self.equals(table_data, cmp_by_dp=cmp_by_dp):
                 return True
