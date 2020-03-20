@@ -3,7 +3,7 @@
 """
 
 
-def convert_idx_to_alphabet(idx):
+def convert_idx_to_alphabet(idx: int) -> str:
     if idx < 26:
         return chr(65 + idx)
 

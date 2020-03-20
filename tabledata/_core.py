@@ -4,10 +4,12 @@
 
 import re
 from collections import OrderedDict, namedtuple
+from typing import Any, Dict, List, Optional, Sequence
 
 import dataproperty as dp
 import typepy
 from typepy import Nan
+from typepy.type import AbstractType
 
 from ._constant import PatternMatch
 from ._converter import to_value_matrix
@@ -18,123 +20,23 @@ class TableData:
     """
     Class to represent a table data structure.
 
-    :param str table_name: Name of the table.
-    :param list headers: Table header names.
-    :param list rows: Data of the table.
+    :param table_name: Name of the table.
+    :param  headers: Table header names.
+    :param rows: Data of the table.
     """
 
-    @property
-    def table_name(self):
-        """
-        :return: Name of the table.
-        :rtype: str
-        """
-
-        return self.__table_name
-
-    @table_name.setter
-    def table_name(self, value):
-        self.__table_name = value
-
-    @property
-    def headers(self):
-        """Get the table header names.
-
-        Returns:
-            |list| or |tuple|: Table header names.
-        """
-
-        return self.__dp_extractor.headers
-
-    @property
-    def rows(self):
-        """Original rows of tabular data.
-
-        Returns:
-            |list| or |tuple|: Table rows.
-        """
-
-        return self.__rows
-
-    @property
-    def value_matrix(self):
-        """Converted rows of tabular data.
-
-        Returns:
-            |list| or |tuple|: Table rows.
-        """
-
-        if self.__value_matrix:
-            return self.__value_matrix
-
-        self.__value_matrix = [
-            [value_dp.data for value_dp in value_dp_list] for value_dp_list in self.value_dp_matrix
-        ]
-
-        return self.__value_matrix
-
-    @property
-    def has_value_dp_matrix(self):
-        return self.__value_dp_matrix is not None
-
-    @property
-    def num_rows(self):
-        """
-        :return:
-            Number of rows in the tabular data.
-            |None| if the ``rows`` is neither list nor tuple.
-        :rtype: int
-        """
-
-        try:
-            return len(self.rows)
-        except TypeError:
-            return None
-
-    @property
-    def num_columns(self):
-        if typepy.is_not_empty_sequence(self.headers):
-            return len(self.headers)
-
-        try:
-            return len(self.rows[0])
-        except TypeError:
-            return None
-        except IndexError:
-            return 0
-
-    @property
-    def value_dp_matrix(self):
-        """
-        :return: DataProperty for table data.
-        :rtype: list
-        """
-
-        if self.__value_dp_matrix is None:
-            self.__value_dp_matrix = self.__dp_extractor.to_dp_matrix(
-                to_value_matrix(self.headers, self.rows)
-            )
-
-        return self.__value_dp_matrix
-
-    @property
-    def header_dp_list(self):
-        return self.__dp_extractor.to_header_dp_list()
-
-    @property
-    def column_dp_list(self):
-        return self.__dp_extractor.to_column_dp_list(self.value_dp_matrix)
-
-    @property
-    def dp_extractor(self):
-        return self.__dp_extractor
-
     def __init__(
-        self, table_name, headers, rows, dp_extractor=None, type_hints=None, max_workers=None
+        self,
+        table_name: str,
+        headers: Sequence[str],
+        rows: Sequence,
+        dp_extractor: Optional[dp.DataPropertyExtractor] = None,
+        type_hints: Optional[Sequence[AbstractType]] = None,
+        max_workers: Optional[int] = None,
     ):
         self.__table_name = table_name
-        self.__value_matrix = None
-        self.__value_dp_matrix = None
+        self.__value_matrix = None  # type: Optional[Sequence]
+        self.__value_dp_matrix = None  # type: Optional[Sequence[Sequence[dp.DataProperty]]]
 
         if rows:
             self.__rows = rows
@@ -159,7 +61,7 @@ class TableData:
         else:
             self.__dp_extractor.headers = headers
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         element_list = ["table_name={}".format(self.table_name)]
 
         try:
@@ -171,13 +73,119 @@ class TableData:
 
         return ", ".join(element_list)
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         return self.equals(other, cmp_by_dp=True)
 
-    def __ne__(self, other):
+    def __ne__(self, other) -> bool:
         return not self.equals(other, cmp_by_dp=True)
 
-    def is_empty_header(self):
+    @property
+    def table_name(self) -> str:
+        """
+        :return: Name of the table.
+        :rtype: str
+        """
+
+        return self.__table_name
+
+    @table_name.setter
+    def table_name(self, value: str) -> None:
+        self.__table_name = value
+
+    @property
+    def headers(self) -> List[str]:
+        """Get the table header names.
+
+        Returns:
+            |list| or |tuple|: Table header names.
+        """
+
+        return self.__dp_extractor.headers
+
+    @property
+    def rows(self) -> Sequence:
+        """Original rows of tabular data.
+
+        Returns:
+            |list| or |tuple|: Table rows.
+        """
+
+        return self.__rows
+
+    @property
+    def value_matrix(self) -> Sequence:
+        """Converted rows of tabular data.
+
+        Returns:
+            |list| or |tuple|: Table rows.
+        """
+
+        if self.__value_matrix:
+            return self.__value_matrix
+
+        self.__value_matrix = [
+            [value_dp.data for value_dp in value_dp_list] for value_dp_list in self.value_dp_matrix
+        ]
+
+        return self.__value_matrix
+
+    @property
+    def has_value_dp_matrix(self) -> bool:
+        return self.__value_dp_matrix is not None
+
+    @property
+    def num_rows(self) -> Optional[int]:
+        """
+        :return:
+            Number of rows in the tabular data.
+            |None| if the ``rows`` is neither list nor tuple.
+        :rtype: int
+        """
+
+        try:
+            return len(self.rows)
+        except TypeError:
+            return None
+
+    @property
+    def num_columns(self) -> Optional[int]:
+        if typepy.is_not_empty_sequence(self.headers):
+            return len(self.headers)
+
+        try:
+            return len(self.rows[0])
+        except TypeError:
+            return None
+        except IndexError:
+            return 0
+
+    @property
+    def value_dp_matrix(self) -> Optional[Sequence[Sequence[dp.DataProperty]]]:
+        """
+        :return: DataProperty for table data.
+        :rtype: list
+        """
+
+        if self.__value_dp_matrix is None:
+            self.__value_dp_matrix = self.__dp_extractor.to_dp_matrix(
+                to_value_matrix(self.headers, self.rows)
+            )
+
+        return self.__value_dp_matrix
+
+    @property
+    def header_dp_list(self) -> List[dp.DataPropertyExtractor]:
+        return self.__dp_extractor.to_header_dp_list()
+
+    @property
+    def column_dp_list(self) -> List[dp.ColumnDataProperty]:
+        return self.__dp_extractor.to_column_dp_list(self.value_dp_matrix)
+
+    @property
+    def dp_extractor(self) -> dp.DataPropertyExtractor:
+        return self.__dp_extractor
+
+    def is_empty_header(self) -> bool:
         """
         :return: |True| if the data :py:attr:`.headers` is empty.
         :rtype: bool
@@ -185,7 +193,7 @@ class TableData:
 
         return typepy.is_empty_sequence(self.headers)
 
-    def is_empty_rows(self):
+    def is_empty_rows(self) -> bool:
         """
         :return: |True| if the tabular data has no rows.
         :rtype: bool
@@ -193,7 +201,7 @@ class TableData:
 
         return self.num_rows == 0
 
-    def is_empty(self):
+    def is_empty(self) -> bool:
         """
         :return:
             |True| if the data :py:attr:`.headers` or
@@ -203,13 +211,13 @@ class TableData:
 
         return any([self.is_empty_header(), self.is_empty_rows()])
 
-    def equals(self, other, cmp_by_dp=False):
+    def equals(self, other, cmp_by_dp: bool = False) -> bool:
         if cmp_by_dp:
             return self.__equals_raw(other)
 
         return self.__equals_dp(other)
 
-    def __equals_base(self, other):
+    def __equals_base(self, other) -> bool:
         compare_item_list = [self.table_name == other.table_name]
 
         if self.num_rows is not None:
@@ -217,7 +225,7 @@ class TableData:
 
         return all(compare_item_list)
 
-    def __equals_raw(self, other):
+    def __equals_raw(self, other) -> bool:
         if not self.__equals_base(other):
             return False
 
@@ -239,12 +247,14 @@ class TableData:
 
         return True
 
-    def __equals_dp(self, other):
+    def __equals_dp(self, other) -> bool:
         if not self.__equals_base(other):
             return False
 
         if self.header_dp_list != other.header_dp_list:
             return False
+
+        assert self.value_dp_matrix  # to avoid type check error
 
         for lhs_list, rhs_list in zip(self.value_dp_matrix, other.value_dp_matrix):
             if len(lhs_list) != len(rhs_list):
@@ -255,14 +265,14 @@ class TableData:
 
         return True
 
-    def in_tabledata_list(self, other, cmp_by_dp=False):
+    def in_tabledata_list(self, other, cmp_by_dp: bool = False) -> bool:
         for table_data in other:
             if self.equals(table_data, cmp_by_dp=cmp_by_dp):
                 return True
 
         return False
 
-    def validate_rows(self):
+    def validate_rows(self) -> None:
         """
         :raises ValueError:
         """
@@ -293,7 +303,7 @@ class TableData:
             )
         )
 
-    def as_dict(self):
+    def as_dict(self) -> Dict[str, List[Dict[str, Any]]]:
         """
         :return: Table data as a |dict| instance.
         :rtype: dict
@@ -405,7 +415,11 @@ class TableData:
         return TableData(self.table_name, self.headers, [row for row in zip(*self.rows)])
 
     def filter_column(
-        self, patterns=None, is_invert_match=False, is_re_match=False, pattern_match=PatternMatch.OR
+        self,
+        patterns: Optional[str] = None,
+        is_invert_match: bool = False,
+        is_re_match: bool = False,
+        pattern_match: PatternMatch = PatternMatch.OR,
     ):
         logger.debug(
             "filter_column: patterns={}, is_invert_match={}, "
@@ -449,7 +463,7 @@ class TableData:
         return TableData(self.table_name, match_header_list, list(zip(*match_column_matrix)))
 
     @staticmethod
-    def from_dataframe(dataframe, table_name=""):
+    def from_dataframe(dataframe, table_name: str = ""):
         """
         Initialize TableData instance from a pandas.DataFrame instance.
 
@@ -460,7 +474,7 @@ class TableData:
         return TableData(table_name, list(dataframe.columns.values), dataframe.values.tolist())
 
     @staticmethod
-    def __is_match(header, pattern, is_re_match):
+    def __is_match(header: str, pattern: str, is_re_match: bool) -> bool:
         if is_re_match:
             return re.search(pattern, header) is not None
 

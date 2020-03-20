@@ -2,17 +2,19 @@
 .. codeauthor:: Tsuyoshi Hombashi <tsuyoshi.hombashi@gmail.com>
 """
 
+from typing import Any, List, Sequence, Tuple
+
 from .error import DataError
 
 
-def to_value_matrix(headers, value_matrix):
+def to_value_matrix(headers: Sequence[str], value_matrix) -> List:
     if value_matrix is None:
         return []
 
     return [_to_row(headers, values, row_idx)[1] for row_idx, values in enumerate(value_matrix)]
 
 
-def _to_row(headers, values, row_idx):
+def _to_row(headers: Sequence[str], values, row_idx: int) -> Tuple[int, Any]:
     if headers:
         try:
             values = values._asdict()

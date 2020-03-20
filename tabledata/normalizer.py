@@ -4,6 +4,7 @@
 
 import abc
 import warnings
+from typing import List, Sequence
 
 import typepy
 
@@ -18,11 +19,11 @@ class TableDataNormalizerInterface(metaclass=abc.ABCMeta):
     """
 
     @abc.abstractmethod
-    def validate(self):  # pragma: no cover
+    def validate(self) -> None:  # pragma: no cover
         pass
 
     @abc.abstractmethod
-    def normalize(self):  # pragma: no cover
+    def normalize(self) -> TableData:  # pragma: no cover
         pass
 
 
@@ -43,7 +44,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
 
         return self.normalize()
 
-    def normalize(self):
+    def normalize(self) -> TableData:
         """
         :return: Sanitized table data.
         :rtype: tabledata.TableData
@@ -62,14 +63,14 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         )
 
     @abc.abstractmethod
-    def _preprocess_table_name(self):
+    def _preprocess_table_name(self) -> str:
         """
         Always called before table name validation.
         You must return preprocessed table name.
         """
 
     @abc.abstractmethod
-    def _validate_table_name(self, table_name):
+    def _validate_table_name(self, table_name: str) -> None:
         """
         Must raise :py:class:`~.InvalidTableNameError`
         when you consider the table name invalid.
@@ -81,7 +82,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         """
 
     @abc.abstractmethod
-    def _normalize_table_name(self, table_name):
+    def _normalize_table_name(self, table_name: str) -> str:
         """
         Must return a valid table name.
         The table name must be a valid name with
@@ -96,14 +97,14 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         """
 
     @abc.abstractmethod
-    def _preprocess_header(self, col_idx, header):
+    def _preprocess_header(self, col_idx: int, header: str) -> str:
         """
         Always called before a header validation.
         You must return preprocessed header.
         """
 
     @abc.abstractmethod
-    def _validate_header(self, header):
+    def _validate_header(self, header: str) -> None:
         """
         No operation.
 
@@ -118,7 +119,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         """
 
     @abc.abstractmethod
-    def _normalize_header(self, header):
+    def _normalize_header(self, header: str) -> str:
         """
         Must return a valid header name.
         This method called when :py:meth:`~._validate_header` method raise
@@ -131,14 +132,14 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         :rtype: str
         """
 
-    def _normalize_rows(self, normalize_headers):
+    def _normalize_rows(self, normalize_headers: Sequence[str]) -> List:
         return self._tabledata.rows
 
-    def _validate_headers(self):
+    def _validate_headers(self) -> None:
         for header in self._tabledata.headers:
             self._validate_header(header)
 
-    def __normalize_table_name(self):
+    def __normalize_table_name(self) -> str:
         preprocessed_table_name = self._preprocess_table_name()
 
         try:
@@ -150,7 +151,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
 
         return new_table_name
 
-    def _normalize_headers(self):
+    def _normalize_headers(self) -> List[str]:
         new_header_list = []
 
         for col_idx, header in enumerate(self._tabledata.headers):
@@ -169,26 +170,26 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
 
 
 class TableDataNormalizer(AbstractTableDataNormalizer):
-    def _preprocess_table_name(self):
+    def _preprocess_table_name(self) -> str:
         return self._tabledata.table_name
 
-    def _validate_table_name(self, table_name):
+    def _validate_table_name(self, table_name: str) -> None:
         try:
             typepy.String(table_name).validate()
         except TypeError as e:
             raise InvalidTableNameError(e)
 
-    def _normalize_table_name(self, table_name):
+    def _normalize_table_name(self, table_name: str) -> str:
         return typepy.String(table_name).force_convert()
 
-    def _preprocess_header(self, col_idx, header):
+    def _preprocess_header(self, col_idx: int, header: str) -> str:
         return header
 
-    def _validate_header(self, header):
+    def _validate_header(self, header: str) -> None:
         try:
             typepy.String(header).validate()
         except TypeError as e:
             raise InvalidHeaderNameError(e)
 
-    def _normalize_header(self, header):
+    def _normalize_header(self, header: str) -> str:
         return typepy.String(header).force_convert()
