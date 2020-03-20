@@ -67,6 +67,7 @@ setuptools.setup(
     install_requires=SETUPTOOLS_REQUIRES + INSTALL_REQUIRES,
     setup_requires=SETUPTOOLS_REQUIRES,
     tests_require=TESTS_REQUIRES,
+    python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*",
     extras_require={"logging": ["loguru>=0.4.1,<1"], "test": TESTS_REQUIRES},
     classifiers=[
         "Development Status :: 4 - Beta",
