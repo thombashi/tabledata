@@ -67,7 +67,7 @@ setuptools.setup(
     python_requires=">=3.5",
     extras_require={"logging": ["loguru>=0.4.1,<1"], "test": TESTS_REQUIRES},
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
         "Intended Audience :: Information Technology",
         "License :: OSI Approved :: MIT License",
