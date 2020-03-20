@@ -170,13 +170,18 @@ class Test_TableData_equals:
 
     @pytest.mark.parametrize(
         ["lhs", "rhs", "cmp_by_dp", "expected"],
-        [[__LHS, __RHS, False, True], [__LHS, __RHS, True, False]],
+        [[__LHS, __RHS, True, True], [__LHS, __RHS, False, False]],
     )
     def test_normal(self, lhs, rhs, cmp_by_dp, expected):
+        empty_td = TableData("tablename", ["a", "b"], None)
+
         assert lhs.equals(rhs, cmp_by_dp=cmp_by_dp) == expected
-        assert lhs.in_tabledata_list([rhs], cmp_by_dp=cmp_by_dp) == expected
-        assert lhs.in_tabledata_list([lhs], cmp_by_dp=cmp_by_dp)
-        assert lhs.in_tabledata_list([rhs, lhs], cmp_by_dp=cmp_by_dp)
+        assert lhs.equals(empty_td, cmp_by_dp=cmp_by_dp) is False
+        assert empty_td.equals(rhs, cmp_by_dp=cmp_by_dp) is False
+        assert lhs.in_tabledata_list([rhs, empty_td], cmp_by_dp=cmp_by_dp) == expected
+        assert lhs.in_tabledata_list([lhs, empty_td], cmp_by_dp=cmp_by_dp)
+        assert lhs.in_tabledata_list([rhs, lhs, empty_td], cmp_by_dp=cmp_by_dp)
+        assert empty_td.in_tabledata_list([rhs, lhs], cmp_by_dp=cmp_by_dp) is False
 
 
 class Test_TableData_repr:

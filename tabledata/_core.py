@@ -211,11 +211,11 @@ class TableData:
 
         return any([self.is_empty_header(), self.is_empty_rows()])
 
-    def equals(self, other, cmp_by_dp: bool = False) -> bool:
+    def equals(self, other, cmp_by_dp: bool = True) -> bool:
         if cmp_by_dp:
-            return self.__equals_raw(other)
+            return self.__equals_dp(other)
 
-        return self.__equals_dp(other)
+        return self.__equals_raw(other)
 
     def __equals_base(self, other) -> bool:
         compare_item_list = [self.table_name == other.table_name]
@@ -254,7 +254,8 @@ class TableData:
         if self.header_dp_list != other.header_dp_list:
             return False
 
-        assert self.value_dp_matrix  # to avoid type check error
+        if (self.value_dp_matrix is None and other) or (self.value_dp_matrix and other is None):
+            return False
 
         for lhs_list, rhs_list in zip(self.value_dp_matrix, other.value_dp_matrix):
             if len(lhs_list) != len(rhs_list):
@@ -265,7 +266,7 @@ class TableData:
 
         return True
 
-    def in_tabledata_list(self, other, cmp_by_dp: bool = False) -> bool:
+    def in_tabledata_list(self, other, cmp_by_dp: bool = True) -> bool:
         for table_data in other:
             if self.equals(table_data, cmp_by_dp=cmp_by_dp):
                 return True
