@@ -1,17 +1,13 @@
-# encoding: utf-8
-
 """
 .. codeauthor:: Tsuyoshi Hombashi <tsuyoshi.hombashi@gmail.com>
 """
-
-from __future__ import unicode_literals
 
 from collections import OrderedDict
 
 from tabledata import to_value_matrix
 
 
-class Test_to_value_matrix(object):
+class Test_to_value_matrix:
     def test_normal_dict_rows(self):
         expect = [
             [1, None, None],

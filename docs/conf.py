@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import os
 import sys
 
@@ -143,8 +141,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'tabledata.tex', u'tabledata Documentation',
-     u'Tsuyoshi Hombashi', 'manual'),
+    (master_doc, 'tabledata.tex', 'tabledata Documentation',
+     'Tsuyoshi Hombashi', 'manual'),
 ]
 
 
@@ -153,7 +151,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'tabledata', u'tabledata Documentation',
+    (master_doc, 'tabledata', 'tabledata Documentation',
      [author], 1)
 ]
 
@@ -164,7 +162,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'tabledata', u'tabledata Documentation',
+    (master_doc, 'tabledata', 'tabledata Documentation',
      author, 'tabledata', 'One line description of project.',
      'Miscellaneous'),
 ]
@@ -172,7 +170,7 @@ texinfo_documents = [
 
 # ---------------------------------------------
 
-rp_builtin = u"""
+rp_builtin = """
 .. |False| replace:: :py:obj:`False`
 .. |True| replace:: :py:obj:`True`
 .. |None| replace:: :py:obj:`None`
@@ -189,7 +187,7 @@ rp_builtin = u"""
 .. |tuple| replace:: :py:obj:`tuple`
 """
 
-rp_class = u"""
+rp_class = """
 .. |TableData| replace::
     :py:class:`~tabledata.TableData`
 """

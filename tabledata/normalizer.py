@@ -1,15 +1,10 @@
-# encoding: utf-8
-
 """
 .. codeauthor:: Tsuyoshi Hombashi <tsuyoshi.hombashi@gmail.com>
 """
 
-from __future__ import absolute_import, unicode_literals
-
 import abc
 import warnings
 
-import six
 import typepy
 
 from ._core import TableData
@@ -17,8 +12,7 @@ from ._logger import logger
 from .error import InvalidHeaderNameError, InvalidTableNameError
 
 
-@six.add_metaclass(abc.ABCMeta)
-class TableDataNormalizerInterface(object):
+class TableDataNormalizerInterface(metaclass=abc.ABCMeta):
     """
     Interface class to validate and normalize data of |TableData|.
     """

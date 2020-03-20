@@ -1,10 +1,6 @@
-# encoding: utf-8
-
 """
 .. codeauthor:: Tsuyoshi Hombashi <tsuyoshi.hombashi@gmail.com>
 """
-
-from __future__ import print_function, unicode_literals
 
 import itertools
 import sys
@@ -12,8 +8,6 @@ from collections import OrderedDict, namedtuple
 from decimal import Decimal
 
 import pytest
-import six
-from six.moves import zip
 from typepy import Integer, String
 
 from tabledata import DataError, PatternMatch, TableData
@@ -37,7 +31,7 @@ def dumps_results(expected=None, actual=None):
         print("actual: {}".format(dumps_tabledata(actual)))
 
 
-class Test_TableData_constructor(object):
+class Test_TableData_constructor:
     @pytest.mark.parametrize(
         ["table_name", "headers", "rows", "expected"],
         [
@@ -103,11 +97,10 @@ class Test_TableData_constructor(object):
 def yield_rows():
     rows = [[1, 2], [3, 4]]
 
-    for row in rows:
-        yield row
+    yield from rows
 
 
-class Test_TableData_num_rows(object):
+class Test_TableData_num_rows:
     @pytest.mark.parametrize(
         ["table_name", "headers", "rows", "expected"],
         [
@@ -125,7 +118,7 @@ class Test_TableData_num_rows(object):
         assert table_data.num_rows == expected
 
 
-class Test_TableData_eq(object):
+class Test_TableData_eq:
 
     __DATA_0 = TableData(
         "Sheet1",
@@ -170,7 +163,7 @@ class Test_TableData_eq(object):
         assert (lhs != rhs) == (not expected)
 
 
-class Test_TableData_equals(object):
+class Test_TableData_equals:
 
     __LHS = TableData("tablename", ["a", "b"], [{"a": 1, "b": 2}, {"a": 11, "b": 12}])
     __RHS = TableData("tablename", ["a", "b"], [[1, 2], [11, 12]])
@@ -186,7 +179,7 @@ class Test_TableData_equals(object):
         assert lhs.in_tabledata_list([rhs, lhs], cmp_by_dp=cmp_by_dp)
 
 
-class Test_TableData_repr(object):
+class Test_TableData_repr:
     @pytest.mark.parametrize(
         ["table_name", "headers", "rows", "expected"],
         [
@@ -215,10 +208,10 @@ class Test_TableData_repr(object):
     def test_normal(self, table_name, headers, rows, expected):
         tabledata = TableData(table_name, headers, rows)
 
-        assert six.text_type(tabledata) == expected
+        assert str(tabledata) == expected
 
 
-class Test_TableData_as_dict(object):
+class Test_TableData_as_dict:
     @pytest.mark.parametrize(
         ["table_name", "headers", "rows", "expected"],
         [
@@ -258,7 +251,7 @@ class Test_TableData_as_dict(object):
         assert TableData(table_name, headers, rows).as_dict() == expected
 
 
-class Test_TableData_as_tuple(object):
+class Test_TableData_as_tuple:
     @pytest.mark.parametrize(
         ["table_name", "headers", "rows", "expected"],
         [
@@ -287,7 +280,7 @@ class Test_TableData_as_tuple(object):
             assert tuple(lhs) == rhs
 
 
-class Test_TableData_transpose(object):
+class Test_TableData_transpose:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [
@@ -301,7 +294,7 @@ class Test_TableData_transpose(object):
         assert value.transpose() == expected
 
 
-class Test_TableData_value_dp_matrix(object):
+class Test_TableData_value_dp_matrix:
 
     __MIXED_DATA = [
         [1, 2],
@@ -354,7 +347,7 @@ class Test_TableData_value_dp_matrix(object):
         assert tabledata.has_value_dp_matrix
 
 
-class Test_TableData_is_empty_header(object):
+class Test_TableData_is_empty_header:
     @pytest.mark.parametrize(
         ["table_name", "headers", "rows", "expected"],
         [["tablename", [], [], True], ["tablename", ["a", "b"], [], False]],
@@ -365,7 +358,7 @@ class Test_TableData_is_empty_header(object):
         assert tabledata.is_empty_header() == expected
 
 
-class Test_TableData_is_empty_rows(object):
+class Test_TableData_is_empty_rows:
     @pytest.mark.parametrize(
         ["table_name", "headers", "rows", "expected"],
         [
@@ -380,7 +373,7 @@ class Test_TableData_is_empty_rows(object):
         assert tabledata.is_empty_rows() == expected
 
 
-class Test_TableData_is_empty(object):
+class Test_TableData_is_empty:
     @pytest.mark.parametrize(
         ["table_name", "headers", "rows", "expected"],
         [
@@ -395,7 +388,7 @@ class Test_TableData_is_empty(object):
         assert tabledata.is_empty() == expected
 
 
-class Test_TableData_validate_rows(object):
+class Test_TableData_validate_rows:
     @pytest.mark.parametrize(
         ["table_name", "headers", "rows"],
         [["tablename", [], []], ["tablename", ["a", "b"], []], ["tablename", ["a", "b"], [[1, 2]]]],
@@ -415,7 +408,7 @@ class Test_TableData_validate_rows(object):
             TableData(table_name, headers, rows).validate_rows()
 
 
-class Test_TableData_filter_column(object):
+class Test_TableData_filter_column:
     HEADERS = ["abcde", "test"]
     VALUE_MATRIX = [[1, 2], [3, 4]]
 

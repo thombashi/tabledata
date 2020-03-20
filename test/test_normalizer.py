@@ -1,14 +1,10 @@
-# encoding: utf-8
-
-from __future__ import unicode_literals
-
 import pytest
 
 from tabledata import TableData
 from tabledata.normalizer import TableDataNormalizer
 
 
-class Test_TableDataNormalizer(object):
+class Test_TableDataNormalizer:
     @pytest.mark.parametrize(
         ["table_name", "headers", "rows", "expected"],
         [

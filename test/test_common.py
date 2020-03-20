@@ -1,18 +1,13 @@
-# encoding: utf-8
-
 """
 .. codeauthor:: Tsuyoshi Hombashi <tsuyoshi.hombashi@gmail.com>
 """
 
-from __future__ import unicode_literals
-
 import pytest
-from six.moves import range
 
 from tabledata._common import convert_idx_to_alphabet
 
 
-class Test_convert_idx_to_alphabet(object):
+class Test_convert_idx_to_alphabet:
     @pytest.mark.parametrize(
         ["value", "expected"],
         [

@@ -1,18 +1,12 @@
-# encoding: utf-8
-
 """
 .. codeauthor:: Tsuyoshi Hombashi <tsuyoshi.hombashi@gmail.com>
 """
-
-from __future__ import absolute_import, unicode_literals
 
 import re
 from collections import OrderedDict, namedtuple
 
 import dataproperty as dp
-import six
 import typepy
-from six.moves import zip
 from typepy import Nan
 
 from ._constant import PatternMatch
@@ -20,7 +14,7 @@ from ._converter import to_value_matrix
 from ._logger import logger
 
 
-class TableData(object):
+class TableData:
     """
     Class to represent a table data structure.
 
@@ -157,12 +151,8 @@ class TableData(object):
 
         self.__dp_extractor.strip_str_header = '"'
 
-        if six.PY2:
-            # avoid unit test execution hang up at Python 2 environment
-            self.__dp_extractor.max_workers = 1
-        else:
-            if max_workers:
-                self.__dp_extractor.max_workers = max_workers
+        if max_workers:
+            self.__dp_extractor.max_workers = max_workers
 
         if not headers:
             self.__dp_extractor.headers = []
