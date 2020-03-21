@@ -134,6 +134,14 @@ class TableData:
         return self.__value_dp_matrix is not None
 
     @property
+    def max_workers(self) -> int:
+        return self.__dp_extractor.max_workers
+
+    @max_workers.setter
+    def max_workers(self, value: Optional[int]) -> None:
+        self.__dp_extractor.max_workers = value
+
+    @property
     def num_rows(self) -> Optional[int]:
         """
         :return:
