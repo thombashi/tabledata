@@ -74,10 +74,10 @@ class TableData:
         return ", ".join(element_list)
 
     def __eq__(self, other) -> bool:
-        return self.equals(other, cmp_by_dp=True)
+        return self.equals(other, cmp_by_dp=False)
 
     def __ne__(self, other) -> bool:
-        return not self.equals(other, cmp_by_dp=True)
+        return not self.equals(other, cmp_by_dp=False)
 
     @property
     def table_name(self) -> str:

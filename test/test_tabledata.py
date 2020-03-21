@@ -178,6 +178,9 @@ class Test_TableData_equals:
         assert lhs.equals(rhs, cmp_by_dp=cmp_by_dp) == expected
         assert lhs.equals(empty_td, cmp_by_dp=cmp_by_dp) is False
         assert empty_td.equals(rhs, cmp_by_dp=cmp_by_dp) is False
+        assert (lhs == rhs) is False
+        assert (lhs != rhs) is True
+
         assert lhs.in_tabledata_list([rhs, empty_td], cmp_by_dp=cmp_by_dp) == expected
         assert lhs.in_tabledata_list([lhs, empty_td], cmp_by_dp=cmp_by_dp)
         assert lhs.in_tabledata_list([rhs, lhs, empty_td], cmp_by_dp=cmp_by_dp)
