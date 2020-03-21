@@ -27,7 +27,7 @@ class TableData:
 
     def __init__(
         self,
-        table_name: str,
+        table_name: Optional[str],
         headers: Sequence[str],
         rows: Sequence,
         dp_extractor: Optional[dp.DataPropertyExtractor] = None,
@@ -80,7 +80,7 @@ class TableData:
         return not self.equals(other, cmp_by_dp=False)
 
     @property
-    def table_name(self) -> str:
+    def table_name(self) -> Optional[str]:
         """
         :return: Name of the table.
         :rtype: str
@@ -89,7 +89,7 @@ class TableData:
         return self.__table_name
 
     @table_name.setter
-    def table_name(self, value: str) -> None:
+    def table_name(self, value: Optional[str]) -> None:
         self.__table_name = value
 
     @property
@@ -160,7 +160,7 @@ class TableData:
             return 0
 
     @property
-    def value_dp_matrix(self) -> Optional[Sequence[Sequence[dp.DataProperty]]]:
+    def value_dp_matrix(self) -> Sequence[Sequence[dp.DataProperty]]:
         """
         :return: DataProperty for table data.
         :rtype: list
@@ -304,7 +304,7 @@ class TableData:
             )
         )
 
-    def as_dict(self) -> Dict[str, List[Dict[str, Any]]]:
+    def as_dict(self) -> "Dict[Optional[str], List[OrderedDict[str, Any]]]":
         """
         :return: Table data as a |dict| instance.
         :rtype: dict
