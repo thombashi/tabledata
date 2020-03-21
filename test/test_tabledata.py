@@ -233,7 +233,7 @@ class Test_TableData_as_dict:
                 None,
                 ["a", "b"],
                 [[1, 2], [3, 4]],
-                {None: [OrderedDict([("a", 1), ("b", 2)]), OrderedDict([("a", 3), ("b", 4)])]},
+                {"table": [OrderedDict([("a", 1), ("b", 2)]), OrderedDict([("a", 3), ("b", 4)])]},
             ],
             [
                 "number",
@@ -257,6 +257,12 @@ class Test_TableData_as_dict:
     )
     def test_normal(self, table_name, headers, rows, expected):
         assert TableData(table_name, headers, rows).as_dict() == expected
+
+    def test_normal_default_key(self):
+        headers = ["a", "b"]
+
+        assert TableData(None, headers, []).as_dict() == {"table": []}
+        assert TableData("", headers, []).as_dict(default_key="dummy") == {"dummy": []}
 
 
 class Test_TableData_as_tuple:

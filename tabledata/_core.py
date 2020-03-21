@@ -312,12 +312,16 @@ class TableData:
             )
         )
 
-    def as_dict(self) -> "Dict[Optional[str], List[OrderedDict[str, Any]]]":
+    def as_dict(self, default_key: str = "table") -> "Dict[str, List[OrderedDict[str, Any]]]":
         """
-        :return: Table data as a |dict| instance.
-        :rtype: dict
+        Args:
+            default_key:
+                Key of a returning dictionary when the ``table_name`` is empty.
 
-        :Sample Code:
+        Returns:
+            dict: Table data as a |dict| instance.
+
+        Sample Code:
             .. code:: python
 
                 from tabledata import TableData
@@ -328,7 +332,7 @@ class TableData:
                     [[1, 2], [3.3, 4.4]]
                 ).as_dict()
 
-        :Output:
+        Output:
             .. code:: json
 
                 {'sample': [OrderedDict([('a', 1), ('b', 2)]), OrderedDict([('a', 3.3), ('b', 4.4)])]}
@@ -348,7 +352,11 @@ class TableData:
 
             dict_body.append(OrderedDict(values))
 
-        return {self.table_name: dict_body}
+        table_name = self.table_name
+        if not table_name:
+            table_name = default_key
+
+        return {table_name: dict_body}
 
     def as_tuple(self):
         """
