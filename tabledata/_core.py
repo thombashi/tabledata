@@ -429,7 +429,12 @@ class TableData:
         return dataframe
 
     def transpose(self):
-        return TableData(self.table_name, self.headers, [row for row in zip(*self.rows)])
+        return TableData(
+            self.table_name,
+            self.headers,
+            [row for row in zip(*self.rows)],
+            max_workers=self.max_workers,
+        )
 
     def filter_column(
         self,
@@ -477,10 +482,15 @@ class TableData:
             )
         )
 
-        return TableData(self.table_name, match_header_list, list(zip(*match_column_matrix)))
+        return TableData(
+            self.table_name,
+            match_header_list,
+            list(zip(*match_column_matrix)),
+            max_workers=self.max_workers,
+        )
 
     @staticmethod
-    def from_dataframe(dataframe, table_name: str = ""):
+    def from_dataframe(dataframe, table_name: str = "", max_workers: Optional[int] = None):
         """
         Initialize TableData instance from a pandas.DataFrame instance.
 
@@ -488,7 +498,12 @@ class TableData:
         :param str table_name: Table name to create.
         """
 
-        return TableData(table_name, list(dataframe.columns.values), dataframe.values.tolist())
+        return TableData(
+            table_name,
+            list(dataframe.columns.values),
+            dataframe.values.tolist(),
+            max_workers=max_workers,
+        )
 
     @staticmethod
     def __is_match(header: str, pattern: str, is_re_match: bool) -> bool:

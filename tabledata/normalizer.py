@@ -60,6 +60,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
             self._normalize_rows(normalize_headers),
             dp_extractor=self._tabledata.dp_extractor,
             type_hints=self._type_hints,
+            max_workers=self._tabledata.max_workers,
         )
 
     @abc.abstractmethod
