@@ -8,8 +8,8 @@ from typing import Any, Dict, List, Optional, Sequence
 
 import dataproperty as dp
 import typepy
+from dataproperty.typing import TypeHint
 from typepy import Nan
-from typepy.type import AbstractType
 
 from ._constant import PatternMatch
 from ._converter import to_value_matrix
@@ -31,7 +31,7 @@ class TableData:
         headers: Sequence[str],
         rows: Sequence,
         dp_extractor: Optional[dp.DataPropertyExtractor] = None,
-        type_hints: Optional[Sequence[AbstractType]] = None,
+        type_hints: Optional[Sequence[TypeHint]] = None,
         max_workers: Optional[int] = None,
     ):
         self.__table_name = table_name
