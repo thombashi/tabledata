@@ -490,7 +490,12 @@ class TableData:
         )
 
     @staticmethod
-    def from_dataframe(dataframe, table_name: str = "", max_workers: Optional[int] = None):
+    def from_dataframe(
+        dataframe,
+        table_name: str = "",
+        type_hints: Optional[Sequence[TypeHint]] = None,
+        max_workers: Optional[int] = None,
+    ):
         """
         Initialize TableData instance from a pandas.DataFrame instance.
 
@@ -502,6 +507,7 @@ class TableData:
             table_name,
             list(dataframe.columns.values),
             dataframe.values.tolist(),
+            type_hints=type_hints,
             max_workers=max_workers,
         )
 
