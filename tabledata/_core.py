@@ -93,7 +93,7 @@ class TableData:
         self.__table_name = value
 
     @property
-    def headers(self) -> List[str]:
+    def headers(self) -> Sequence[str]:
         """Get the table header names.
 
         Returns:
@@ -139,7 +139,7 @@ class TableData:
 
     @max_workers.setter
     def max_workers(self, value: Optional[int]) -> None:
-        self.__dp_extractor.max_workers = value
+        self.__dp_extractor.max_workers = value  # type: ignore
 
     @property
     def num_rows(self) -> Optional[int]:
@@ -182,7 +182,7 @@ class TableData:
         return self.__value_dp_matrix
 
     @property
-    def header_dp_list(self) -> List[dp.DataPropertyExtractor]:
+    def header_dp_list(self) -> List[dp.DataProperty]:
         return self.__dp_extractor.to_header_dp_list()
 
     @property
