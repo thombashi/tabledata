@@ -38,6 +38,7 @@ exclude_lines = [
 dont_skip = "*/**/__init__.py"
 known_third_party = [
     "pytest",
+    "typepy",
 ]
 include_trailing_comma = true
 line_length = 100
