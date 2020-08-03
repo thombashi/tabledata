@@ -2,6 +2,7 @@
 .. codeauthor:: Tsuyoshi Hombashi <tsuyoshi.hombashi@gmail.com>
 """
 
+import copy
 import re
 from collections import OrderedDict, namedtuple
 from typing import Any, Dict, List, Optional, Sequence
@@ -44,7 +45,7 @@ class TableData:
             self.__rows = []
 
         if dp_extractor:
-            self.__dp_extractor = dp_extractor
+            self.__dp_extractor = copy.deepcopy(dp_extractor)
         else:
             self.__dp_extractor = dp.DataPropertyExtractor()
 
