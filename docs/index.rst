@@ -14,9 +14,7 @@ Welcome to tabledata's documentation!
    :numbered:
 
    pages/introduction/index
-   pages/installation
    pages/reference/index
-   pages/genindex
    pages/links
 
 

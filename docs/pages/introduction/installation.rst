@@ -18,12 +18,8 @@ Install from PPA (for Ubuntu)
 
 Dependencies
 ============
-Python 3.5+
-
-Mandatory Python packages
-----------------------------------
-- `DataProperty <https://github.com/thombashi/DataProperty>`__ (Used to extract data types)
-- `typepy <https://github.com/thombashi/typepy>`__
+- Python 3.5+
+- `Mandatory Python package dependencies (automatically installed) <https://github.com/thombashi/tabledata/network/dependencies>`__
 
 Optional Python packages
 ------------------------------------------------
@@ -31,9 +27,3 @@ Optional Python packages
     - Used for logging if the package installed
 - `pandas <https://pandas.pydata.org/>`__
     - required to get table data as a pandas data frame
-
-Test dependencies
------------------
-- `pytablewriter <https://github.com/thombashi/pytablewriter>`__
-- `pytest <https://docs.pytest.org/en/latest/>`__
-- `tox <https://testrun.org/tox/latest/>`__
