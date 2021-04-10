@@ -26,7 +26,7 @@ build:
 check:
 	@tox -e lint
 	travis lint
-	pip check
+	python3 -m pip check
 
 .PHONY: clean
 clean:
@@ -35,7 +35,7 @@ clean:
 
 .PHONY: idocs
 idocs:
-	@pip install --upgrade .
+	@python3 -m pip install --upgrade .
 	@make docs
 
 .PHONY: docs
@@ -57,5 +57,5 @@ release:
 
 .PHONY: setup
 setup:
-	@pip install --upgrade -e .[test] releasecmd tox
-	pip check
+	@python3 -m pip install --upgrade -e .[test] releasecmd tox
+	python3 -m pip check
