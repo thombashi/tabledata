@@ -14,13 +14,9 @@ Summary
     :target: https://pypi.org/project/tabledata
     :alt: Supported Python versions
 
-.. image:: https://img.shields.io/travis/thombashi/tabledata/master.svg?label=Linux/macOS%20CI
-    :target: https://travis-ci.org/thombashi/tabledata
-    :alt: Linux/macOS CI status
-
-.. image:: https://img.shields.io/appveyor/ci/thombashi/tabledata/master.svg?label=Windows%20CI
-    :target: https://ci.appveyor.com/project/thombashi/tabledata/branch/master
-    :alt: Windows CI status
+.. image:: https://github.com/thombashi/tabledata/workflows/Tests/badge.svg
+    :target: https://github.com/thombashi/tabledata/actions?query=workflow%3ATests
+    :alt: Linux/macOS/Windows CI status
 
 .. image:: https://coveralls.io/repos/github/thombashi/tabledata/badge.svg?branch=master
     :target: https://coveralls.io/github/thombashi/tabledata?branch=master
