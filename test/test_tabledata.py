@@ -70,7 +70,7 @@ class Test_TableData_constructor:
 
         assert tabledata == expected
 
-    def test_normal_type_hints(self,):
+    def test_normal_type_hints(self):
         type_hints = [Integer, String]
         tabledata = TableData("type hints", ["a", "b"], [[1, 2], [1, 2]], type_hints=type_hints)
 
