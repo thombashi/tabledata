@@ -263,7 +263,7 @@ class TableData:
         if self.header_dp_list != other.header_dp_list:
             return False
 
-        if (self.value_dp_matrix is None and other) or (self.value_dp_matrix and other is None):
+        if self.value_dp_matrix is None or other.value_dp_matrix is None:
             return False
 
         for lhs_list, rhs_list in zip(self.value_dp_matrix, other.value_dp_matrix):
