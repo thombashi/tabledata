@@ -6,6 +6,10 @@
     :target: https://pypi.org/project/tabledata
     :alt: Supported Python versions
 
+.. image:: https://img.shields.io/pypi/implementation/tabledata.svg
+    :target: https://pypi.org/project/tabledata
+    :alt: Supported Python implementations
+
 .. image:: https://github.com/thombashi/tabledata/workflows/Tests/badge.svg
     :target: https://github.com/thombashi/tabledata/actions?query=workflow%3ATests
     :alt: Linux/macOS/Windows CI status
