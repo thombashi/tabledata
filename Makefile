@@ -4,6 +4,7 @@ BUILD_WORK_DIR := _work
 DOCS_DIR := docs
 DOCS_BUILD_DIR := $(DOCS_DIR)/_build
 PKG_BUILD_DIR := $(BUILD_WORK_DIR)/$(PACKAGE)
+PYTHON := python3
 
 
 .PHONY: build-remote
@@ -34,7 +35,7 @@ clean:
 
 .PHONY: idocs
 idocs:
-	@python3 -m pip install --upgrade .
+	@$(PYTHON) -m pip install -q --disable-pip-version-check --upgrade .
 	@make docs
 
 .PHONY: docs
@@ -56,5 +57,5 @@ release:
 
 .PHONY: setup
 setup:
-	@python3 -m pip install --upgrade -e .[test] releasecmd tox
-	python3 -m pip check
+	@$(PYTHON) -m pip install -q --disable-pip-version-check --upgrade -e .[test] releasecmd tox
+	@$(PYTHON) -m pip check
