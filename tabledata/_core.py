@@ -5,8 +5,7 @@
 import copy
 import re
 from collections import OrderedDict, namedtuple
-from collections.abc import Iterator
-from typing import Any, Dict, List, Optional, Sequence, Tuple
+from typing import Any, Dict, Iterator, List, Optional, Sequence, Tuple
 
 import dataproperty as dp
 import typepy
