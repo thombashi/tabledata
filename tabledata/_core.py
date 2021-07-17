@@ -5,7 +5,7 @@
 import copy
 import re
 from collections import OrderedDict, namedtuple
-from typing import Any, Dict, List, Optional, Sequence
+from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 import dataproperty as dp
 import typepy
@@ -15,7 +15,7 @@ from typepy import Nan
 from ._constant import PatternMatch
 from ._converter import to_value_matrix
 from ._logger import logger
-
+from collections.abc import Iterator
 
 class TableData:
     """
@@ -36,8 +36,8 @@ class TableData:
         max_workers: Optional[int] = None,
     ):
         self.__table_name = table_name
-        self.__value_matrix = None  # type: Optional[Sequence]
-        self.__value_dp_matrix = None  # type: Optional[Sequence[Sequence[dp.DataProperty]]]
+        self.__value_matrix: Optional[Sequence] = None
+        self.__value_dp_matrix: Optional[Sequence[Sequence[dp.DataProperty]]] = None
 
         if rows:
             self.__rows = rows
@@ -63,14 +63,14 @@ class TableData:
             self.__dp_extractor.headers = headers
 
     def __repr__(self) -> str:
-        element_list = ["table_name={}".format(self.table_name)]
+        element_list = [f"table_name={self.table_name}"]
 
         try:
             element_list.append("headers=[{}]".format(", ".join(self.headers)))
         except TypeError:
             element_list.append("headers=None")
 
-        element_list.extend(["cols={}".format(self.num_columns), "rows={}".format(self.num_rows)])
+        element_list.extend([f"cols={self.num_columns}", f"rows={self.num_rows}"])
 
         return ", ".join(element_list)
 
@@ -301,19 +301,17 @@ class TableData:
             return
 
         for invalid_row_idx in invalid_row_idx_list:
-            logger.debug(
-                "invalid row (line={}): {}".format(invalid_row_idx, self.rows[invalid_row_idx])
-            )
+            logger.debug(f"invalid row (line={invalid_row_idx}): {self.rows[invalid_row_idx]}")
 
         raise ValueError(
             "table header length and row length are mismatch:\n"
-            + "  header(len={}): {}\n".format(len(self.headers), self.headers)
+            + f"  header(len={len(self.headers)}): {self.headers}\n"
             + "  # of miss match rows: {} ouf of {}\n".format(
                 len(invalid_row_idx_list), self.num_rows
             )
         )
 
-    def as_dict(self, default_key: str = "table") -> "Dict[str, List[OrderedDict[str, Any]]]":
+    def as_dict(self, default_key: str = "table") -> Dict[str, List["OrderedDict[str, Any]"]]:
         """
         Args:
             default_key:
@@ -359,7 +357,7 @@ class TableData:
 
         return {table_name: dict_body}
 
-    def as_tuple(self):
+    def as_tuple(self) -> Iterator[Tuple]:
         """
         :return: Rows of the table.
         :rtype: list of |namedtuple|
@@ -384,13 +382,13 @@ class TableData:
                 Row(a=Decimal('3.3'), b=Decimal('4.4'))
         """
 
-        Row = namedtuple("Row", self.headers)
+        Row = namedtuple("Row", self.headers)  # type: ignore
 
         for value_dp_list in self.value_dp_matrix:
             if typepy.is_empty_sequence(value_dp_list):
                 continue
 
-            row = Row(*[value_dp.data for value_dp in value_dp_list])
+            row = Row(*(value_dp.data for value_dp in value_dp_list))
 
             yield row
 
@@ -462,7 +460,7 @@ class TableData:
         elif pattern_match == PatternMatch.AND:
             match_method = all
         else:
-            raise ValueError("unknown matching: {}".format(pattern_match))
+            raise ValueError(f"unknown matching: {pattern_match}")
 
         for header, column in zip(self.headers, zip(*self.rows)):
             is_match_list = []

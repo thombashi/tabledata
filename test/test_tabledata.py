@@ -25,10 +25,10 @@ def dumps_results(expected=None, actual=None):
         return
 
     if expected:
-        print("expected: {}".format(dumps_tabledata(expected)))
+        print(f"expected: {dumps_tabledata(expected)}")
 
     if actual:
-        print("actual: {}".format(dumps_tabledata(actual)))
+        print(f"actual: {dumps_tabledata(actual)}")
 
 
 class Test_TableData_constructor:
@@ -288,8 +288,8 @@ class Test_TableData_as_tuple:
     )
     def test_normal(self, table_name, headers, rows, expected):
         for lhs, rhs in zip(TableData(table_name, headers, rows).as_tuple(), expected):
-            print("lhs: {}".format(lhs), file=sys.stderr)
-            print("rhs: {}".format(rhs), file=sys.stderr)
+            print(f"lhs: {lhs}", file=sys.stderr)
+            print(f"rhs: {rhs}", file=sys.stderr)
 
             assert tuple(lhs) == rhs
 

@@ -50,7 +50,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         :rtype: tabledata.TableData
         """
 
-        logger.debug("normalize: {}".format(type(self).__name__))
+        logger.debug(f"normalize: {type(self).__name__}")
 
         normalize_headers = self._normalize_headers()
 

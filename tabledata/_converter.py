@@ -27,6 +27,6 @@ def _to_row(headers: Sequence[str], values, row_idx: int) -> Tuple[int, Any]:
             pass
 
     if not isinstance(values, (tuple, list)):
-        raise DataError("row must be a list or tuple: actual={}".format(type(values)))
+        raise DataError(f"row must be a list or tuple: actual={type(values)}")
 
     return (row_idx, values)
