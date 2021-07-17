@@ -5,6 +5,7 @@
 import copy
 import re
 from collections import OrderedDict, namedtuple
+from collections.abc import Iterator
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 import dataproperty as dp
@@ -15,7 +16,7 @@ from typepy import Nan
 from ._constant import PatternMatch
 from ._converter import to_value_matrix
 from ._logger import logger
-from collections.abc import Iterator
+
 
 class TableData:
     """
