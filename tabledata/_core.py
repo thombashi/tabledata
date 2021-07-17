@@ -17,6 +17,14 @@ from ._converter import to_value_matrix
 from ._logger import logger
 
 
+try:
+    from pandas import DataFrame
+
+    INSTALLED_PANDAS = True
+except ImportError:
+    INSTALLED_PANDAS = False
+
+
 class TableData:
     """
     Class to represent a table data structure.
@@ -392,7 +400,7 @@ class TableData:
 
             yield row
 
-    def as_dataframe(self):
+    def as_dataframe(self) -> "DataFrame":
         """
         :return: Table data as a ``pandas.DataFrame`` instance.
         :rtype: pandas.DataFrame
@@ -419,15 +427,16 @@ class TableData:
             - `pandas <https://pandas.pydata.org/>`__
         """
 
-        import pandas
+        if not INSTALLED_PANDAS:
+            raise RuntimeError("required 'pandas' package to execute as_dataframe method")
 
-        dataframe = pandas.DataFrame(self.value_matrix)
+        dataframe = DataFrame(self.value_matrix)
         if not self.is_empty_header():
             dataframe.columns = self.headers
 
         return dataframe
 
-    def transpose(self):
+    def transpose(self) -> "TableData":
         return TableData(
             self.table_name,
             self.headers,
@@ -441,7 +450,7 @@ class TableData:
         is_invert_match: bool = False,
         is_re_match: bool = False,
         pattern_match: PatternMatch = PatternMatch.OR,
-    ):
+    ) -> "TableData":
         logger.debug(
             "filter_column: patterns={}, is_invert_match={}, "
             "is_re_match={}, pattern_match={}".format(
@@ -494,7 +503,7 @@ class TableData:
         table_name: str = "",
         type_hints: Optional[Sequence[TypeHint]] = None,
         max_workers: Optional[int] = None,
-    ):
+    ) -> "TableData":
         """
         Initialize TableData instance from a pandas.DataFrame instance.
 
