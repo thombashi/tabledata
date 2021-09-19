@@ -1,2 +1,2 @@
-DataProperty>=0.50.1,<2
-typepy>=1.1.4,<2
+DataProperty>=0.53.0,<2
+typepy>=1.2.0,<2
