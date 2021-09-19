@@ -42,6 +42,7 @@ class TableData:
         dp_extractor: Optional[dp.DataPropertyExtractor] = None,
         type_hints: Optional[Sequence[TypeHint]] = None,
         max_workers: Optional[int] = None,
+        max_precision: Optional[int] = None,
     ):
         self.__table_name = table_name
         self.__value_matrix: Optional[Sequence] = None
@@ -55,7 +56,7 @@ class TableData:
         if dp_extractor:
             self.__dp_extractor = copy.deepcopy(dp_extractor)
         else:
-            self.__dp_extractor = dp.DataPropertyExtractor()
+            self.__dp_extractor = dp.DataPropertyExtractor(max_precision=max_precision)
 
         if type_hints:
             self.__dp_extractor.column_type_hints = type_hints
