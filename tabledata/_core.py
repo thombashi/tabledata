@@ -5,7 +5,7 @@
 import copy
 import re
 from collections import OrderedDict, namedtuple
-from typing import Any, Dict, Iterator, List, Optional, Sequence, Tuple
+from typing import Any, Dict, Iterator, List, Optional, Sequence, Tuple, Union
 
 import dataproperty as dp
 import typepy
@@ -40,7 +40,7 @@ class TableData:
         headers: Sequence[str],
         rows: Sequence,
         dp_extractor: Optional[dp.DataPropertyExtractor] = None,
-        type_hints: Optional[Sequence[TypeHint]] = None,
+        type_hints: Optional[Sequence[Union[str, TypeHint]]] = None,
         max_workers: Optional[int] = None,
         max_precision: Optional[int] = None,
     ):
