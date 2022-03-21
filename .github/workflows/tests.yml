@@ -5,6 +5,9 @@ on: [push, pull_request]
 jobs:
   unit-test:
     runs-on: ${{ matrix.os }}
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.job }}-${{ matrix.os }}-${{ matrix.python-version }}
+      cancel-in-progress: true
     strategy:
       fail-fast: false
       matrix:
