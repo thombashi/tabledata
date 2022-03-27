@@ -172,6 +172,9 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
 
 class TableDataNormalizer(AbstractTableDataNormalizer):
     def _preprocess_table_name(self) -> str:
+        if not self._tabledata.table_name:
+            return ""
+
         return self._tabledata.table_name
 
     def _validate_table_name(self, table_name: str) -> None:
