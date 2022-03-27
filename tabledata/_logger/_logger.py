@@ -14,7 +14,7 @@ try:
 
     logger.disable(MODULE_NAME)
 except ImportError:
-    logger = NullLogger()  # type: ignore
+    logger = NullLogger()
 
 
 def set_logger(is_enable, propagation_depth=1):

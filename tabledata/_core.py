@@ -149,7 +149,7 @@ class TableData:
 
     @max_workers.setter
     def max_workers(self, value: Optional[int]) -> None:
-        self.__dp_extractor.max_workers = value  # type: ignore
+        self.__dp_extractor.max_workers = value
 
     @property
     def num_rows(self) -> Optional[int]:
