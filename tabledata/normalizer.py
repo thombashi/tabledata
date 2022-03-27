@@ -32,10 +32,10 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
     def _type_hints(self):
         return self._tabledata.dp_extractor.column_type_hints
 
-    def __init__(self, tabledata):
+    def __init__(self, tabledata: TableData) -> None:
         self._tabledata = tabledata
 
-    def validate(self):
+    def validate(self) -> None:
         self._validate_table_name(self._tabledata.table_name)
         self._validate_headers()
 
@@ -134,7 +134,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         """
 
     def _normalize_rows(self, normalize_headers: Sequence[str]) -> List:
-        return self._tabledata.rows
+        return self._tabledata.rows  # type: ignore
 
     def _validate_headers(self) -> None:
         for header in self._tabledata.headers:
