@@ -17,14 +17,6 @@ from ._converter import to_value_matrix
 from ._logger import logger
 
 
-try:
-    from pandas import DataFrame
-
-    INSTALLED_PANDAS = True
-except ImportError:
-    INSTALLED_PANDAS = False
-
-
 class TableData:
     """
     Class to represent a table data structure.
@@ -428,7 +420,9 @@ class TableData:
             - `pandas <https://pandas.pydata.org/>`__
         """
 
-        if not INSTALLED_PANDAS:
+        try:
+            from pandas import DataFrame
+        except ImportError:
             raise RuntimeError("required 'pandas' package to execute as_dataframe method")
 
         dataframe = DataFrame(self.value_matrix)
