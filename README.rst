@@ -4,7 +4,7 @@
 
 Summary
 ---------
-`tabledata <https://github.com/thombashi/tabledata>`__ is a Python library to represent tabular data. Used for pytablewriter/pytablereader/SimpleSQLite.
+`tabledata <https://github.com/thombashi/tabledata>`__ is a Python library to represent tabular data. Used for pytablewriter/pytablereader/SimpleSQLite/etc.
 
 .. image:: https://badge.fury.io/py/tabledata.svg
     :target: https://badge.fury.io/py/tabledata
