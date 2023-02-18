@@ -15,6 +15,7 @@ Features
     - Files on a local file system
     - Accessible URLs
     - ``str`` instances
-- Loaded table data can be used as:
+- Loaded table data can be converted as:
     - `pandas.DataFrame <https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html>`__ instance
     - ``dict`` instance
+    - rows of the tuple
