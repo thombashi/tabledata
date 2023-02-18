@@ -36,6 +36,9 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         self._tabledata = tabledata
 
     def validate(self) -> None:
+        if not self._tabledata.table_name:
+            raise ValueError("table_name must not be empty")
+
         self._validate_table_name(self._tabledata.table_name)
         self._validate_headers()
 
