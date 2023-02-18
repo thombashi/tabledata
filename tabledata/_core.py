@@ -360,7 +360,7 @@ class TableData:
 
     def as_tuple(self) -> Iterator[Tuple]:
         """
-        :return: Rows of the table.
+        :return: Rows of the tuple.
         :rtype: list of |namedtuple|
 
         :Sample Code:

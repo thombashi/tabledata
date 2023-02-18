@@ -69,7 +69,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
     @abc.abstractmethod
     def _preprocess_table_name(self) -> str:
         """
-        Always called before table name validation.
+        This method is always called before table name validation.
         You must return preprocessed table name.
         """
 
@@ -89,7 +89,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
     def _normalize_table_name(self, table_name: str) -> str:
         """
         Must return a valid table name.
-        The table name must be a valid name with
+        The table name must be considered to be a valid name by
         :py:meth:`~._validate_table_name` method.
 
         This method called when :py:meth:`~._validate_table_name` method raise
@@ -103,7 +103,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
     @abc.abstractmethod
     def _preprocess_header(self, col_idx: int, header: str) -> str:
         """
-        Always called before a header validation.
+        This method is always called before a header validation.
         You must return preprocessed header.
         """
 
@@ -113,7 +113,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         No operation.
 
         This method called for each table header. Override this method
-        in subclass if you want to detect invalid table header element.
+        in a subclass if you want to detect invalid table header elements.
         Raise :py:class:`~.InvalidHeaderNameError` if an invalid
         header element found.
 
