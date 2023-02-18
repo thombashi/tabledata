@@ -119,7 +119,6 @@ class Test_TableData_num_rows:
 
 
 class Test_TableData_eq:
-
     __DATA_0 = TableData(
         "Sheet1",
         ["i", "f", "c", "if", "ifc", "bool", "inf", "nan", "mix_num", "time"],
@@ -164,7 +163,6 @@ class Test_TableData_eq:
 
 
 class Test_TableData_equals:
-
     __LHS = TableData("tablename", ["a", "b"], [{"a": 1, "b": 2}, {"a": 11, "b": 12}])
     __RHS = TableData("tablename", ["a", "b"], [[1, 2], [11, 12]])
 
@@ -309,7 +307,6 @@ class Test_TableData_transpose:
 
 
 class Test_TableData_value_dp_matrix:
-
     __MIXED_DATA = [
         [1, 2],
         (3, 4),
