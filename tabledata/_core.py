@@ -35,7 +35,7 @@ class TableData:
         type_hints: Optional[Sequence[Union[str, TypeHint]]] = None,
         max_workers: Optional[int] = None,
         max_precision: Optional[int] = None,
-    ):
+    ) -> None:
         self.__table_name = table_name
         self.__value_matrix: Optional[Sequence] = None
         self.__value_dp_matrix: Optional[Sequence[Sequence[dp.DataProperty]]] = None
