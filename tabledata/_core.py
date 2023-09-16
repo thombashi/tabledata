@@ -83,10 +83,7 @@ class TableData:
 
     @property
     def table_name(self) -> Optional[str]:
-        """
-        :return: Name of the table.
-        :rtype: str
-        """
+        """str: Name of the table."""
 
         return self.__table_name
 
@@ -96,31 +93,19 @@ class TableData:
 
     @property
     def headers(self) -> Sequence[str]:
-        """Get the table header names.
-
-        Returns:
-            |list| or |tuple|: Table header names.
-        """
+        """Sequence[str]: Table header names."""
 
         return self.__dp_extractor.headers
 
     @property
     def rows(self) -> Sequence:
-        """Original rows of tabular data.
-
-        Returns:
-            |list| or |tuple|: Table rows.
-        """
+        """Sequence: Original rows of tabular data."""
 
         return self.__rows
 
     @property
-    def value_matrix(self) -> Sequence:
-        """Converted rows of tabular data.
-
-        Returns:
-            |list| or |tuple|: Table rows.
-        """
+    def value_matrix(self) -> DataPropertyMatrix:
+        """DataPropertyMatrix: Converted rows of tabular data."""
 
         if self.__value_matrix:
             return self.__value_matrix
@@ -145,11 +130,9 @@ class TableData:
 
     @property
     def num_rows(self) -> Optional[int]:
-        """
-        :return:
-            Number of rows in the tabular data.
-            |None| if the ``rows`` is neither list nor tuple.
-        :rtype: int
+        """Optional[int]:
+        Number of rows in the tabular data.
+        |None| if the ``rows`` is neither list nor tuple.
         """
 
         try:
@@ -170,11 +153,8 @@ class TableData:
             return 0
 
     @property
-    def value_dp_matrix(self) -> Sequence[Sequence[dp.DataProperty]]:
-        """
-        :return: DataProperty for table data.
-        :rtype: list
-        """
+    def value_dp_matrix(self) -> DataPropertyMatrix:
+        """DataPropertyMatrix: DataProperty for table data."""
 
         if self.__value_dp_matrix is None:
             self.__value_dp_matrix = self.__dp_extractor.to_dp_matrix(
@@ -196,10 +176,7 @@ class TableData:
         return self.__dp_extractor
 
     def is_empty_header(self) -> bool:
-        """
-        :return: |True| if the data :py:attr:`.headers` is empty.
-        :rtype: bool
-        """
+        """bool: |True| if the data :py:attr:`.headers` is empty."""
 
         return typepy.is_empty_sequence(self.headers)
 
