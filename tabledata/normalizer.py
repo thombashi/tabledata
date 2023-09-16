@@ -43,7 +43,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         self._validate_table_name(self._tabledata.table_name)
         self._validate_headers()
 
-    def sanitize(self):
+    def sanitize(self):  # type: ignore
         warnings.warn(
             "'sanitize' method is deprecated and will be removed in the future."
             " use 'normalize' method instead.",

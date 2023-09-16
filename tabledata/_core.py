@@ -381,7 +381,7 @@ class TableData:
 
             yield row
 
-    def as_dataframe(self):
+    def as_dataframe(self) -> "pandas.DataFrame":
         """
         :return: Table data as a ``pandas.DataFrame`` instance.
         :rtype: pandas.DataFrame

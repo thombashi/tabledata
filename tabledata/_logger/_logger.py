@@ -6,7 +6,7 @@ import warnings
 
 import dataproperty
 
-from ._null_logger import NullLogger
+from ._null_logger import NullLogger  # type: ignore
 
 
 MODULE_NAME = "tabledata"
@@ -31,7 +31,7 @@ def set_logger(is_enable: bool, propagation_depth: int = 1) -> None:
     dataproperty.set_logger(is_enable, propagation_depth - 1)
 
 
-def set_log_level(log_level):
+def set_log_level(log_level):  # type: ignore
     warnings.warn(
         "'set_log_level' method is deprecated and will be removed in the future. ",
         DeprecationWarning,
