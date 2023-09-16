@@ -18,8 +18,8 @@ Summary
     :target: https://pypi.org/project/tabledata
     :alt: Supported Python implementations
 
-.. image:: https://github.com/thombashi/tabledata/workflows/Tests/badge.svg
-    :target: https://github.com/thombashi/tabledata/actions?query=workflow%3ATests
+.. image:: https://github.com/thombashi/tabledata/actions/workflows/ci.yml/badge.svg
+    :target: https://github.com/thombashi/tabledata/actions/workflows/ci.yml
     :alt: Linux/macOS/Windows CI status
 
 .. image:: https://coveralls.io/repos/github/thombashi/tabledata/badge.svg?branch=master
@@ -46,7 +46,7 @@ Install from PPA (for Ubuntu)
 
 Dependencies
 ============
-- Python 3.6+
+- Python 3.7+
 - `Mandatory Python package dependencies (automatically installed) <https://github.com/thombashi/tabledata/network/dependencies>`__
 
 Optional Python packages
