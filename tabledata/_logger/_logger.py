@@ -2,6 +2,8 @@
 .. codeauthor:: Tsuyoshi Hombashi <tsuyoshi.hombashi@gmail.com>
 """
 
+import warnings
+
 import dataproperty
 
 from ._null_logger import NullLogger
@@ -30,5 +32,8 @@ def set_logger(is_enable: bool, propagation_depth: int = 1) -> None:
 
 
 def set_log_level(log_level):
-    # deprecated
+    warnings.warn(
+        "'set_log_level' method is deprecated and will be removed in the future. ",
+        DeprecationWarning,
+    )
     return

@@ -43,7 +43,11 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         self._validate_headers()
 
     def sanitize(self):
-        warnings.warn("'sanitize()' has moved to 'normalize()'", DeprecationWarning)
+        warnings.warn(
+            "'sanitize' method is deprecated and will be removed in the future."
+            " use 'normalize' method instead.",
+            DeprecationWarning,
+        )
 
         return self.normalize()
 
