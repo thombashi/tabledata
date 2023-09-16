@@ -3,7 +3,6 @@ build-backend = "setuptools.build_meta"
 requires = ["setuptools>=61.0"]
 
 [tool.black]
-line-length = 100
 exclude = '''
 /(
       \.eggs
@@ -19,40 +18,41 @@ exclude = '''
 )/
 | docs/conf.py
 '''
+line-length = 100
 target-version = ['py37', 'py38', 'py39', 'py310', 'py311']
 
 [tool.coverage.run]
-source = ['tabledata']
 branch = true
+source = ['tabledata']
 
 [tool.coverage.report]
-show_missing = true
-precision = 1
 exclude_lines = [
-    'except ImportError',
-    'raise NotImplementedError',
-    'pass',
-    'ABCmeta',
-    'abstractmethod',
-    'abstractproperty',
-    'abstractclassmethod',
-    'warnings.warn',
+  'except ImportError',
+  'raise NotImplementedError',
+  'pass',
+  'ABCmeta',
+  'abstractmethod',
+  'abstractproperty',
+  'abstractclassmethod',
+  'warnings.warn',
 ]
+precision = 1
+show_missing = true
 
 [tool.isort]
-known_third_party = [
-    "dataproperty",
-    "pytest",
-    "typepy",
-]
 include_trailing_comma = true
+known_third_party = [
+  "dataproperty",
+  "pytest",
+  "typepy",
+]
 line_length = 100
 lines_after_imports = 2
 multi_line_output = 3
 skip_glob = [
-    '*/.eggs/*',
-    '*/.pytype/*',
-    '*/.tox/*',
+  '*/.eggs/*',
+  '*/.pytype/*',
+  '*/.tox/*',
 ]
 
 [tool.mypy]
