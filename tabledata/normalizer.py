@@ -7,6 +7,7 @@ import warnings
 from typing import List, Sequence
 
 import typepy
+from dataproperty.typing import TypeHint
 
 from ._core import TableData
 from ._logger import logger
@@ -29,7 +30,7 @@ class TableDataNormalizerInterface(metaclass=abc.ABCMeta):
 
 class AbstractTableDataNormalizer(TableDataNormalizerInterface):
     @property
-    def _type_hints(self):
+    def _type_hints(self) -> List[TypeHint]:
         return self._tabledata.dp_extractor.column_type_hints
 
     def __init__(self, tabledata: TableData) -> None:
@@ -141,7 +142,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         """
 
     def _normalize_rows(self, normalize_headers: Sequence[str]) -> List:
-        return self._tabledata.rows  # type: ignore
+        return list(self._tabledata.rows)
 
     def _validate_headers(self) -> None:
         for header in self._tabledata.headers:
@@ -191,7 +192,7 @@ class TableDataNormalizer(AbstractTableDataNormalizer):
             raise InvalidTableNameError(e)
 
     def _normalize_table_name(self, table_name: str) -> str:
-        return typepy.String(table_name).force_convert()
+        return str(typepy.String(table_name).force_convert())
 
     def _preprocess_header(self, col_idx: int, header: str) -> str:
         return header
@@ -203,4 +204,4 @@ class TableDataNormalizer(AbstractTableDataNormalizer):
             raise InvalidHeaderNameError(e)
 
     def _normalize_header(self, header: str) -> str:
-        return typepy.String(header).force_convert()
+        return str(typepy.String(header).force_convert())

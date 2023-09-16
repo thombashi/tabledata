@@ -5,16 +5,21 @@
 import copy
 import re
 from collections import OrderedDict, namedtuple
-from typing import Any, Dict, Iterator, List, Optional, Sequence, Tuple, Union
+from typing import TYPE_CHECKING, Any, Dict, Iterator, List, Optional, Sequence, Tuple, Union
 
 import dataproperty as dp
 import typepy
+from dataproperty import DataPropertyMatrix
 from dataproperty.typing import TypeHint
 from typepy import Nan
 
 from ._constant import PatternMatch
 from ._converter import to_value_matrix
 from ._logger import logger
+
+
+if TYPE_CHECKING:
+    import pandas
 
 
 class TableData:
@@ -37,8 +42,8 @@ class TableData:
         max_precision: Optional[int] = None,
     ) -> None:
         self.__table_name = table_name
-        self.__value_matrix: Optional[Sequence] = None
-        self.__value_dp_matrix: Optional[Sequence[Sequence[dp.DataProperty]]] = None
+        self.__value_matrix: List[List[Any]] = []
+        self.__value_dp_matrix: Optional[DataPropertyMatrix] = None
 
         if rows:
             self.__rows = rows
@@ -75,10 +80,16 @@ class TableData:
 
         return ", ".join(element_list)
 
-    def __eq__(self, other) -> bool:
+    def __eq__(self, other: Any) -> bool:
+        if not isinstance(other, TableData):
+            return False
+
         return self.equals(other, cmp_by_dp=False)
 
-    def __ne__(self, other) -> bool:
+    def __ne__(self, other: Any) -> bool:
+        if not isinstance(other, TableData):
+            return True
+
         return not self.equals(other, cmp_by_dp=False)
 
     @property
@@ -198,13 +209,13 @@ class TableData:
 
         return any([self.is_empty_header(), self.is_empty_rows()])
 
-    def equals(self, other, cmp_by_dp: bool = True) -> bool:
+    def equals(self, other: "TableData", cmp_by_dp: bool = True) -> bool:
         if cmp_by_dp:
             return self.__equals_dp(other)
 
         return self.__equals_raw(other)
 
-    def __equals_base(self, other) -> bool:
+    def __equals_base(self, other: "TableData") -> bool:
         compare_item_list = [self.table_name == other.table_name]
 
         if self.num_rows is not None:
@@ -212,7 +223,7 @@ class TableData:
 
         return all(compare_item_list)
 
-    def __equals_raw(self, other) -> bool:
+    def __equals_raw(self, other: "TableData") -> bool:
         if not self.__equals_base(other):
             return False
 
@@ -234,7 +245,7 @@ class TableData:
 
         return True
 
-    def __equals_dp(self, other) -> bool:
+    def __equals_dp(self, other: "TableData") -> bool:
         if not self.__equals_base(other):
             return False
 
@@ -253,7 +264,7 @@ class TableData:
 
         return True
 
-    def in_tabledata_list(self, other: Sequence, cmp_by_dp: bool = True) -> bool:
+    def in_tabledata_list(self, other: Sequence["TableData"], cmp_by_dp: bool = True) -> bool:
         for table_data in other:
             if self.equals(table_data, cmp_by_dp=cmp_by_dp):
                 return True
@@ -471,7 +482,7 @@ class TableData:
 
     @staticmethod
     def from_dataframe(
-        dataframe,
+        dataframe: "pandas.DataFrame",
         table_name: str = "",
         type_hints: Optional[Sequence[TypeHint]] = None,
         max_workers: Optional[int] = None,

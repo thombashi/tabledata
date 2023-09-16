@@ -7,14 +7,17 @@ from typing import Any, List, Sequence, Tuple
 from .error import DataError
 
 
-def to_value_matrix(headers: Sequence[str], value_matrix) -> List:
-    if value_matrix is None:
+Row = Tuple[int, Any]
+
+
+def to_value_matrix(headers: Sequence[str], value_matrix: Sequence[Any]) -> List[Row]:
+    if not value_matrix:
         return []
 
     return [_to_row(headers, values, row_idx)[1] for row_idx, values in enumerate(value_matrix)]
 
 
-def _to_row(headers: Sequence[str], values, row_idx: int) -> Tuple[int, Any]:
+def _to_row(headers: Sequence[str], values: Any, row_idx: int) -> Row:
     if headers:
         try:
             values = values._asdict()
