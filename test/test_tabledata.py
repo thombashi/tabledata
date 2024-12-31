@@ -208,7 +208,12 @@ class Test_TableData_repr:
                 "table_name=null_header, headers=[], cols=2, rows=2",
             ],
             ["null_body", ["a", "b"], [], "table_name=null_body, headers=[a, b], cols=2, rows=0"],
-            ["マルチバイト", ["いろは", "漢字"], [], "table_name=マルチバイト, headers=[いろは, 漢字], cols=2, rows=0"],
+            [
+                "マルチバイト",
+                ["いろは", "漢字"],
+                [],
+                "table_name=マルチバイト, headers=[いろは, 漢字], cols=2, rows=0",
+            ],
         ],
     )
     def test_normal(self, table_name, headers, rows, expected):
