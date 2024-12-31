@@ -46,7 +46,7 @@ Install from PPA (for Ubuntu)
 
 Dependencies
 ============
-- Python 3.7+
+- Python 3.9+
 - `Mandatory Python package dependencies (automatically installed) <https://github.com/thombashi/tabledata/network/dependencies>`__
 
 Optional Python packages

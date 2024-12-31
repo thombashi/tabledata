@@ -61,7 +61,7 @@ setuptools.setup(
         "Tracker": f"{REPOSITORY_URL:s}/issues",
     },
     install_requires=INSTALL_REQUIRES,
-    python_requires=">=3.7",
+    python_requires=">=3.9",
     extras_require={"logging": ["loguru>=0.4.1,<1"], "test": TESTS_REQUIRES},
     classifiers=[
         "Development Status :: 5 - Production/Stable",
@@ -70,8 +70,6 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
