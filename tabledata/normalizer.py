@@ -10,7 +10,7 @@ import typepy
 from dataproperty.typing import TypeHint
 
 from ._core import TableData
-from ._logger import logger
+from ._logger import logger  # type: ignore
 from .error import InvalidHeaderNameError, InvalidTableNameError
 
 

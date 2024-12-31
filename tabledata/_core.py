@@ -15,7 +15,7 @@ from typepy import Nan
 
 from ._constant import PatternMatch
 from ._converter import to_value_matrix
-from ._logger import logger
+from ._logger import logger  # type: ignore
 
 
 if TYPE_CHECKING:
