@@ -4,7 +4,7 @@
 
 import abc
 import warnings
-from typing import List, Sequence
+from collections.abc import Sequence
 
 import typepy
 from dataproperty.typing import TypeHint
@@ -30,7 +30,7 @@ class TableDataNormalizerInterface(metaclass=abc.ABCMeta):
 
 class AbstractTableDataNormalizer(TableDataNormalizerInterface):
     @property
-    def _type_hints(self) -> List[TypeHint]:
+    def _type_hints(self) -> list[TypeHint]:
         return self._tabledata.dp_extractor.column_type_hints
 
     def __init__(self, tabledata: TableData) -> None:
@@ -141,7 +141,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
         :rtype: str
         """
 
-    def _normalize_rows(self, normalize_headers: Sequence[str]) -> List:
+    def _normalize_rows(self, normalize_headers: Sequence[str]) -> list:
         return list(self._tabledata.rows)
 
     def _validate_headers(self) -> None:
@@ -160,7 +160,7 @@ class AbstractTableDataNormalizer(TableDataNormalizerInterface):
 
         return new_table_name
 
-    def _normalize_headers(self) -> List[str]:
+    def _normalize_headers(self) -> list[str]:
         new_header_list = []
 
         for col_idx, header in enumerate(self._tabledata.headers):

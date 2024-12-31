@@ -2,15 +2,16 @@
 .. codeauthor:: Tsuyoshi Hombashi <tsuyoshi.hombashi@gmail.com>
 """
 
-from typing import Any, List, Sequence, Tuple
+from collections.abc import Sequence
+from typing import Any
 
 from .error import DataError
 
 
-Row = Tuple[int, Any]
+Row = tuple[int, Any]
 
 
-def to_value_matrix(headers: Sequence[str], value_matrix: Sequence[Any]) -> List[Row]:
+def to_value_matrix(headers: Sequence[str], value_matrix: Sequence[Any]) -> list[Row]:
     if not value_matrix:
         return []
 

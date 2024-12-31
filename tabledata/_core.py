@@ -5,7 +5,8 @@
 import copy
 import re
 from collections import OrderedDict, namedtuple
-from typing import TYPE_CHECKING, Any, Dict, Iterator, List, Optional, Sequence, Tuple, Union
+from collections.abc import Iterator, Sequence
+from typing import TYPE_CHECKING, Any, Optional, Union
 
 import dataproperty as dp
 import typepy
@@ -42,7 +43,7 @@ class TableData:
         max_precision: Optional[int] = None,
     ) -> None:
         self.__table_name = table_name
-        self.__value_matrix: List[List[Any]] = []
+        self.__value_matrix: list[list[Any]] = []
         self.__value_dp_matrix: Optional[DataPropertyMatrix] = None
 
         if rows:
@@ -175,11 +176,11 @@ class TableData:
         return self.__value_dp_matrix
 
     @property
-    def header_dp_list(self) -> List[dp.DataProperty]:
+    def header_dp_list(self) -> list[dp.DataProperty]:
         return self.__dp_extractor.to_header_dp_list()
 
     @property
-    def column_dp_list(self) -> List[dp.ColumnDataProperty]:
+    def column_dp_list(self) -> list[dp.ColumnDataProperty]:
         return self.__dp_extractor.to_column_dp_list(self.value_dp_matrix)
 
     @property
@@ -300,7 +301,7 @@ class TableData:
             )
         )
 
-    def as_dict(self, default_key: str = "table") -> Dict[str, List["OrderedDict[str, Any]"]]:
+    def as_dict(self, default_key: str = "table") -> dict[str, list["OrderedDict[str, Any]"]]:
         """
         Args:
             default_key:
@@ -346,7 +347,7 @@ class TableData:
 
         return {table_name: dict_body}
 
-    def as_tuple(self) -> Iterator[Tuple]:
+    def as_tuple(self) -> Iterator[tuple]:
         """
         :return: Rows of the tuple.
         :rtype: list of |namedtuple|
