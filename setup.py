@@ -61,7 +61,10 @@ setuptools.setup(
     },
     install_requires=INSTALL_REQUIRES,
     python_requires=">=3.9",
-    extras_require={"logging": ["loguru>=0.4.1,<1"], "test": TESTS_REQUIRES},
+    extras_require={
+        "logging": ["loguru>=0.4.1,<1"],
+        "test": TESTS_REQUIRES,
+    },
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
