@@ -2,7 +2,7 @@ from typing import Final
 
 
 __author__: Final = "Tsuyoshi Hombashi"
-__copyright__: Final = f"Copyright 2017, {__author__}"
+__copyright__: Final = f"Copyright 2017-2024, {__author__}"
 __license__: Final = "MIT License"
 __version__ = "1.3.3"
 __maintainer__: Final = __author__
