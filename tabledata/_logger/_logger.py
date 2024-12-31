@@ -3,13 +3,14 @@
 """
 
 import warnings
+from typing import Final
 
 import dataproperty
 
 from ._null_logger import NullLogger  # type: ignore
 
 
-MODULE_NAME = "tabledata"
+MODULE_NAME: Final = "tabledata"
 
 try:
     from loguru import logger
