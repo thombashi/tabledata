@@ -61,7 +61,6 @@ setuptools.setup(
         "Tracker": f"{REPOSITORY_URL:s}/issues",
     },
     install_requires=INSTALL_REQUIRES,
-    tests_require=TESTS_REQUIRES,
     python_requires=">=3.7",
     extras_require={"logging": ["loguru>=0.4.1,<1"], "test": TESTS_REQUIRES},
     classifiers=[
