@@ -53,7 +53,12 @@ release:
 	$(PYTHON) -m tox -e release
 	$(MAKE) clean
 
-.PHONY: setup
-setup:
-	@$(PYTHON) -m pip install -q --disable-pip-version-check --upgrade -e .[test] releasecmd tox
-	@$(PYTHON) -m pip check
+.PHONY: setup-ci
+setup-ci:
+	$(PYTHON) -m pip install -q --disable-pip-version-check --upgrade pip
+	$(PYTHON) -m pip install -q --disable-pip-version-check --upgrade tox
+
+.PHONY: setup-dev
+setup-dev: setup-ci
+	$(PYTHON) -m pip install -q --disable-pip-version-check --upgrade -e .[test]
+	$(PYTHON) -m pip check
