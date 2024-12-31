@@ -12,6 +12,11 @@ from .error import DataError, InvalidHeaderNameError, InvalidTableNameError, Nam
 
 
 __all__ = (
+    "__author__",
+    "__copyright__",
+    "__email__",
+    "__license__",
+    "__version__",
     "convert_idx_to_alphabet",
     "set_logger",
     "to_value_matrix",
