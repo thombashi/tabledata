@@ -6,7 +6,7 @@ import copy
 import re
 from collections import OrderedDict, namedtuple
 from collections.abc import Iterator, Sequence
-from typing import TYPE_CHECKING, Any, Optional, Union
+from typing import TYPE_CHECKING, Any
 
 import dataproperty as dp
 import typepy
@@ -34,17 +34,17 @@ class TableData:
 
     def __init__(
         self,
-        table_name: Optional[str],
+        table_name: str | None,
         headers: Sequence[str],
         rows: Sequence,
-        dp_extractor: Optional[dp.DataPropertyExtractor] = None,
-        type_hints: Optional[Sequence[Union[str, TypeHint]]] = None,
-        max_workers: Optional[int] = None,
-        max_precision: Optional[int] = None,
+        dp_extractor: dp.DataPropertyExtractor | None = None,
+        type_hints: Sequence[str | TypeHint] | None = None,
+        max_workers: int | None = None,
+        max_precision: int | None = None,
     ) -> None:
         self.__table_name = table_name
         self.__value_matrix: list[list[Any]] = []
-        self.__value_dp_matrix: Optional[DataPropertyMatrix] = None
+        self.__value_dp_matrix: DataPropertyMatrix | None = None
 
         if rows:
             self.__rows = rows
@@ -94,13 +94,13 @@ class TableData:
         return not self.equals(other, cmp_by_dp=False)
 
     @property
-    def table_name(self) -> Optional[str]:
+    def table_name(self) -> str | None:
         """str: Name of the table."""
 
         return self.__table_name
 
     @table_name.setter
-    def table_name(self, value: Optional[str]) -> None:
+    def table_name(self, value: str | None) -> None:
         self.__table_name = value
 
     @property
@@ -137,11 +137,11 @@ class TableData:
         return self.__dp_extractor.max_workers
 
     @max_workers.setter
-    def max_workers(self, value: Optional[int]) -> None:
+    def max_workers(self, value: int | None) -> None:
         self.__dp_extractor.max_workers = value
 
     @property
-    def num_rows(self) -> Optional[int]:
+    def num_rows(self) -> int | None:
         """Optional[int]:
         Number of rows in the tabular data.
         |None| if the ``rows`` is neither list nor tuple.
@@ -153,7 +153,7 @@ class TableData:
             return None
 
     @property
-    def num_columns(self) -> Optional[int]:
+    def num_columns(self) -> int | None:
         if typepy.is_not_empty_sequence(self.headers):
             return len(self.headers)
 
@@ -430,7 +430,7 @@ class TableData:
 
     def filter_column(
         self,
-        patterns: Optional[str] = None,
+        patterns: str | None = None,
         is_invert_match: bool = False,
         is_re_match: bool = False,
         pattern_match: PatternMatch = PatternMatch.OR,
@@ -485,8 +485,8 @@ class TableData:
     def from_dataframe(
         dataframe: "pandas.DataFrame",
         table_name: str = "",
-        type_hints: Optional[Sequence[TypeHint]] = None,
-        max_workers: Optional[int] = None,
+        type_hints: Sequence[TypeHint] | None = None,
+        max_workers: int | None = None,
     ) -> "TableData":
         """
         Initialize TableData instance from a pandas.DataFrame instance.
