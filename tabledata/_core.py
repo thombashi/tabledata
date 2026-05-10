@@ -430,7 +430,7 @@ class TableData:
 
     def filter_column(
         self,
-        patterns: str | None = None,
+        patterns: Sequence[str] | None = None,
         is_invert_match: bool = False,
         is_re_match: bool = False,
         pattern_match: PatternMatch = PatternMatch.OR,
