@@ -294,9 +294,9 @@ class TableData:
             logger.debug(f"invalid row (line={invalid_row_idx}): {self.rows[invalid_row_idx]}")
 
         raise ValueError(
-            "table header length and row length are mismatch:\n"
+            "table header length and row length do not match:\n"
             + f"  header(len={len(self.headers)}): {self.headers}\n"
-            + "  # of miss match rows: {} ouf of {}\n".format(
+            + "  # of mismatched rows: {} out of {}\n".format(
                 len(invalid_row_idx_list), self.num_rows
             )
         )
