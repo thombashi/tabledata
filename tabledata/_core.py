@@ -237,9 +237,8 @@ class TableData:
 
             if not all(
                 [
-                    lhs == rhs
+                    (Nan(lhs).is_type() and Nan(rhs).is_type()) or lhs == rhs
                     for lhs, rhs in zip(lhs_row, rhs_row)
-                    if not Nan(lhs).is_type() and not Nan(rhs).is_type()
                 ]
             ):
                 return False
@@ -294,9 +293,9 @@ class TableData:
             logger.debug(f"invalid row (line={invalid_row_idx}): {self.rows[invalid_row_idx]}")
 
         raise ValueError(
-            "table header length and row length are mismatch:\n"
+            "table header length and row length do not match:\n"
             + f"  header(len={len(self.headers)}): {self.headers}\n"
-            + "  # of miss match rows: {} ouf of {}\n".format(
+            + "  # of mismatched rows: {} out of {}\n".format(
                 len(invalid_row_idx_list), self.num_rows
             )
         )
@@ -430,7 +429,7 @@ class TableData:
 
     def filter_column(
         self,
-        patterns: str | None = None,
+        patterns: Sequence[str] | None = None,
         is_invert_match: bool = False,
         is_re_match: bool = False,
         pattern_match: PatternMatch = PatternMatch.OR,
