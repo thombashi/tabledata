@@ -237,9 +237,8 @@ class TableData:
 
             if not all(
                 [
-                    lhs == rhs
+                    (Nan(lhs).is_type() and Nan(rhs).is_type()) or lhs == rhs
                     for lhs, rhs in zip(lhs_row, rhs_row)
-                    if not Nan(lhs).is_type() and not Nan(rhs).is_type()
                 ]
             ):
                 return False

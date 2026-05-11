@@ -184,6 +184,31 @@ class Test_TableData_equals:
         assert lhs.in_tabledata_list([rhs, lhs, empty_td], cmp_by_dp=cmp_by_dp)
         assert empty_td.in_tabledata_list([rhs, lhs], cmp_by_dp=cmp_by_dp) is False
 
+    @pytest.mark.parametrize(
+        ["lhs", "rhs", "expected"],
+        [
+            [
+                TableData("t", ["a", "b"], [[1, float("nan")]]),
+                TableData("t", ["a", "b"], [[1, float("nan")]]),
+                True,
+            ],
+            [
+                TableData("t", ["a", "b"], [[1, float("nan")]]),
+                TableData("t", ["a", "b"], [[1, 999]]),
+                False,
+            ],
+            [
+                TableData("t", ["a", "b"], [[1, 999]]),
+                TableData("t", ["a", "b"], [[1, float("nan")]]),
+                False,
+            ],
+        ],
+    )
+    def test_normal_nan(self, lhs, rhs, expected):
+        assert lhs.equals(rhs, cmp_by_dp=False) is expected
+        assert (lhs == rhs) is expected
+        assert (lhs != rhs) is (not expected)
+
 
 class Test_TableData_repr:
     @pytest.mark.parametrize(
